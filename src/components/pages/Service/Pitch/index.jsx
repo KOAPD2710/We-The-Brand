@@ -3,7 +3,7 @@ import './style.scss'
 
 const ServicePitch = ({ PitchImg, ...props }) => {
     return (
-        <section className="service-pitch">
+        <section className="service-pitch" data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-pitch-content">
                     <div className="txt txt-16 service-pitch-label">

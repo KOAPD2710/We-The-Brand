@@ -1,16 +1,27 @@
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import cn from 'clsx';
+import { scroll, animate } from 'motion';
 import './style.scss';
 
 
 const Header = ({ pathNav, currPath, ...props }) => {
+    const header = useRef();
 
-    // useEffect(() => {
-    //     console.log(currPath);
-    // }, [])
+    useEffect(() => {
+        scroll((info) => {
+            if (info.y.progress < 1) {
+                header.current.classList.add('on-top')
+            } else {
+                header.current.classList.remove('on-top')
+            }
+        }, {
+            target: document.querySelector('.service-hero'),
+            offset: ["start end", "end start"]
+        })
+    }, [])
     return (
-        <header className="header">
+        <header className="header on-top" ref={header}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="./" className="header-logo-link">

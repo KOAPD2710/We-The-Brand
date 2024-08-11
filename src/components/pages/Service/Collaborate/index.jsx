@@ -4,7 +4,7 @@ import './style.scss'
 const ServiceCollaborate = ({ CollaImg, ...props }) => {
 
     useEffect(() => {
-        console.log(CollaImg);
+        // console.log(CollaImg);
     }, [])
 
     return (

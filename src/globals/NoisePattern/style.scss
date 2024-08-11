@@ -8,7 +8,7 @@
     left: 0;
     @include size(100%, 100vh);
 
-    // opacity: .5;
+    opacity: .5;
     mix-blend-mode: difference;
 
     contain: paint;

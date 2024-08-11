@@ -4,7 +4,7 @@ import './style.scss'
 
 const ServiceHero = ({ ...props }) => {
     return (
-        <section className="service-hero">
+        <section className="service-hero" data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-hero-line line-1 slot-1">
                     <div className="txt txt-16">@2024</div>
@@ -29,7 +29,7 @@ const ServiceHero = ({ ...props }) => {
                 </div>
                 <div className="service-hero-line line-2 slot-3">
                     <div className="txt h0 txt-up">
-                        (<span className='txt-italic txt-med'>Turn</span>)
+                        (<span className='txt-italic txt-med'>Turn</span> )
                     </div>
                 </div>
                 <div className="service-hero-line line-3">

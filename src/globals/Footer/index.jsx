@@ -3,7 +3,7 @@ import './style.scss'
 
 const Footer = ({ FooterData, ...props }) => {
     return (
-        <footer className='footer'>
+        <footer className='footer' data-cursor-showcoor>
             <div className="container grid">
                 <div className="footer-top">
                     <div className="h0 footer-top-display">We The (<span className='txt-italic txt-med'>Brand</span> )</div>

@@ -31,6 +31,7 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
         window.addEventListener('pointermove', (e) => getCursor(e));
         let myReq;
         let targetHover;
+        let targetShowCoor;
         let allFxClass = ['on-expand', 'on-hover'];
 
         function moveCursor() {
@@ -70,6 +71,12 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
                     cursorCoor.current.classList.remove(...allFxClass)
                     cursorInner.current.classList.remove(...allFxClass)
                 }
+            }
+
+            if (document.querySelectorAll('[data-cursor-showcoor]:hover').length == 1) {
+                cursorCoor.current.classList.add('on-show')
+            } else {
+                cursorCoor.current.classList.remove('on-show')
             }
 
             myReq = requestAnimationFrame(moveCursor)

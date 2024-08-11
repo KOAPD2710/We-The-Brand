@@ -10,7 +10,7 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
     //     // console.log(date);
     // }, [])
     return (
-        <section className="service-client">
+        <section className="service-client" data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-client-head">
                     <div className="service-client-head-wrapper">
