@@ -10,7 +10,7 @@ const ServiceHero = ({ ...props }) => {
             </div>
             <div className="service-hero-bg">
                 <video className='img img-fill' muted autoPlay loop>
-                    <source src='/public/video/Ser-hero.webm' type="video/webm" />
+                    <source src='/video/Ser-hero.webm' type="video/webm" />
                 </video>
             </div>
         </section>
