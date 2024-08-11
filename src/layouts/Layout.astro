@@ -4,6 +4,7 @@ import "@styles/global.scss";
 import BaseHead from "@/globals/BaseHead.astro";
 import Cursor from "@/globals/Cursor/Cursor.astro";
 import Header from "@/globals/Header/Header.astro";
+import Footer from "@/globals/Footer/Footer.astro";
 
 import TestForm from "@/globals/TestForm/TestForm.astro";
 const { title, data_page } = Astro.props;
@@ -17,6 +18,7 @@ const { title, data_page } = Astro.props;
 		<Header/>
 		<Cursor/>
 		<slot />
+		<Footer/>
 		<TestForm/>
 	</main>
 	<script>

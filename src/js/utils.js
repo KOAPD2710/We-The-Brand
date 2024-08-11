@@ -69,6 +69,13 @@ function generateHtmlFromJson(jsonData) {
 function getTranslate(x, y, z) {
     return `translate3d(${x}px, ${y}px, ${z}px)`;
 }
+const chunkArray = (array, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+        result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
+};
 export {
-    dom, addEvent, addEventAll, getIndex, offset, parseRem, generateHtmlFromJson, lerp, clamp, invlerp, range, getTranslate
+    dom, addEvent, addEventAll, getIndex, offset, parseRem, generateHtmlFromJson, lerp, chunkArray, clamp, invlerp, range, getTranslate
 }

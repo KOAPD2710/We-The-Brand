@@ -1,6 +1,13 @@
 // Global
 @font-face {
     font-family: 'NeueMontreal';
+    src: url('/fonts/NeueMontreal-Light.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NeueMontreal';
     src: url('/fonts/NeueMontreal-Regular.woff') format('woff');
     font-weight: normal;
     font-display: swap;
@@ -31,7 +38,7 @@ html {
 
 // Heading
 :root {
-    --fs-h0: 11rem;
+    --fs-h0: 24rem;
     --lh-h0: 1em;
 
     --fs-h1: 9rem;
@@ -40,8 +47,8 @@ html {
     --fs-h2: 6.4rem;
     --lh-h2: 1em;
 
-    --fs-h3: 5.2rem;
-    --lh-h3: 1em;
+    --fs-h3: 3.6rem;
+    --lh-h3: 1.1em;
 
     --fs-h4: 4rem;
     --lh-h4: 1em;
@@ -81,6 +88,9 @@ $txtSizes: 16, 24, 90;
             @include text(#{$size});
         }
     }
+    &-light {
+        font-weight: 300;
+    }
 
     &-reg {
         font-weight: 400 !important;
@@ -101,6 +111,7 @@ $txtSizes: 16, 24, 90;
     &-up {
         text-transform: uppercase;
     }
+
     &-italic {
         font-style: italic;
     }

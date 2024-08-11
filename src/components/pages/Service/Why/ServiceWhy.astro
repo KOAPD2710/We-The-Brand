@@ -1,0 +1,33 @@
+---
+
+import Image from 'astro/components/Image.astro';
+import ServiceWhy from '.';
+import SerWhyImg from '@assets/Ser-Why-Img.jpg';
+import SerWhyThumb1 from '@assets/Ser-Why-Thumb-1.jpg';
+import SerWhyThumb2 from '@assets/Ser-Why-Thumb-2.jpg';
+
+const SerWhyData = [
+    {
+        title: "Trust Through Coherent",
+        desc: "Increased trust with target audience through consistent design done by one company."
+    },
+    {
+        title: "Comprehensive Approach",
+        desc: "Our holistic approach eliminates the search for other partners no worries on finding the right match."
+    },
+    {
+        title: "Trusted by Industry Giants",
+        desc: "Lazada, Logitech and others trust us with their work, why shouldn't you?"
+    }
+]
+
+
+const WhyThumb = [SerWhyThumb1, SerWhyThumb2, SerWhyThumb1, SerWhyThumb2]
+---
+
+
+
+
+<ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:visible={{rootMargin: "100% 0%"}}>
+    <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'></Image>
+</ServiceWhy>

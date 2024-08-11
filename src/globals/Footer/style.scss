@@ -1,0 +1,85 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.footer {
+    height: 100vh;
+    padding-block: 2rem 4rem;
+    contain: paint;
+
+    .container {
+        height: 100%;
+    }
+
+    &-top {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-column), 1fr);
+        column-gap: var(--grid-gap);
+        align-items: center;
+        height: fit-content;
+
+        &-display {
+            grid-column: 1/10;
+        }
+
+        &-list {
+            grid-column: 11/16;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: var(--grid-gap);
+            row-gap: 10rem;
+            height: fit-content;
+
+            &-item {
+                height: fit-content;
+
+                &:nth-child(odd) {
+                    grid-column: 1/4;
+                }
+                &:nth-child(even) {
+                    grid-column: 4/-1;
+                }
+
+                &-name {
+                    margin-bottom: 2.4rem;
+                }
+                
+                &-link {
+                    &-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: .8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &-bot {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-column), 1fr);
+        column-gap: var(--grid-gap);
+        align-items: end;
+
+        margin-top: auto;
+
+        &-name {
+            grid-column: 1/3;
+        }
+        &-message {
+            grid-column: 7/11;
+            text-align: center;
+
+            .txt {
+                max-width: 35.7rem;
+            }
+        }
+
+        &-date {
+            grid-column: 16/-1;
+            text-align: right;
+        }
+    }
+}

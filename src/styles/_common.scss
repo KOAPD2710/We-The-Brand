@@ -141,6 +141,85 @@ button {
 
 
 .line {
-    background-color: $cl-txt;
+    background-color: currentColor;
     @include size(100%, 1px);
+}
+
+.hover {
+    &-line {
+        position: relative;
+        contain: paint;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -120%;
+            bottom: 0;
+
+            background-color: currentColor;
+            @include size(100%, 1px);
+
+            transition: left .4s ease-in;
+            will-change: left;
+        }
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            background-color: currentColor;
+            @include size(100%, 1px);
+
+            transition: left .1s ease-in;
+            will-change: left;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+
+                &::before {
+                    left: 0%;
+                }
+
+                &::after {
+                    left: 120%;
+                    transition: left .4s ease-in;
+                }
+            }
+        }
+    }
+
+    &-under {
+        position: relative;
+        contain: paint;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            background-color: currentColor;
+            @include size(100%, 1px);
+
+            transform: scaleX(0);
+            transform-origin: right;
+
+            transition: transform .4s ease-in;
+            will-change: transform;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                &::before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+            }
+        }
+    }
 }

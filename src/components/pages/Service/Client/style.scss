@@ -1,0 +1,76 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.service {
+    &-client {
+        padding-block: 13rem 6rem;
+
+        &-head {
+            grid-column: 5/13;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+
+            margin-bottom: 8rem;
+
+            &-wrapper {
+                width: fit-content;
+            }
+        }
+
+        &-title {
+            position: relative;
+        }
+        &-label {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            text-transform: none;
+        }
+
+        &-cta {
+            grid-column: 1/-1;
+            display: grid;
+            grid-template-columns: repeat(var(--grid-column), 1fr);
+            column-gap: var(--grid-gap);
+            align-items: center;
+            
+            margin-bottom: 8rem
+        }
+
+        &-img {
+            @include size(13rem, 16rem);
+
+            &-wrapper {
+                grid-column: 8/10;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        &-link {
+            
+            &-wrapper {
+                grid-column: 15/-1;
+                display: flex;
+                justify-content: end;
+            }
+        }
+
+        &-list {
+            grid-column: 1/-1;
+        }
+        &-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            .slash {
+                opacity: .6;
+            }
+        }
+    }
+}

@@ -1,0 +1,112 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.service {
+    &-why {
+        &-head {
+            grid-column: 5/-1;
+            margin-bottom: 10rem;
+        }
+
+        &-title {
+            // flex-shrink: 0;
+            // flex-grow: 1;
+
+            &-wrapper {
+                display: flex;
+            }
+
+            &-end {
+                width: fit-content;
+            }
+
+            &-img {
+                @include size(15.2rem, 9rem);
+
+                &-wrapper {
+                    display: flex;
+                    height: fit-content;
+                }
+            }
+        }
+
+        &-main {
+            grid-column: 1/-1;
+            display: grid;
+            grid-template-columns: repeat(var(--grid-column), 1fr);
+            column-gap: var(--grid-gap);
+            margin-bottom: 20rem;
+        }
+
+        &-label {
+            &-wrapper {
+                grid-column: 1/5;
+            }
+        }
+
+        &-list {
+            grid-column: 5/-1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: var(--grid-gap);
+        }
+
+        &-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 43rem;
+
+            padding-left: 2.4rem;
+
+            &-no {
+                display: flex;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+
+            &-desc {
+                margin-top: auto;
+            }
+
+            .line {
+                position: absolute;
+                top: 0;
+                left: 0;
+                @include  size(1px, 100%);
+            }
+        }
+        &-thumb {
+            position: relative;
+            grid-column: 1/-1;
+
+            margin-inline: calc(-1 * var(--container-padding));
+
+            height: 400vh;
+
+            &-sticky {
+                position: sticky;
+                top: 0;
+                display: flex;
+                height: 100vh;
+                contain: paint;
+
+            }
+            
+            &-translate {
+                flex-shrink: 0;
+                display: flex;
+                will-change: transform;
+            }
+
+            &-item {
+                flex-shrink: 0;
+
+                &:first-child {
+                    width: 100vw;
+                }
+            }
+        }
+    }
+}

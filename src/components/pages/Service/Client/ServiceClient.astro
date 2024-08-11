@@ -1,0 +1,16 @@
+---
+import Image from 'astro/components/Image.astro';
+import { chunkArray } from '@/js/utils';
+import ServiceClient from '.';
+import ClientImg from '@assets/Ser-Client-Img.jpg';
+
+const ClientData = ['Lazada', 'Logitech', '1Long', 'Svarmony', 'Tapp Water', 'Grindery', 'Berkeley', 'Smartosc', 'Artbook', 'Omise', 'Toong', 'Anfin']
+
+const ClientChunk = chunkArray(ClientData, 3);
+---
+
+
+
+<ServiceClient ClientData={ClientChunk} client:visible={{rootMargin: "100% 0%"}}>
+    <Image src={ClientImg} alt='' slot='ClientImg' class='img'/>
+</ServiceClient>
