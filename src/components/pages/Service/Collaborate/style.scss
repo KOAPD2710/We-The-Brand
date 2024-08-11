@@ -5,7 +5,7 @@
 .service {
 
     &-colla {
-        padding-block: 22.5rem 6rem;
+        padding-block: 22.5rem 8rem;
 
         contain: paint;
 
@@ -28,6 +28,23 @@
         &-title {
             grid-column: 1/-1;
             grid-row: 3/4;
+        }
+
+        &-thumb {
+            grid-column: 1/-1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: var(--grid-gap);
+
+            margin-top: 10rem;
+
+            &-img {
+                height: 50rem;
+
+                &:nth-child(3) {
+                    grid-column: 4/5;
+                }
+            }
         }
     }
 }

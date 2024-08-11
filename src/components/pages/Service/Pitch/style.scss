@@ -3,12 +3,13 @@
 
 .service {
     &-pitch {
-        padding-block: 6rem 22.5rem;
+        padding-block: 22.5rem;
 
         &-content {
             grid-column: 6/12;
             grid-row: 1/2;
             text-align: center;
+            z-index: 2;
         }
 
         &-label {
@@ -22,7 +23,35 @@
                 -webkit-text-fill-color: transparent;
             }
         }
+        &-thumb {
+            position: relative;
+            grid-column: 1/-1;
+            grid-row: 1/2;
+            @include size(100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
 
+            &-img {
+                position: absolute;
 
+                &:nth-child(1) {
+                    @include size(24rem, 30rem);
+                    top: -2.2rem;
+                    left: 10.2rem;
+                }
+                &:nth-child(2) {
+                    @include size(24rem, 30rem);
+                    top: 21.8rem;
+                    right: 14.7rem;
+                }
+                &:nth-child(3) {
+                    @include size(18.4rem, 23rem);
+                    bottom: -8.1rem;
+                    left: 30.5rem;
+                }
+            }
+        }
     }
 }

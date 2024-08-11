@@ -1,6 +1,26 @@
 ---
+import Image from 'astro/components/Image.astro';
 import ServiceCollaborate from '.';
+import CollaImg1 from '@assets/Ser-Colla-Img-1.jpg';
+import CollaImg2 from '@assets/Ser-Colla-Img-2.jpg';
+import CollaImg3 from '@assets/Ser-Colla-Img-3.jpg';
+
+
+const CollaImg = [
+    {
+        name: 'CollaImg1',
+        img: CollaImg1
+    },
+    {
+        name: 'CollaImg2',
+        img: CollaImg2
+    },
+    {
+        name: 'CollaImg3',
+        img: CollaImg3
+    }
+]
 ---
 
 
-<ServiceCollaborate client:visible={{rootMargin: "100% 0%"}}/>
+<ServiceCollaborate CollaImg={CollaImg} client:visible={{rootMargin: "100% 100%"}}/>

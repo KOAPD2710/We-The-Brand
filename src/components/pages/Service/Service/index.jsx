@@ -43,6 +43,7 @@ const ServiceService = ({ Expertise, ...props }) => {
                         </div>
                     ))}
                 </div>
+                <div className="line"></div>
             </div>
         </section>
     )

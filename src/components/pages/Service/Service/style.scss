@@ -3,7 +3,7 @@
 
 .service {
     &-service {
-        padding-block: 6rem 13rem;
+        padding-block: 6rem 0;
         &-title {
             &-wrapper {
                 display: flex;
@@ -18,10 +18,11 @@
         }
         &-list {
             grid-column: 1/-1;
-            margin-top: 5rem;
             display: flex;
             flex-direction: column;
             row-gap: 10rem;
+
+            margin-block: 5rem 13rem;
         }
         &-item {
             display: grid;
@@ -74,6 +75,10 @@
                     }
                 }
             }
+        }
+
+        .line {
+            grid-column: 1/-1;
         }
     }
 }

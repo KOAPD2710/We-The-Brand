@@ -32,7 +32,7 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                         </div>
                     </div>
                     <div className="service-client-link-wrapper">
-                        <a href='./' className="txt txt-16 hover-line service-client-link">Let's work together!</a>
+                        <a href='./' className="txt txt-16 txt-med hover-line service-client-link">Let's work together!</a>
                     </div>
                 </div>
                 <div className="service-client-list">

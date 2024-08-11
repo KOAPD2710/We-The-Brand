@@ -1,0 +1,67 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include size(100%, 100vh);
+
+    // opacity: .5;
+    mix-blend-mode: difference;
+
+    contain: paint;
+    z-index: 99999;
+    pointer-events: none;
+    user-select: none;
+
+    &::before {
+        content: "";
+        background-image: url('/noise-pattern.webp');
+        background-position: 40%;
+        width: calc(100% + 42vw);
+        height: calc(100% + 42vw);
+        animation: 1s steps(4,end) infinite noise;
+        position: absolute;
+        top: -21vw;
+        left: -21vw;
+    }
+
+
+    @keyframes noise {
+        0% {
+            transform: translateZ(0);
+        }
+        10% {
+            transform: translate(-7vw, -7vw);
+        }
+        20% {
+            transform: translate(-14vw, 7vw);
+        }
+        30% {
+            transform: translate(7vw, -14vw);
+        }
+        40% {
+            transform: translate(-7vw, -21vw);
+        }
+        50% {
+            transform: translate(-14vw, 7vw);
+        }
+        60% {
+            transform: translate(21vw, 21vw);
+        }
+        70% {
+            transform: translate(14vw, 14vw);
+        }
+        80% {
+            transform: translate(-21vw, -21vw);
+        }
+        90% {
+            transform: translate(14vw, 7vw);
+        }
+        100% {
+            transform: translate(7vw, 7vw);
+        }
+    }
+}

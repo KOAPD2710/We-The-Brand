@@ -6,7 +6,7 @@
     &-why {
         &-head {
             grid-column: 5/-1;
-            margin-bottom: 10rem;
+            margin-block: 8rem 10rem;
         }
 
         &-title {
@@ -23,6 +23,7 @@
 
             &-img {
                 @include size(15.2rem, 9rem);
+                filter: grayscale(1);
 
                 &-wrapper {
                     display: flex;

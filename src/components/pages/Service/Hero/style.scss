@@ -4,10 +4,90 @@
 
 .service {
     &-hero {
+        position: relative;
         height: 100vh;
+        padding-bottom: 2rem;
+        contain: paint;
 
+        .container {
+            position: relative;
+            height: 100%;
+            z-index: 2;
+            mix-blend-mode: plus-lighter;
+            grid-template-rows: 1fr auto;
+            row-gap: .8rem;
+        }
+
+
+        &-line {
+            align-self: end;
+
+            &.line {
+                &-1 {
+                    grid-row: 2/3;
+
+                    &.slot-1 {
+                        grid-column: 1/2;
+                    }
+                    &.slot-2 {
+                        align-self: start;
+                        grid-column: 9/11;
+                    }
+                    &.slot-3 {
+                        grid-column: 11/13;
+                    }
+                }
+                &-2 {
+                    grid-row: 3/4;
+
+                    &.slot-1 {
+                        grid-column: 1/5;
+                    }
+                    &.slot-2 {
+                        grid-column: 5/9;
+                        margin-bottom: 1rem;
+                    }
+                    &.slot-3 {
+                        grid-column: 9/-1;
+                    }
+                }
+                &-3 {
+                    grid-column: 5/12;
+                    grid-row: 4/5;
+                    margin-left: -1.7rem;
+                }
+            }
+        }
+
+        &-skill {
+            display: flex;
+            flex-direction: column;
+            row-gap: .8rem;
+        }
         &-bg {
-            @include size(100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            @include size(100vw, 100vh);
+
+            .img {
+                position: relative;
+                z-index: 1;
+            }
+
+            &-filter {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                @include size(100%, 48.8%);
+
+                background: linear-gradient(0deg, $cl-bg, transparent);
+
+                z-index: 2;
+            }
         }
     }
 }

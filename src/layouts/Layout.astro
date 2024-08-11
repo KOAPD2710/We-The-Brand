@@ -5,6 +5,7 @@ import BaseHead from "@/globals/BaseHead.astro";
 import Cursor from "@/globals/Cursor/Cursor.astro";
 import Header from "@/globals/Header/Header.astro";
 import Footer from "@/globals/Footer/Footer.astro";
+import NoisePattern from "@/globals/NoisePattern/NoisePattern.astro";
 
 import TestForm from "@/globals/TestForm/TestForm.astro";
 const { title, data_page } = Astro.props;
@@ -16,6 +17,7 @@ const { title, data_page } = Astro.props;
 	<BaseHead title={title} />
 	<main class="main on-load">
 		<Header/>
+		<NoisePattern/>
 		<Cursor/>
 		<slot />
 		<Footer/>
