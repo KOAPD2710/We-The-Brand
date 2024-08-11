@@ -98,6 +98,15 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
                 <div className="cursor-line line-ver line-bot"></div>
             </div>
             <div className="cursor-inner on-load" ref={cursorInner}>
+                <div className="cursor-inner-main">
+                    <div className="cursor-inner-main-dot"></div>
+                    <div className="cursor-inner-main-outer">
+                        <div className="cursor-inner-main-outer-dot"></div>
+                        <div className="cursor-inner-main-outer-dot"></div>
+                        <div className="cursor-inner-main-outer-dot"></div>
+                        <div className="cursor-inner-main-outer-dot"></div>
+                    </div>
+                </div>
                 <div className="cursor-inner-circle">
                     <div className="cursor-plus">
                         <div className="ic">

@@ -37,7 +37,7 @@
         .cursor-line {
             position: absolute;
             background-color: $cl-txt;
-            background-color: #287b95;
+            background-color: $cl-cyan;
             opacity: .5;
 
 
@@ -81,9 +81,11 @@
         align-items: center;
         justify-content: center;
 
+
         @include size(0px);
 
         &-circle {
+            position: absolute;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -101,6 +103,72 @@
 
             transition: transform var(--animation), opacity var(--animation);
             will-change: width, height, opacity;
+        }
+
+        &-main {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // opacity: .4;
+
+            &-dot {
+                position: absolute;
+                z-index: 2;
+                background-color: $cl-cyan;
+                border-radius: 100vmax;
+                @include size(1.2rem);
+            }
+
+            &-outer {
+                position: absolute;
+                z-index: 1;
+                @include size(4rem);
+                opacity: .6;
+
+                animation: mainCursorOuter 4s linear infinite;
+
+                &-dot {
+                    position: absolute;
+                    @include size(.8rem);
+                    background-color: $cl-cyan;
+                    border-radius: 100vmax;
+
+                    &:nth-child(1) {
+                        top: 0;
+                        left: 0;
+                        transform: translate(-50%, -50%);
+                    }
+                    &:nth-child(2) {
+                        top: 0;
+                        right: 0;
+                        transform: translate(50%, -50%);
+                    }
+                    &:nth-child(3) {
+                        bottom: 0;
+                        right: 0;
+                        transform: translate(50%, 50%);
+                    }
+                    &:nth-child(4) {
+                        bottom: 0;
+                        left: 0;
+                        transform: translate(-50%, 50%);
+                    }
+                }
+
+                @keyframes mainCursorOuter {
+                    0% {
+                        transform: rotate(0deg) scale(1);
+                    }
+                    50% {
+                        transform: rotate(180deg) scale(.7);
+                        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+                    }
+                    100% {
+                        transform: rotate(360deg) scale(1);
+                    }
+                }
+            }
         }
     }
     &-plus {
