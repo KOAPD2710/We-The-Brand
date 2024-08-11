@@ -1,0 +1,101 @@
+---
+import Image from "astro/components/Image.astro";
+import ServiceService from ".";
+import SerCat from '@assets/Ser-cat.jpg';
+
+
+const Expertise = [
+    {
+        name: 'We plan',
+        desc: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients. We develop a core brand strategy that encapsulates your essence and guides every decision.',
+        list: [
+            {
+                title:'Brand Strategy',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Marketing Strategy',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Concept Maketing',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Ethical Consulting',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Marker Research',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Brand Guides',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            }
+        ]
+    },
+    {
+        name: 'We design',
+        desc: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients. We develop a core brand strategy that encapsulates your essence and guides every decision.',
+        list: [
+            {
+                title:'Art Direction',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Brand Identify',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Product Design',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Website Design',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Illustration',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'3D & Motion',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            }
+        ]
+    },
+    {
+        name: 'We develop',
+        desc: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients. We develop a core brand strategy that encapsulates your essence and guides every decision.',
+        list: [
+            {
+                title:'Website Development',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Webflow Development',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+        ]
+    },
+    {
+        name: 'We produce',
+        desc: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients. We develop a core brand strategy that encapsulates your essence and guides every decision.',
+        list: [
+            {
+                title:'Website Development',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+            {
+                title:'Webflow Development',
+                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
+            },
+        ]
+    }
+]
+---
+
+<ServiceService Expertise={Expertise} client:visible={{rootMargin: "100% 0%"}}>
+    <Image src={SerCat} alt="Number1 Cat" slot="SerCat"></Image>
+</ServiceService>

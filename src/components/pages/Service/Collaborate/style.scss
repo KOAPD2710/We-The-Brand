@@ -1,0 +1,33 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.service {
+
+    &-colla {
+        padding-block: 22.5rem 6rem;
+
+        contain: paint;
+
+        &-label {
+            grid-column: 1/3;
+            grid-row: 1/2;
+        }
+
+        &-desc {
+            grid-column: 1/3;
+            grid-row: 2/3;
+            align-self: end;
+        }
+
+        &-content {
+            grid-column: 5/-1;
+            grid-row: 1/3;
+        }
+
+        &-title {
+            grid-column: 1/-1;
+            grid-row: 3/4;
+        }
+    }
+}

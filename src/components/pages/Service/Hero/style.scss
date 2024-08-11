@@ -1,0 +1,13 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.service {
+    &-hero {
+        height: 100vh;
+
+        &-bg {
+            @include size(100%);
+        }
+    }
+}

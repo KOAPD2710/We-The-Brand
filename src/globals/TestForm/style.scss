@@ -1,0 +1,22 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.testplace {
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include size(100%, 100vh);
+
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+
+    display: none;
+
+    &-col {
+        background-color: red;
+        opacity: .1;
+        height: 100vh;
+    }
+}

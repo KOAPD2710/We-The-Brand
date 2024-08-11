@@ -1,0 +1,23 @@
+---
+    import Header from './';
+    
+    const currentPath = Astro.url.pathname;
+
+    const pathNav = [
+        {
+            name: 'Work',
+            url: '/work'
+        },
+        {
+            name: 'Service',
+            url: '/service'
+        },
+        {
+            name: 'About',
+            url: '/about'
+        }
+    ]
+---
+
+
+<Header currPath={currentPath} navigation={pathNav} client:visible/>

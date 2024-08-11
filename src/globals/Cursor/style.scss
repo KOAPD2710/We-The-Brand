@@ -1,0 +1,132 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    user-select: none;
+    pointer-events: none;
+    contain: paint;
+    z-index: 100000;
+
+    @include size(100vw, 100vh);
+
+
+    --animation: .3s ease-out;
+
+    &-coor {
+        position: absolute;
+        @include size(0px);
+        mix-blend-mode: difference;
+
+
+        opacity: 1;
+
+
+        &.on-load {
+            opacity: 0;
+        }
+
+        .cursor-line {
+            position: absolute;
+            background-color: $cl-txt;
+            background-color: #287b95;
+            opacity: .5;
+
+
+            &.line {
+                &-hor {
+                    @include size(100vw, 1px);
+                    transform: translateY(-50%);
+                }
+
+                &-ver {
+                    @include size(1px, 100vh);
+                    transform: translateX(-50%);
+                }
+                &-left {
+                    right: 0;
+                    transition: right var(--animation);
+                    will-change: right;
+                }
+                &-right {
+                    left: 0;
+                    transition: left var(--animation);
+                    will-change: left;
+                }
+                &-top {
+                    bottom: 0;
+                    transition: bottom var(--animation);
+                    will-change: bottom;
+                }
+                &-bot {
+                    top: 0;
+                    transition: top var(--animation);
+                    will-change: top;
+                }
+            }
+        }
+    }
+
+    &-inner {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include size(0px);
+
+        &-circle {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 100vmax;
+            border: 1px solid $cl-txt;
+            background-color: rgba($color: $cl-bg, $alpha: 0.1);
+            backdrop-filter: blur(.18rem);
+
+            opacity: 0;
+            @include size(8rem);
+            transform: scale(0);
+            contain: paint;
+
+            transition: transform var(--animation), opacity var(--animation);
+            will-change: width, height, opacity;
+        }
+    }
+    &-plus {
+        position: absolute;
+        @include size(2.8rem);
+    }
+
+    &-inner, &-coor {
+        &.on-expand {
+            .line {
+                &-top {
+                    bottom: 4rem;
+                }
+                &-bot {
+                    top: 4rem;
+                }
+                &-left {
+                    right: 4rem;
+                }
+                &-right {
+                    left: 4rem;
+                }
+            }
+
+            .cursor-inner-circle {
+                // @include size(8rem);
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    }
+
+}
+

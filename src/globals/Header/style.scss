@@ -1,0 +1,72 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+
+    // color: $cl-bg;
+
+    padding-block: 4rem;
+
+
+    &-logo {
+        grid-column: 1/3;
+    }
+
+    &-location {
+        grid-column: 5/7;
+
+        &-inner {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            row-gap: .4rem;
+        }
+    }
+
+    &-country {
+        display: flex;
+        column-gap: 2rem;
+        width: 100%;
+
+        justify-content: space-between;
+        
+        mix-blend-mode: difference;
+
+
+        &-name {
+            opacity: .6;
+        }
+    }
+
+    &-nav {
+        grid-column: 9/12;
+        display: flex;
+        column-gap: 4rem;
+        mix-blend-mode: difference;
+
+
+        &-item {
+            opacity: .6;
+            transition: opacity .4s ease-in;
+            will-change: opacity;
+
+            &.active {
+                opacity: 1;
+            }            
+        }
+    }
+
+    &-contact {
+        grid-column: 16/17;
+        display: flex;
+        align-items: start;
+        justify-content: end;
+        mix-blend-mode: difference;
+    }
+}

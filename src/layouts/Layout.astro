@@ -1,0 +1,29 @@
+---
+import "@styles/global.scss";
+
+import BaseHead from "@/globals/BaseHead.astro";
+import Cursor from "@/globals/Cursor/Cursor.astro";
+import Header from "@/globals/Header/Header.astro";
+
+import TestForm from "@/globals/TestForm/TestForm.astro";
+const { title, data_page } = Astro.props;
+---
+
+<!doctype html>
+
+<html lang="en" data-page={data_page ? data_page : ""}>
+	<BaseHead title={title} />
+	<main class="main on-load">
+		<Header/>
+		<Cursor/>
+		<slot />
+		<TestForm/>
+	</main>
+	<script>
+		import main from "@/js/main";
+		setTimeout(() => {
+			document.querySelector(".main").classList.remove("on-load");
+		}, 100);
+		main();
+	</script>
+</html>

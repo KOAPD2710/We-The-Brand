@@ -1,0 +1,79 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+.service {
+    &-service {
+        padding-block: 6rem;
+        &-title {
+            &-wrapper {
+                display: flex;
+                justify-content: space-between;
+                grid-column: 1/11;
+                margin-bottom: 5rem
+            }
+        }
+
+        &-cat {
+            @include size(18.4rem);
+        }
+        &-list {
+            grid-column: 1/-1;
+            margin-top: 5rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10rem;
+        }
+        &-item {
+            display: grid;
+            grid-template-columns: repeat(var(--grid-column), 1fr);
+            column-gap: var(--grid-gap);
+
+            .line {
+                grid-column: 1/-1;
+                grid-row: 2/3;
+            }
+
+            &-inner {
+                display: flex;
+                flex-direction: column;
+                
+            }
+        }
+
+        &-label {
+            grid-column: 1/3;
+            grid-row: 1/2;
+            margin-bottom: 2.4rem;
+        }
+        &-desc {
+            grid-column: 1/5;
+            grid-row: 3/4;
+            align-self: end;
+        }
+        &-inner {
+            grid-column: 9/-1;
+            grid-row: 3/4;
+
+            &-item {
+                padding-top: 2.4rem;
+
+                &-title {
+                    grid-column: 3/-1;
+
+                    &-wrapper {
+                        margin-bottom: 2.4rem;
+                        display: grid;
+                        grid-template-columns: repeat(8 ,1fr);
+                        column-gap: var(--grid-gap);
+                    }
+
+                    &-no {
+                        display: flex;
+                        align-items: center;
+                        line-height: 1em;
+                    }
+                }
+            }
+        }
+    }
+}
