@@ -47,6 +47,13 @@
 
         &-name {
             opacity: .6;
+            flex-shrink: 0;
+        }
+
+        &-time {
+            // text-transform: lowercase;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
     }
 

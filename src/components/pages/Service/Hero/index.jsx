@@ -1,10 +1,29 @@
-import { useEffect } from 'react';
-import './style.scss'
+import { useEffect, useRef } from 'react';
+import { useStore } from '@nanostores/react';
+import { isHeaderOnTop } from '@/globals/Header/store';
+import { animate, scroll } from 'motion';
+import './style.scss';
 
 
 const ServiceHero = ({ ...props }) => {
+    const ref = useRef()
+    const $isHeaderOnTop = useStore(isHeaderOnTop);
+
+    useEffect(() => {
+        scroll(({ y }) => {
+            if (y.progress < .5) {
+                isHeaderOnTop.set(true)
+            } else {
+                isHeaderOnTop.set(false)
+            }
+        }, {
+            target: ref.current,
+            offset: ["start start", "end start"]
+        })
+    })
+
     return (
-        <section className="service-hero" data-cursor-showcoor>
+        <section className="service-hero" ref={ref} data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-hero-line line-1 slot-1">
                     <div className="txt txt-16">@2024</div>
@@ -38,7 +57,7 @@ const ServiceHero = ({ ...props }) => {
             </div>
             <div className="service-hero-bg">
                 <video className='img img-fill' muted autoPlay loop>
-                    <source src='/video/Ser-hero.webm' type="video/webm" />
+                    <source src='/video/Ser-hero.mp4' type="video/mp4" />
                 </video>
                 <div className="service-hero-bg-filter"></div>
             </div>

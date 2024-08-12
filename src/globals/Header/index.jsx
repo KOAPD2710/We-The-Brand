@@ -1,27 +1,30 @@
-
 import { useEffect, useRef } from 'react';
 import cn from 'clsx';
 import { scroll, animate } from 'motion';
+import { useStore } from '@nanostores/react';
+import { isHeaderOnTop } from './store';
 import './style.scss';
-
 
 const Header = ({ pathNav, currPath, ...props }) => {
     const header = useRef();
+    const $isHeaderOnTop = useStore(isHeaderOnTop);
 
-    useEffect(() => {
-        scroll((info) => {
-            if (info.y.progress < 1) {
-                header.current.classList.add('on-top')
-            } else {
-                header.current.classList.remove('on-top')
-            }
-        }, {
-            target: document.querySelector('.service-hero'),
-            offset: ["start end", "end start"]
-        })
-    }, [])
+    const vietnamTime = new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: 'Asia/Ho_Chi_Minh',
+    }).format(new Date());
+    
+    const singaporeTime = new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: 'Asia/Singapore',
+    }).format(new Date());
+
     return (
-        <header className="header on-top" ref={header}>
+        <header className={cn('header', $isHeaderOnTop && 'on-top')} ref={header}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="./" className="header-logo-link">
@@ -35,7 +38,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
                                 <div className="txt txt-16">Vietnam</div>
                             </div>
                             <div className="txt txt-16 header-country-time">
-                                &#123; <span>9:15 AM</span> &#125;
+                                &#123; <span>{vietnamTime}</span> &#125;
                             </div>
                         </div>
                         <div className="header-country" data-country="Singapore">
@@ -43,7 +46,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
                                 <div className="txt txt-16">Singapore</div>
                             </div>
                             <div className="txt txt-16 header-country-time">
-                                &#123; <span>9:15 AM</span> &#125;
+                                &#123; <span>{singaporeTime}</span> &#125;
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ const ServiceCollaborate = ({ CollaImg, ...props }) => {
                 </div>
                 <div className="service-colla-thumb">
                     {CollaImg.map((img) => (
-                        <div className="service-colla-thumb-img" key={img.img.name}>
+                        <div className="service-colla-thumb-img" key={img.name}>
                             <img src={img.img.src} width={img.img.width} alt="" className='img img-fill' />
                         </div>
                     ))}

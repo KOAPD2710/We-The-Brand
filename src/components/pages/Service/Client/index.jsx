@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './style.scss'
 import { chunkArray } from '@/js/utils';
 
 
 const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
-
-    // useEffect(() => {
-    //     let date = new Date;
-    //     // console.log(date);
-    // }, [])
     return (
         <section className="service-client" data-cursor-showcoor>
             <div className="container grid">
@@ -39,14 +34,12 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                     {ClientData.map((list, listIdx) => (
                         <div className="h2 service-client-row" key={listIdx}>
                             {list.map((client, clientIdx) => (
-                                <>
-                                    <div className="service-client-item" key={'client' + listIdx + clientIdx}>
-                                        {client}
-                                    </div>
+                                <React.Fragment key={client}>
+                                    <div className="service-client-item">{client}</div>
                                     {clientIdx !== list.length - 1 && (
-                                        <div className="txt-light slash" key={'slash' + listIdx + clientIdx}>&nbsp;/&nbsp;</div>
+                                        <div className="txt-light slash">&nbsp;/&nbsp;</div>
                                     )}
-                                </>
+                                </React.Fragment>
                             ))}
                         </div>
                     ))}

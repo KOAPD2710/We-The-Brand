@@ -43,7 +43,13 @@
         &-label {
             &-wrapper {
                 grid-column: 1/5;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
             }
+        }
+        &-link {
+            margin-top: auto;
         }
 
         &-list {

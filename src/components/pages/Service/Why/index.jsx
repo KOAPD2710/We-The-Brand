@@ -51,12 +51,13 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                 <div className="service-why-main">
                     <div className="service-why-label-wrapper">
                         <div className="txt txt-16 service-why-label">&#123; Why choose us &#125;</div>
+                        <a href="./" className='hover-line service-why-link'>Let's work together!</a>
                     </div>
                     <div className="service-why-list">
                         {WhyData.map((reason, idx) => (
                             <div className="service-why-item" key={reason.title}>
                                 <div className="txt txt-24 service-why-item-no">
-                                    &#123;&nbsp;<span className='txt-16'>{idx + 1}</span>&nbsp;&#125;
+                                    &#123;&nbsp;<span className='txt-16'>0{idx + 1}</span>&nbsp;&#125;
                                 </div>
                                 <div className="h3 txt-up service-why-item-title">{reason.title}</div>
                                 <div className="txt txt-16 service-why-item-desc">
