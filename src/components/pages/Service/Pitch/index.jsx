@@ -1,7 +1,12 @@
 
+import { useEffect } from 'react';
 import './style.scss'
 
 const ServicePitch = ({ PitchImg, ...props }) => {
+
+    useEffect(() => {
+        
+    }, [])
     return (
         <section className="service-pitch" data-cursor-showcoor>
             <div className="container grid">
