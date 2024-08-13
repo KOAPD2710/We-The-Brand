@@ -19,7 +19,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
                 const nextIndex = (currIdxTxt + 1) % txtGradientArray.length;
                 setcurrIdxTxt(nextIndex);
                 loopScrambleTxt(txtGradientArray[nextIndex]);
-            }, 3000);
+            }, 2500);
 
             return () => clearTimeout(timeout);
         }, { margin: '-10% 0% -10% 0%' });
@@ -31,7 +31,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
         const target = {
             allThumb: document.querySelectorAll('.service-pitch-thumb-img')
         }
-    },[])
+    }, [])
 
     return (
         <section className="service-pitch" data-cursor-showcoor>

@@ -18,12 +18,8 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
 
         scroll(
             animate(target.translate,
-                {
-                    transform: [getTranslate(0, 0, 0), getTranslate(-distance, 0, 0)]
-                },
-                {
-                    easing: spring({ velocity: 500 })
-                }
+                { transform: [getTranslate(0, 0, 0), getTranslate(-distance, 0, 0)] },
+                { easing: spring({ velocity: 500 }) }
             ),
             { target: target.wrap, offset: ["start start", "end end"] }
         )
@@ -51,7 +47,7 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                 <div className="service-why-main">
                     <div className="service-why-label-wrapper">
                         <div className="txt txt-16 service-why-label">&#123; Why choose us &#125;</div>
-                        <a href="./" className='hover-line service-why-link'>Let's work together!</a>
+                        <a href="./" className='txt-med hover-line service-why-link'>Let's work together!</a>
                     </div>
                     <div className="service-why-list">
                         {WhyData.map((reason, idx) => (
