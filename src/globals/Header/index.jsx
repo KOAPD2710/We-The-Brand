@@ -15,7 +15,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
         hour12: true,
         timeZone: 'Asia/Ho_Chi_Minh',
     }).format(new Date());
-    
+
     const singaporeTime = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
         minute: 'numeric',
@@ -38,7 +38,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
                                 <div className="txt txt-16">Vietnam</div>
                             </div>
                             <div className="txt txt-16 header-country-time">
-                                &#123; <span>{vietnamTime}</span> &#125;
+                                &#123; <span className='time'>{vietnamTime}</span> &#125;
                             </div>
                         </div>
                         <div className="header-country" data-country="Singapore">
@@ -46,7 +46,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
                                 <div className="txt txt-16">Singapore</div>
                             </div>
                             <div className="txt txt-16 header-country-time">
-                                &#123; <span>{singaporeTime}</span> &#125;
+                                &#123; <span className='time'>{singaporeTime}</span> &#125;
                             </div>
                         </div>
                     </div>
