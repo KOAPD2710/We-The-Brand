@@ -1,13 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useStore } from '@nanostores/react';
 import { isHeaderOnTop } from '@/globals/Header/store';
-import { animate, scroll } from 'motion';
+import { animate, scroll, inView } from 'motion';
+import { scrambleText } from '@/js/scrambleText';
 import './style.scss';
 
 
 const ServiceHero = ({ ...props }) => {
     const ref = useRef()
     const $isHeaderOnTop = useStore(isHeaderOnTop);
+
+    const [currIdxTxt, setcurrIdxTxt] = useState(0);
+    const txtArray = ['turn', 'build']
+
+    function loopScrambleTxt(text) {
+        const target = document.querySelector('.service-hero-line .scramble-txt')
+        scrambleText(target, text, { type: 'text' })
+    }
 
     useEffect(() => {
         scroll(({ y }) => {
@@ -21,6 +30,22 @@ const ServiceHero = ({ ...props }) => {
             offset: ["start start", "end start"]
         })
     })
+
+    useEffect(() => {
+        let timeout;
+        inView('.service-hero', () => {
+            timeout = setTimeout(() => {
+                const nextIndex = (currIdxTxt + 1) % txtArray.length;
+                setcurrIdxTxt(nextIndex);
+                loopScrambleTxt(txtArray[nextIndex]);
+            }, 2500);
+
+            return () => clearTimeout(timeout);
+        }, { margin: '-10% 0% -10% 0%' });
+
+        return () => clearTimeout(timeout);
+    }, [currIdxTxt]);
+
 
     return (
         <section className="service-hero" ref={ref} data-cursor-showcoor>
@@ -48,7 +73,7 @@ const ServiceHero = ({ ...props }) => {
                 </div>
                 <div className="service-hero-line line-2 slot-3">
                     <div className="txt h0 txt-up">
-                        (<span className='txt-italic txt-med'>Turn</span> )
+                        (<span className='txt-italic txt-med scramble-txt'>Turn</span>)
                     </div>
                 </div>
                 <div className="service-hero-line line-3">
