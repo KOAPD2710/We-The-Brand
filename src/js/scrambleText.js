@@ -25,7 +25,7 @@ const scrambleText = (target, nextText, options = {}) => {
     let { type } = options;
     let finalText;
     let nextTextArray;
-    let staggerTime = 75;
+    let staggerTime = 60;
 
     const textArray = target.textContent.split('')
     textArray.push('')

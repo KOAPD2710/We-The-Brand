@@ -8,7 +8,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
     const txtGradientArray = ['quirks', 'features', 'edges']
 
     function loopScrambleTxt(text) {
-        const target = document.querySelector('.scramble-txt')
+        const target = document.querySelector('.service-pitch .scramble-txt')
         scrambleText(target, text)
     }
 
@@ -26,6 +26,12 @@ const ServicePitch = ({ PitchImg, ...props }) => {
 
         return () => clearTimeout(timeout);
     }, [currIdxTxt]);
+
+    useEffect(() => {
+        const target = {
+            allThumb: document.querySelectorAll('.service-pitch-thumb-img')
+        }
+    },[])
 
     return (
         <section className="service-pitch" data-cursor-showcoor>
