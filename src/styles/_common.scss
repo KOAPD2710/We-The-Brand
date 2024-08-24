@@ -223,3 +223,59 @@ button {
         }
     }
 }
+
+.content {
+    &-bg {
+        position: relative;
+
+        .is-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: .2;
+            z-index: -1;
+
+            // pointer-events: none;
+        }
+
+        .split-line {
+            clip-path: inset(0% var(--size) 0% 0%);
+        }
+    }
+}
+
+.txt {
+    &-clip {
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        // background-image: linear-gradient(130deg, $cl-txt 0%,$cl-txt 45%, rgba($cl-txt, .2) 55%);
+        // background-size: 250%;
+        // background-repeat: no-repeat;
+        // background-position-x: 0%;
+        // will-change: background-position-x;
+
+        // span {
+        //     position: inherit !important;
+        // }
+
+
+        // scroll(({ y }) => {
+        //     document.querySelector('.service-colla-content').style.backgroundPositionX = `${100 - (y.progress * 100)}%`;
+        // }, {
+        //     target: document.querySelector('.service-colla-content'),
+        //     offset: ["start 80%", "start 20%"]
+        // })
+    }
+}
+
+
+.split-line {
+    contain: paint;
+    
+    padding-bottom: .06em;
+    margin-bottom: -.06em;
+
+    will-change: clip-path;
+}

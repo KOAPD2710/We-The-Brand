@@ -1,0 +1,55 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+
+
+.work {
+    &-project {
+        @include size(100%, 500vh);
+
+        &-canvas {
+            &-wrapper {
+                // opacity: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                @include size(100%, 100vh);
+            }
+        }
+
+        &-thumb {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            // column-gap: 3.2rem;
+            
+            &-wrapper {
+                // scale: .2;
+                position: sticky;
+                top: 0;
+                left: 0;
+                @include size(100%, 100vh);
+                contain: paint;
+
+                display: flex;
+                background-color: greenyellow;
+            }
+
+            &-item {
+                display: flex;
+                height: 50%;
+                flex-shrink: 0;
+                padding-right: 2rem;
+
+                &.loaded {
+                    position: absolute;
+                }
+
+                &-img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

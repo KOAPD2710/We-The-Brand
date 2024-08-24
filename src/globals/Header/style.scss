@@ -16,10 +16,15 @@
     // mix-blend-mode: difference;
     // filter: invert(1);
 
-    transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out, transform .4s ease-in-out;
+    will-change: transform, color;
 
     &.on-top {
         color: $cl-bg;
+    }
+
+    &.on-bot {
+        transform: translateY(-100%);
     }
 
     &-logo {
@@ -59,9 +64,8 @@
 
             .time {
                 display: inline-block;
-                min-width: 6.5rem;
-                text-align: right;
-                margin-right: .16em;
+                min-width: 6.2rem;
+                text-align: center;
             }
         }
     }
@@ -72,6 +76,9 @@
         column-gap: 4rem;
         mix-blend-mode: difference;
 
+        .slash {
+            opacity: 0;
+        }
 
         &-item {
             opacity: .6;
@@ -80,7 +87,17 @@
 
             &.active {
                 opacity: 1;
-            }            
+
+                .slash {
+                    opacity: 1;
+                }
+            }
+
+            @media (hover:hover) {
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 

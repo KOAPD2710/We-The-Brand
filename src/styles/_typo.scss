@@ -116,6 +116,10 @@ $txtSizes: 16, 24, 90;
         font-style: italic;
     }
 
+    &-nor {
+        font-style: normal;
+    }
+
     &-link {
         display: inline-block;
         vertical-align: bottom;
@@ -313,9 +317,4 @@ $txtSizes: 16, 24, 90;
     &-150 {
         @include size(15rem);
     }
-}
-
-.split-line {
-    contain: paint;
-    will-change: transform;
 }

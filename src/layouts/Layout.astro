@@ -6,9 +6,11 @@ import Cursor from "@/globals/Cursor/Cursor.astro";
 import Header from "@/globals/Header/Header.astro";
 import Footer from "@/globals/Footer/Footer.astro";
 import NoisePattern from "@/globals/NoisePattern/NoisePattern.astro";
+import FluidDistortion from "@/globals/FluidDistortion/FluidDistortion.astro";
 
+import MainScript from "@/js/main";
 import TestForm from "@/globals/TestForm/TestForm.astro";
-const { title, data_page } = Astro.props;
+const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,18 +18,13 @@ const { title, data_page } = Astro.props;
 <html lang="en" data-page={data_page ? data_page : ""}>
 	<BaseHead title={title} />
 	<main class="main on-load">
+		<!-- <FluidDistortion/> -->
 		<Header/>
 		<NoisePattern/>
 		<Cursor/>
 		<slot />
-		<Footer/>
+		{isNeedFooter && <Footer/>}
 		<TestForm/>
 	</main>
-	<script>
-		import main from "@/js/main";
-		setTimeout(() => {
-			document.querySelector(".main").classList.remove("on-load");
-		}, 100);
-		main();
-	</script>
+	<MainScript isInfiniteScroll={isNeedInfiniteScroll} client:load/>
 </html>

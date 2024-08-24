@@ -2,12 +2,13 @@ import { useEffect, useRef } from 'react';
 import cn from 'clsx';
 import { scroll, animate } from 'motion';
 import { useStore } from '@nanostores/react';
-import { isHeaderOnTop } from './store';
+import { isHeaderOnTop, isHeaderOnBot } from './store';
 import './style.scss';
 
 const Header = ({ pathNav, currPath, ...props }) => {
     const header = useRef();
     const $isHeaderOnTop = useStore(isHeaderOnTop);
+    const $isHeaderOnBot = useStore(isHeaderOnBot);
 
     const vietnamTime = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
@@ -24,7 +25,7 @@ const Header = ({ pathNav, currPath, ...props }) => {
     }).format(new Date());
 
     return (
-        <header className={cn('header', $isHeaderOnTop && 'on-top')} ref={header}>
+        <header className={cn('header', $isHeaderOnTop && 'on-top', $isHeaderOnBot && 'on-bot')} ref={header}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="./" className="header-logo-link">
@@ -54,7 +55,11 @@ const Header = ({ pathNav, currPath, ...props }) => {
                 <div className="header-nav">
                     {props.navigation.map((path) => (
                         <div className={cn('header-nav-item', currPath === path.url && 'active')} key={path.name}>
-                            <a href={path.url} className='txt txt-16 header-nav-link'>{path.name}</a>
+                            <a href={path.url} className='txt txt-16 header-nav-link'>
+                                <span className="slash">(</span>
+                                <span className={cn('header-nav-link-txt', currPath === path.url && 'txt-italic')}>{path.name}</span>
+                                <span className="slash">)</span>
+                            </a>
                         </div>
                     ))}
                 </div>

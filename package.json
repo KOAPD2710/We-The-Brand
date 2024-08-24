@@ -8,24 +8,36 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
+		"debug": "astro dev --debug",
 		"clear": "rimraf node_modules rimraf dist"
 	},
 	"dependencies": {
 		"@astrojs/react": "^3.6.2",
 		"@astrojs/vercel": "^7.7.2",
 		"@nanostores/react": "^0.7.3",
+		"@react-three/drei": "^9.110.0",
+		"@react-three/fiber": "^8.17.5",
+		"@react-three/postprocessing": "^2.16.2",
 		"@studio-freight/lenis": "^1.0.35",
 		"@studio-freight/react-lenis": "^0.0.45",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
+		"@typescript-eslint/parser": "^8.1.0",
 		"@vercel/analytics": "^1.3.1",
+		"@whatisjery/react-fluid-distortion": "^1.3.2",
 		"astro": "^4.13.3",
+		"clang-format": "^1.8.0",
 		"clsx": "^2.1.1",
+		"keen-slider": "^6.8.6",
+		"leva": "^0.9.35",
 		"motion": "^10.18.0",
 		"nanostores": "^0.11.2",
+		"postprocessing": "^6.36.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"sass": "^1.77.8",
-		"split-type": "^0.3.4"
+		"split-type": "^0.3.4",
+		"three": "^0.167.1",
+		"tunnel-rat": "^0.1.2"
 	}
 }

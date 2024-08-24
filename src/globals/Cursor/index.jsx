@@ -32,6 +32,8 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
         let myReq;
         let targetHover;
         let allFxClass = ['on-expand', 'on-hover'];
+        let speed = .1;
+
 
         function moveCursor() {
             let curPosCoor = {
@@ -44,7 +46,6 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
             }
 
             let targetPos = pointer;
-            let speed = .1;
             cursorCoor.current.style.transform = `translate(${lerp(curPosCoor.x, targetPos.x, speed)}px, ${lerp(curPosCoor.y, targetPos.y, speed)}px)`;
             cursorInner.current.style.transform = `translate(${lerp(curPosInner.x, targetPos.x, speed)}px, ${lerp(curPosInner.y, targetPos.y, speed)}px)`;
 

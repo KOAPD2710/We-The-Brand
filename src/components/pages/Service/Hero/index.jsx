@@ -11,7 +11,7 @@ const ServiceHero = ({ ...props }) => {
     const $isHeaderOnTop = useStore(isHeaderOnTop);
 
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
-    const txtArray = ['turn', 'build']
+    const txtArray = ['turn ', 'build']
 
     function loopScrambleTxt(text) {
         const target = document.querySelector('.service-hero-line .scramble-txt')
@@ -29,7 +29,7 @@ const ServiceHero = ({ ...props }) => {
             target: ref.current,
             offset: ["start start", "end start"]
         })
-    })
+    }, [])
 
     useEffect(() => {
         let timeout;
@@ -73,7 +73,7 @@ const ServiceHero = ({ ...props }) => {
                 </div>
                 <div className="service-hero-line line-2 slot-3">
                     <div className="txt h0 txt-up">
-                        (<span className='txt-italic txt-med scramble-txt'>Turn</span>)
+                        (<span className='txt-italic txt-med scramble-txt'>Turn </span>)
                     </div>
                 </div>
                 <div className="service-hero-line line-3">

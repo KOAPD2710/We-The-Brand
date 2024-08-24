@@ -1,9 +1,30 @@
 import './style.scss'
+import { useStore } from '@nanostores/react';
+import { useRef, useEffect } from 'react';
 
+import { isHeaderOnBot } from '../Header/store';
+import { scroll } from 'motion';
 
 const Footer = ({ FooterData, ...props }) => {
+    const ref = useRef();
+    const $isHeaderOnBot = useStore(isHeaderOnBot);
+
+    useEffect(() => {
+        scroll(({ y }) => {
+
+            // console.log(y.progress);
+            if (y.progress > .8) {
+                isHeaderOnBot.set(true)
+            } else {
+                isHeaderOnBot.set(false)
+            }
+        }, {
+            target: ref.current,
+            offset: ["start end", "end end"]
+        })
+    }, [])
     return (
-        <footer className='footer' data-cursor-showcoor>
+        <footer className='footer' data-cursor-showcoor ref={ref}>
             <div className="container grid">
                 <div className="footer-top">
                     <div className="h0 footer-top-display">We The (<span className='txt-italic txt-med'>Brand</span> )</div>
@@ -16,7 +37,7 @@ const Footer = ({ FooterData, ...props }) => {
                                         <div className="footer-top-list-item-link" key={link.name}>
                                             <a href={link.link} className='txt txt-16 hover-under'>{link.name}</a>
                                         </div>
-                                    ))}
+                                    ))}  
                                 </div>
                             </div>
                         ))}
