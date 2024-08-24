@@ -18,6 +18,7 @@
         }
 
         &-thumb {
+            --expand-w: 10rem;
             height: 100%;
             display: flex;
             align-items: center;
@@ -37,17 +38,30 @@
             }
 
             &-item {
+                position: relative;
                 display: flex;
                 height: 50%;
                 flex-shrink: 0;
                 padding-right: 2rem;
+                contain: paint;
 
-                &.loaded {
+                .name {
                     position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 2;
+                    mix-blend-mode: luminosity;
                 }
 
                 &-img {
                     height: 100%;
+                    contain: paint;
+                    
+                    img{
+                        position: relative;
+                        width: calc(100% + var(--expand-w));
+                        left: calc(var(--expand-w) / -2);
+                    }
                 }
             }
         }
