@@ -11,24 +11,24 @@ import SerWhyThumb4 from '@assets/Ser-Why-Thumb-4.jpg';
 const SerWhyData = [
     {
         title: "Trust Through Coherent",
-        desc: "Increased trust with target audience through consistent design done by one company."
+        desc: "Increased trust with target audience through consistent design done by one company.",
+        thumb: SerWhyThumb1
     },
     {
         title: "Comprehensive Approach",
-        desc: "Our holistic approach eliminates the search for other partners no worries on finding the right match."
+        desc: "Our holistic approach eliminates the search for other partners no worries on finding the right match.",
+        thumb: SerWhyThumb2
     },
     {
         title: "Trusted by Industry Giants",
-        desc: "Lazada, Logitech and others trust us with their work, why shouldn't you?"
+        desc: "Lazada, Logitech and others trust us with their work, why shouldn't you?",
+        thumb: SerWhyThumb3
     }
 ]
 
 
 const WhyThumb = [SerWhyThumb1, SerWhyThumb2, SerWhyThumb3, SerWhyThumb4]
 ---
-
-
-
 
 <ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:visible={{rootMargin: "100% 100%"}}>
     <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'></Image>

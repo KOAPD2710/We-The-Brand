@@ -2,34 +2,8 @@ import Lenis from '@studio-freight/lenis';
 
 let lenis;
 
-function easeOutSine(x) {
-    return Math.sin((x * Math.PI) / 2);
-}
-function easeInSine(x) {
-    return 1 - Math.cos((x * Math.PI) / 2);
-}
-function easeInOutSine(x) {
-    return -(Math.cos(Math.PI * x) - 1) / 2;
-}
-function easeOutCirc(x) {
-    return Math.sqrt(1 - Math.pow(x - 1, 2));
-}
-function easeInQuint(x) {
-    return x * x * x * x * x;
-}
-function easeOutQuad(x) {
-    return 1 - (1 - x) * (1 - x);
-}
-function easeInQuad(x) {
-    return x * x;
-}
 function easeOutExpo(x) {
     return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-}
-function easeOutBack(x) {
-    const c1 = 1.70158;
-    const c3 = c1 + 1;
-    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
 }
 
 function initLenis(isInfinite) {
@@ -47,6 +21,13 @@ function initLenis(isInfinite) {
             infinite: isInfinite ? true : false,
             syncTouch: true
         })
+
+        lenis.on('scroll', ScrollTrigger.update)
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000)
+        })
+
+        gsap.ticker.lagSmoothing(0)
     }
 
     function onRaf(time) {

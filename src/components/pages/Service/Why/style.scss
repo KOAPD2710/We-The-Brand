@@ -4,6 +4,7 @@
 
 .service {
     &-why {
+        contain: paint;
         &-head {
             grid-column: 5/-1;
             margin-block: 8rem 10rem;
@@ -53,10 +54,43 @@
         }
 
         &-list {
+            position: relative;
             grid-column: 5/-1;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: var(--grid-gap);
+
+            &-thumb {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top: 0;
+                left: 0;
+                @include size(100%);
+                z-index: 1;
+                pointer-events: none;
+                user-select: none;
+
+                &-translate {
+                    position: absolute;
+                    @include size(20rem);
+
+                    opacity: 0;
+                    transition: opacity .3s ease-in-out;
+                    will-change: opacity, transform;
+                    // transform-origin: bottom;
+
+                    &.active {
+                        opacity: 1;
+                    }
+                }
+
+                &-inner {
+                    position: absolute;
+                    @include size(100%);
+                }
+            }
         }
 
         &-item {
@@ -64,6 +98,8 @@
             display: flex;
             flex-direction: column;
             height: 43rem;
+            z-index: 2;
+            mix-blend-mode: difference;
 
             padding-left: 2.4rem;
 

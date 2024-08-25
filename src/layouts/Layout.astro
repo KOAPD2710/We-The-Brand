@@ -26,5 +26,18 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 		{isNeedFooter && <Footer/>}
 		<TestForm/>
 	</main>
+	<script>
+		import gsap from "gsap";
+		import ScrollTrigger from "gsap/ScrollTrigger";
+
+		window.gsap = gsap;
+		window.ScrollTrigger = ScrollTrigger;
+
+		gsap.registerPlugin(ScrollTrigger);
+		gsap.defaults({
+			ease: "none",
+			duration: 1,
+		});
+	</script>
 	<MainScript isInfiniteScroll={isNeedInfiniteScroll} client:load/>
 </html>

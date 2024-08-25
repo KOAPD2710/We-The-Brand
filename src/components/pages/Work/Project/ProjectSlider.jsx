@@ -81,9 +81,9 @@ const ProjectSlider = ({ allProject, ...props }) => {
         <div className="work-project-thumb">
             {allProject.map((proj, idx) => (
                 <div className="work-project-thumb-item" key={proj.name + idx}>
-                    <div className="h1 name">
+                    {/* <div className="h1 name">
                         {proj.name}-{idx}
-                    </div>
+                    </div> */}
                     <div className="work-project-thumb-item-img">
                         <img src={proj.thumb.src} alt="" className='img img-fill' />
                     </div>

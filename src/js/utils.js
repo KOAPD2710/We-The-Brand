@@ -40,7 +40,17 @@ const lerp = (x, y, a = 0.1) => x * (1 - a) + y * a;
 const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));
 const invlerp = (x, y, a) => clamp((a - x) / (y - x));
 const range = (x1, y1, x2, y2, a) => lerp(x2, y2, invlerp(x1, y1, a));
-const sawtooth = (x, fract) => x % fract
+const sawtooth = (x, fract) => x % fract;
+
+function getRotationDegrees(element) {
+    let props = element.style.transform.match(/rotate\((\d+)(.+)\)/)
+    if (props) {
+        let [a, b, c] = props.slice(1)
+        return parseFloat(b)
+    } else {
+        return 0;
+    }
+}
 
 function generateHtmlFromJson(jsonData) {
     let htmlString = "";
@@ -83,5 +93,5 @@ const chunkArray = (array, chunkSize) => {
 
 const typeSplit = { lineClass: 'split-line', wordClass: 'split-word', charClass: 'split-char', tagName: 'span' };
 export {
-    dom, addEvent, typeSplit, addEventAll, getIndex, offset, parseRem, parseToRem, sawtooth, generateHtmlFromJson, lerp, chunkArray, clamp, invlerp, range, getTranslate
+    dom, addEvent, typeSplit, getRotationDegrees, addEventAll, getIndex, offset, parseRem, parseToRem, sawtooth, generateHtmlFromJson, lerp, chunkArray, clamp, invlerp, range, getTranslate
 }

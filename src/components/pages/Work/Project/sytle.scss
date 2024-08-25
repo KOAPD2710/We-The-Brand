@@ -18,7 +18,7 @@
         }
 
         &-thumb {
-            --expand-w: 10rem;
+            --expand-w: 8rem;
             height: 100%;
             display: flex;
             align-items: center;
@@ -34,7 +34,7 @@
                 contain: paint;
 
                 display: flex;
-                background-color: greenyellow;
+                // background-color: greenyellow;
             }
 
             &-item {
