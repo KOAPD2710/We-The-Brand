@@ -1,9 +1,10 @@
+import './style.scss'
 import { useEffect, useRef } from 'react';
 import { parseRem, lerp } from '@/js/utils';
-import './style.scss'
+import { Mouse } from '@/components/core/mouse';
 
 const GlobalCursor = ({ PlusArrow, ...props }) => {
-    const cursorCoor = useRef();
+    // const cursorCoor = useRef();
     const cursorInner = useRef();
 
     let pointer = {
@@ -12,20 +13,19 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
     }
 
     function getCursor(e) {
-        pointer = { x: e.clientX, y: e.clientY };
-
-        if (cursorCoor.current.classList.contains('on-load') && cursorInner.current.classList.contains('on-load')) {
-            cursorCoor.current.classList.remove('on-load')
+        if (
+            // cursorCoor.current.classList.contains('on-load') &&
+            cursorInner.current.classList.contains('on-load')) {
+            // cursorCoor.current.classList.remove('on-load')
             cursorInner.current.classList.remove('on-load')
         }
-
-        document.querySelector('html').style.setProperty('--cursor-top', pointer.y + 'px');
-        document.querySelector('html').style.setProperty('--cursor-left', pointer.x + 'px');
     }
 
 
     useEffect(() => {
-        if (!cursorCoor.current.classList.contains('on-load') && !cursorInner.current.classList.contains('on-load')) return;
+        if (
+            // !cursorCoor.current.classList.contains('on-load') && 
+            !cursorInner.current.classList.contains('on-load')) return;
         pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
         window.addEventListener('pointermove', (e) => getCursor(e));
@@ -36,29 +36,29 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
 
 
         function moveCursor() {
-            let curPosCoor = {
-                x: new DOMMatrixReadOnly(getComputedStyle(cursorCoor.current).transform).m41,
-                y: new DOMMatrixReadOnly(getComputedStyle(cursorCoor.current).transform).m42
-            }
+            pointer = Mouse()
+            // let curPosCoor = {
+            //     x: new DOMMatrixReadOnly(getComputedStyle(cursorCoor.current).transform).m41,
+            //     y: new DOMMatrixReadOnly(getComputedStyle(cursorCoor.current).transform).m42
+            // }
             let curPosInner = {
                 x: new DOMMatrixReadOnly(getComputedStyle(cursorInner.current).transform).m41,
                 y: new DOMMatrixReadOnly(getComputedStyle(cursorInner.current).transform).m42
             }
 
-            let targetPos = pointer;
-            cursorCoor.current.style.transform = `translate(${lerp(curPosCoor.x, targetPos.x, speed)}px, ${lerp(curPosCoor.y, targetPos.y, speed)}px)`;
-            cursorInner.current.style.transform = `translate(${lerp(curPosInner.x, targetPos.x, speed)}px, ${lerp(curPosInner.y, targetPos.y, speed)}px)`;
+            // cursorCoor.current.style.transform = `translate(${lerp(curPosCoor.x, targetPos.x, speed)}px, ${lerp(curPosCoor.y, targetPos.y, speed)}px)`;
+            cursorInner.current.style.transform = `translate(${lerp(curPosInner.x, pointer.x, speed)}px, ${lerp(curPosInner.y, pointer.y, speed)}px)`;
 
 
             if (document.querySelectorAll('[data-cursor]:hover').length == 1) {
-                cursorCoor.current.classList.remove(...allFxClass)
+                // cursorCoor.current.classList.remove(...allFxClass)
                 cursorInner.current.classList.remove(...allFxClass)
 
                 targetHover = document.querySelector('[data-cursor]:hover')
 
                 switch (targetHover.getAttribute('data-cursor')) {
                     case 'expand':
-                        cursorCoor.current.classList.add('on-expand')
+                        // cursorCoor.current.classList.add('on-expand')
                         cursorInner.current.classList.add('on-expand')
                         break;
                     default:
@@ -68,20 +68,20 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
             } else {
                 if (targetHover != undefined) {
                     targetHover = undefined
-                    cursorCoor.current.classList.remove(...allFxClass)
+                    // cursorCoor.current.classList.remove(...allFxClass)
                     cursorInner.current.classList.remove(...allFxClass)
                 }
             }
 
-            if (document.querySelectorAll('[data-cursor-showcoor]:hover').length == 1) {
-                if (!cursorCoor.current.classList.contains('on-show')) {
-                    cursorCoor.current.classList.add('on-show')
-                }
-            } else {
-                if (cursorCoor.current.classList.contains('on-show')) {
-                    cursorCoor.current.classList.remove('on-show')
-                }
-            }
+            // if (document.querySelectorAll('[data-cursor-showcoor]:hover').length == 1) {
+            //     if (!cursorCoor.current.classList.contains('on-show')) {
+            //         cursorCoor.current.classList.add('on-show')
+            //     }
+            // } else {
+            //     if (cursorCoor.current.classList.contains('on-show')) {
+            //         cursorCoor.current.classList.remove('on-show')
+            //     }
+            // }
 
             myReq = requestAnimationFrame(moveCursor)
         }
@@ -95,12 +95,12 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
     }, [])
     return (
         <div className="cursor">
-            <div className="cursor-coor on-load" ref={cursorCoor}>
+            {/* <div className="cursor-coor on-load" ref={cursorCoor}>
                 <div className="cursor-line line-hor line-left"></div>
                 <div className="cursor-line line-hor line-right"></div>
                 <div className="cursor-line line-ver line-top"></div>
                 <div className="cursor-line line-ver line-bot"></div>
-            </div>
+            </div> */}
             <div className="cursor-inner on-load" ref={cursorInner}>
                 <div className="cursor-inner-main">
                     <div className="cursor-inner-main-dot"></div>

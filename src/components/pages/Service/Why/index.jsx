@@ -1,9 +1,9 @@
 import './style.scss'
 import { useEffect, useRef } from 'react';
-import { scroll, animate, spring, inView } from "motion";
-import { getRotationDegrees, getTranslate, lerp, parseRem } from '@/js/utils';
+import { lerp, parseRem, rotGetter, rotSetter, xGetter, xSetter, yGetter, ySetter } from '@/js/utils';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { useGSAP } from '@gsap/react';
+import { Mouse } from '@/components/core/mouse';
 
 const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
     const container = useRef();
@@ -29,90 +29,87 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
             x: -distance
         })
     }, {
-        scope: container
+        scope: container,
+        revertOnUpdate: true
     })
 
-    // useEffect(() => {
-    //     const target = {
-    //         wrap: document.querySelector('.service-why-thumb'),
-    //         translate: document.querySelector('.service-why-thumb-translate'),
-    //         thumbWrapper: document.querySelector('.service-why-list'),
-    //         thumbTranslate: document.querySelector('.service-why-list-thumb-translate'),
-    //     }
+    useEffect(() => {
+        const target = {
+            listItem: document.querySelectorAll('.service-why-item'),
+            thumbWrapper: document.querySelector('.service-why-list'),
+            thumbTranslate: document.querySelector('.service-why-list-thumb-translate'),
+        }
 
-    //     // target.wrap.style.height = `${target.translate.offsetWidth * 1.5}px`;
+        let activeIdx = undefined;
 
-    //     // let distance = target.translate.offsetWidth - window.innerWidth;
+        target.listItem.forEach((el, idx) => {
+            el.addEventListener('pointerenter', function (e) {
+                let itemIdx = [...target.listItem].indexOf(el)
+                activeIdx = itemIdx
+            })
+            el.addEventListener('pointerleave', function () {
+                activeIdx = undefined;
+            })
+        })
+        let cloneArr = Array.from(target.listItem, (el) => el.cloneNode(true))
 
-    //     // scroll(
-    //     //     animate(target.translate,
-    //     //         { transform: [getTranslate(0, 0, 0), getTranslate(-distance, 0, 0)] },
-    //     //         { easing: spring({ velocity: 500 }) }
-    //     //     ),
-    //     //     { target: target.wrap, offset: ["start start", "end end"] }
-    //     // )
+        // console.log(cloneArr);
 
-    //     let raf;
-    //     let speed = 0.05
-    //     let pointer = {
-    //         x: 0,
-    //         y: 0
-    //     }
-    //     let isInView = false
+        // gsap.set(target.listItem, {
+        //     clipPath: `inset`
+        // })
 
-    //     inView('.service-why-main', () => {
-    //         isInView = true
+        let raf;
+        let speed = 0.06
+        let pointer = {
+            x: 0,
+            y: 0
+        }
+        let targetPos = {
+            x: 0,
+            y: 0
+        }
 
-    //         return () => isInView = false
-    //     }, { margin: "-5% 0% -5% 0%" })
+        function moveThumb() {
+            let curPos = {
+                x: xGetter(target.thumbTranslate),
+                y: yGetter(target.thumbTranslate),
+                rotate: rotGetter(target.thumbTranslate)
+            }
 
-    //     function moveThumb() {
-    //         let wrapperBounding = target.thumbWrapper.getBoundingClientRect()
-    //         pointer = {
-    //             x: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-left').trim()),
-    //             y: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cursor-top').trim())
-    //         }
-    //         let curPos = {
-    //             x: new DOMMatrixReadOnly(getComputedStyle(target.thumbTranslate).transform).m41,
-    //             y: new DOMMatrixReadOnly(getComputedStyle(target.thumbTranslate).transform).m42,
-    //             rotate: getRotationDegrees(target.thumbTranslate)
-    //         }
-    //         let targetPos = {
-    //             x: pointer.x - wrapperBounding.left - wrapperBounding.width / 2,
-    //             y: pointer.y - wrapperBounding.top - wrapperBounding.height / 2 - parseRem(50),
-    //         }
-    //         let targetRotate = (targetPos.x / (wrapperBounding.width / 2)) * 20
+            if (ScrollTrigger.isInViewport(target.thumbWrapper)) {
+                pointer = Mouse()
 
-    //         if (target.thumbWrapper.matches(':hover')) {
-    //             if (!target.thumbTranslate.matches('.active')) {
-    //                 target.thumbTranslate.classList.add('active')
-    //             }
-    //         } else {
-    //             if (target.thumbTranslate.matches('.active')) {
-    //                 target.thumbTranslate.classList.remove('active')
-    //             }
-    //         }
+                let wrapperBounding = target.thumbWrapper.getBoundingClientRect()
+                targetPos = {
+                    x: pointer.x - wrapperBounding.left - wrapperBounding.width / 2,
+                    y: pointer.y - wrapperBounding.top - wrapperBounding.height / 2 - parseRem(50),
+                }
+                let targetRotate = targetPos.x / (wrapperBounding.width / 2) * 30
 
-    //         if (isInView) {
-    //             target.thumbTranslate.style.transform = `translate(${lerp(curPos.x, targetPos.x, speed)}px, ${lerp(curPos.y, targetPos.y, speed)}px)` + `rotate(${lerp(curPos.rotate, targetRotate, .01)}deg)`
-    //         } else {
-    //             target.thumbTranslate.style.transform = `translate(${lerp(curPos.x, 0, speed)}px, ${lerp(curPos.y, 0, speed)}px) rotate(${curPos.rotate, 0, speed}deg)`
-    //         }
+                xSetter(target.thumbTranslate)(lerp(curPos.x, targetPos.x, speed))
+                ySetter(target.thumbTranslate)(lerp(curPos.y, targetPos.y, speed))
+                rotSetter(target.thumbTranslate)(lerp(curPos.rotate, targetRotate, speed))
+            } else {
+                xSetter(target.thumbTranslate)(lerp(curPos.x, 0, speed))
+                ySetter(target.thumbTranslate)(lerp(curPos.y, 0, speed))
+                rotSetter(target.thumbTranslate)(lerp(curPos.rotate, 0, speed))
+            }
 
-    //         raf = window.requestAnimationFrame(moveThumb)
-    //     }
-    //     raf = window.requestAnimationFrame(moveThumb)
+            raf = window.requestAnimationFrame(moveThumb)
+        }
+        raf = window.requestAnimationFrame(moveThumb)
 
-    //     return () => {
-    //         cancelAnimationFrame(raf)
-    //     }
-    // }, [])
+        return () => {
+            cancelAnimationFrame(raf)
+        }
+    }, [])
 
     return (
         <section className='service-why' ref={container}>
             <div className="container grid">
                 <div className="service-why-head">
-                    <div className="txt txt-16 service-why-head-label">@2024</div>
+                    <div className="txt txt-16 service-why-head-label">© 2024</div>
                     <div className="service-why-title-wrapper">
                         <div className="h1 txt-up service-why-title service-why-title-start">We build</div>
                         <div className="h1 service-why-title-img-wrapper">

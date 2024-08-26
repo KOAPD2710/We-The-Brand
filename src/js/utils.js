@@ -6,7 +6,6 @@ const dom = (el, toEl = true) => {
         return allEl
     }
 }
-
 const addEvent = (el, event, callback) => {
     el.addEventListener(event, callback)
 }
@@ -30,18 +29,6 @@ const offset = (el) => {
         left: box.left + window.scrollX - docElem.clientLeft
     };
 }
-const parseRem = (input) => {
-    return input / 10 * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size"));
-}
-const parseToRem = (input) => {
-    return input * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size")) / 100;
-}
-const lerp = (x, y, a = 0.1) => x * (1 - a) + y * a;
-const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));
-const invlerp = (x, y, a) => clamp((a - x) / (y - x));
-const range = (x1, y1, x2, y2, a) => lerp(x2, y2, invlerp(x1, y1, a));
-const sawtooth = (x, fract) => x % fract;
-
 function getRotationDegrees(element) {
     let props = element.style.transform.match(/rotate\((\d+)(.+)\)/)
     if (props) {
@@ -51,7 +38,6 @@ function getRotationDegrees(element) {
         return 0;
     }
 }
-
 function generateHtmlFromJson(jsonData) {
     let htmlString = "";
 
@@ -79,10 +65,6 @@ function generateHtmlFromJson(jsonData) {
 
     return htmlString;
 }
-
-function getTranslate(x, y, z) {
-    return `translate3d(${x}px, ${y}px, ${z}px)`;
-}
 const chunkArray = (array, chunkSize) => {
     const result = [];
     for (let i = 0; i < array.length; i += chunkSize) {
@@ -90,8 +72,63 @@ const chunkArray = (array, chunkSize) => {
     }
     return result;
 };
+function getTranslate(x, y, z) {
+    return `translate3d(${x}px, ${y}px, ${z}px)`;
+}
+const typeSplit = {
+    lineClass: 'split-line',
+    wordClass: 'split-word',
+    charClass: 'split-char',
+    tagName: 'span'
+};
+const parseRem = (input) => {
+    return input / 10 * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size"));
+}
+const parseToRem = (input) => {
+    return input * parseFloat(window.getComputedStyle(dom('html')).getPropertyValue("font-size")) / 100;
+}
+const lerp = (x, y, a = 0.1) => x * (1 - a) + y * a;
+const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));
+const invlerp = (x, y, a) => clamp((a - x) / (y - x));
+const range = (x1, y1, x2, y2, a) => lerp(x2, y2, invlerp(x1, y1, a));
+const sawtooth = (x, fract) => x % fract;
 
-const typeSplit = { lineClass: 'split-line', wordClass: 'split-word', charClass: 'split-char', tagName: 'span' };
+const xSetter = (el) => gsap.quickSetter(el, 'x', `px`);
+const xGetter = (el) => gsap.getProperty(el, 'x');
+
+const ySetter = (el) => gsap.quickSetter(el, 'y', `px`);
+const yGetter = (el) => gsap.getProperty(el, 'y');
+
+const rotSetter = (el) => gsap.quickSetter(el, 'rotate', `deg`);
+const rotGetter = (el) => gsap.getProperty(el, 'rotate');
+
+const scaleXSetter = (el) => gsap.quickSetter(el, 'scaleX');
+const scaleXGetter = (el) => gsap.getProperty(el, 'scaleX');
+
 export {
-    dom, addEvent, typeSplit, getRotationDegrees, addEventAll, getIndex, offset, parseRem, parseToRem, sawtooth, generateHtmlFromJson, lerp, chunkArray, clamp, invlerp, range, getTranslate
+    dom,
+    addEvent,
+    typeSplit,
+    getRotationDegrees,
+    addEventAll,
+    getIndex,
+    offset,
+    parseRem,
+    parseToRem,
+    sawtooth,
+    generateHtmlFromJson,
+    lerp,
+    chunkArray,
+    clamp,
+    invlerp,
+    range,
+    getTranslate,
+    xSetter,
+    xGetter,
+    ySetter,
+    yGetter,
+    rotSetter,
+    rotGetter,
+    scaleXSetter,
+    scaleXGetter
 }

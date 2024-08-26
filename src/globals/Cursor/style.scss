@@ -81,8 +81,14 @@
         align-items: center;
         justify-content: center;
 
-
         @include size(0px);
+        opacity: 1;
+        transition: opacity .3s ease-in-out;
+        will-change: transform, opacity;
+
+        &.on-load {
+            opacity: 0;
+        }
 
         &-circle {
             position: absolute;

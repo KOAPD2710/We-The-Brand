@@ -37,7 +37,7 @@ const Footer = ({ FooterData, ...props }) => {
                                         <div className="footer-top-list-item-link" key={link.name}>
                                             <a href={link.link} className='txt txt-16 hover-under'>{link.name}</a>
                                         </div>
-                                    ))}  
+                                    ))}
                                 </div>
                             </div>
                         ))}
@@ -48,7 +48,7 @@ const Footer = ({ FooterData, ...props }) => {
                     <div className="footer-bot-message">
                         <div className="txt txt-16">We strive to push boundaries and create experiences that enable big brands to cut through the noise.</div>
                     </div>
-                    <div className="txt txt-16 footer-bot-date">@2024</div>
+                    <div className="txt txt-16 footer-bot-date">© 2024</div>
                 </div>
             </div>
         </footer>

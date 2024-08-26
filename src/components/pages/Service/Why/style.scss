@@ -75,20 +75,17 @@
                 &-translate {
                     position: absolute;
                     @include size(20rem);
-
-                    opacity: 0;
                     transition: opacity .3s ease-in-out;
                     will-change: opacity, transform;
-                    // transform-origin: bottom;
-
-                    &.active {
-                        opacity: 1;
-                    }
+                    transform-origin: 50% 18rem;
                 }
 
                 &-inner {
+                    --left: 0%;
+                    --right: 100%;
                     position: absolute;
                     @include size(100%);
+                    clip-path: inset(0 var(--right) 0 var(--left));
                 }
             }
         }

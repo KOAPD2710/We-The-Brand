@@ -20,7 +20,7 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                     </div>
                 </div>
                 <div className="service-client-cta">
-                    <div className="txt txt-16 service-client-date">@2024</div>
+                    <div className="txt txt-16 service-client-date">© 2024</div>
                     <div className="service-client-img-wrapper">
                         <div className="service-client-img">
                             {ClientImg}

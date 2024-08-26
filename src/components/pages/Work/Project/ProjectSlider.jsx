@@ -1,96 +1,154 @@
-import { getLenis } from '@/components/core/lenis';
-import { lerp, parseRem, parseToRem, sawtooth } from '@/js/utils';
-import { useKeenSlider } from 'keen-slider/react';
-import { useState, useEffect } from 'react';
+import { getLenis } from "@/components/core/lenis";
+import {
+	lerp,
+	parseRem,
+	parseToRem,
+	sawtooth,
+	scaleXSetter,
+	xSetter,
+} from "@/js/utils";
+import { useKeenSlider } from "keen-slider/react";
+import { useState, useEffect } from "react";
 
 const isInview = (el, gap) => {
-    let viewport = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    }
-    const { width, left, right } = el.getBoundingClientRect()
+	let viewport = {
+		width: window.innerWidth,
+		height: window.innerHeight,
+	};
+	const { width, left, right } = el.getBoundingClientRect();
 
-    return (left <= viewport.width + gap && right >= -gap) ? true : false
-}
+	return left <= viewport.width + gap && right >= -gap ? true : false;
+};
 
 const ProjectSlider = ({ allProject, ...props }) => {
-    let currScroll = 0;
-    let time = 0
+	let currScroll = 0;
+	let time = 0;
+	let direction = 1;
+	let isDevMode = false;
 
-    useEffect(() => {
-        const lenis = getLenis(true);
+	useEffect(() => {
+		const lenis = getLenis(true);
 
-        lenis.on('scroll', (e) => {
-            currScroll = lerp(currScroll, currScroll + e.direction * 3 * Math.abs(e.velocity), .05);
-        });
+		lenis.on("scroll", (e) => {
+			let targetScroll = currScroll + e.direction * 3 * Math.abs(e.velocity);
+			currScroll = lerp(currScroll, targetScroll, 0.05);
+			direction = e.direction;
+		});
 
-        return () => {
-            lenis.off('scroll');
-        };
-    }, [])
+		return () => {
+			lenis.off("scroll");
+		};
+	}, []);
 
-    useEffect(() => {
-        const target = {
-            allThumbs: Array.from(document.querySelectorAll('.work-project-thumb-item')),
-            wrapper: document.querySelector('.work-project-thumb')
-        }
+	useEffect(() => {
+		const target = {
+			wrapper: document.querySelector(".work-project-thumb"),
+			allThumbs: Array.from(document.querySelectorAll(".work-project-thumb-item")),
+			pagiWrapper: document.querySelector(".work-project-pagi-wrapper"),
+			allPagination: Array.from(document.querySelectorAll(".work-project-pagi-item")),
+			testProcess: document.querySelector(".work-project-pagi .test-process"),
+			testPos: document.querySelector(".work-project-pagi .test-pos")
+		};
+		if (!isDevMode) {
+			target.testPos.remove()
+		}
 
-        let wrapperWidth = target.wrapper.clientWidth
-        document.querySelector('.work-project').style.height = `${wrapperWidth * 4}px`
+		let wrapperWidth = target.wrapper.clientWidth;
+		document.querySelector(".work-project").style.height = `${wrapperWidth * 4
+			}px`;
 
-        let raf;
-        let initPos = Array.from(target.allThumbs, (el) => 0);
-        let expandWidth = parseRem(10 * parseFloat(window.getComputedStyle(target.wrapper).getPropertyValue('--expand-w')))
+		let raf;
+		let initPos = Array.from(target.allThumbs, (el) => 0);
+		let expandWidth = parseRem(
+			10 *
+			parseFloat(
+				window
+					.getComputedStyle(target.wrapper)
+					.getPropertyValue("--expand-w"),
+			),
+		);
+		let pagiWrapperOffsetLeft = target.pagiWrapper.getBoundingClientRect().left;
+		let pagiWrapperWidth = target.pagiWrapper.getBoundingClientRect().width;
 
-        function translateThumb() {
-            time += 1 / 2
+		function translateThumb() {
+			time += (direction > 0 ? -1 : 1) / 2;
+			let scrollPos = -currScroll + time;
+			let process = sawtooth(Math.abs((-wrapperWidth * 20 + scrollPos) / wrapperWidth), 1,);
+			let processOffset = (-wrapperWidth * 20 + scrollPos) / wrapperWidth;
 
-            target.allThumbs.forEach((el, idx) => {
-                let targetImg = el.querySelector('.work-project-thumb-item-img img')
-                const { left, width, right } = el.getBoundingClientRect()
-                if (right < 0) {
-                    let multiply = Math.floor((currScroll + time) / wrapperWidth) + (idx === (target.allThumbs.length - 1) ? 0 : 1)
-                    initPos[idx] = wrapperWidth * multiply
-                }
-                if (right > wrapperWidth) {
-                    let multiply = Math.floor((currScroll + time) / wrapperWidth)
-                    initPos[idx] = wrapperWidth * multiply
-                }
-                let normalizeOffset = (right / (window.innerWidth + width) - .5) * 2
+			target.allThumbs.forEach((el, idx) => {
+				let targetImg = el.querySelector(".work-project-thumb-item-img img");
+				const { left, width, right } = el.getBoundingClientRect();
+				if (right < -window.innerWidth / 2) {
+					let multiply =
+						Math.floor(-scrollPos / wrapperWidth) +
+						(idx === target.allThumbs.length - 1 ? 0 : 1);
+					initPos[idx] = wrapperWidth * multiply;
+				}
+				if (right > wrapperWidth - window.innerWidth / 2) {
+					let multiply = Math.floor(-scrollPos / wrapperWidth);
+					initPos[idx] = wrapperWidth * multiply;
+				}
+				let normalizeOffset = (right / (window.innerWidth + width) - 0.5) * 2;
+				xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
+				xSetter(el)(scrollPos + initPos[idx]);
+			});
 
-                if (idx == 0) {
-                    console.log(normalizeOffset);
-                }
-                targetImg.style.transform = `translateX(${-normalizeOffset * expandWidth / 2}px)`
-                el.style.transform = `translateX(${-currScroll - time + initPos[idx]}px)`
-                // el.style.transform = `translateX(${-860}px)`
-                // el.style.transform = `translateX(${1745}px)`
-            });
-            raf = window.requestAnimationFrame(translateThumb);
-        }
+			xSetter(target.testProcess)(process * target.pagiWrapper.getBoundingClientRect().width)
 
-        raf = window.requestAnimationFrame(translateThumb);
+			target.allPagination.forEach((el, idx) => {
+				const { left, width } = el.getBoundingClientRect();
+				let leftProcess = (left - pagiWrapperOffsetLeft) / pagiWrapperWidth;
+				let midProcess = (left - pagiWrapperOffsetLeft + width / 2) / pagiWrapperWidth;
+				// let normalizeProcess = (((process - midProcess) * target.allPagination.length) - .5) * 2;
+				// let limitProcess = Math.max(Math.min(normalizeProcess, 3), -3)
+				// let pagiProcess = process / (leftProcess);
+				let limit = 2.5
 
-        return () => {
-            window.cancelAnimationFrame(raf);
-        };
-    }, []);
+				let test = Math.max(Math.min((process - midProcess) * target.allPagination.length, limit), -limit) / limit
+				if (idx == 1) {
+					if (isDevMode) {
+						target.testPos.innerHTML = process
+					}
+				}
+				el.style.setProperty('--radius', test);
+			});
 
 
-    return (
-        <div className="work-project-thumb">
-            {allProject.map((proj, idx) => (
-                <div className="work-project-thumb-item" key={proj.name + idx}>
-                    {/* <div className="h1 name">
-                        {proj.name}-{idx}
-                    </div> */}
-                    <div className="work-project-thumb-item-img">
-                        <img src={proj.thumb.src} alt="" className='img img-fill' />
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
-}
+			raf = window.requestAnimationFrame(translateThumb);
+		}
+
+		raf = window.requestAnimationFrame(translateThumb);
+
+		return () => {
+			window.cancelAnimationFrame(raf);
+		};
+	}, []);
+
+	return (
+		<>
+			<div className="work-project-thumb">
+				{allProject.map((proj, idx) => (
+					<div className="work-project-thumb-item" key={proj.name + idx}>
+						<div className="work-project-thumb-item-img">
+							<img src={proj.thumb.src} alt="" className="img img-fill" />
+						</div>
+					</div>
+				))}
+			</div>
+			<div className="work-project-pagi">
+				<div className="work-project-pagi-wrapper">
+					<div className="test-process txt-24"></div>
+					<div className="test-pos txt-24">1</div>
+					{allProject.map((proj, idx) => (
+						<div className="work-project-pagi-item" key={proj.name + idx}>
+							<div className="work-project-pagi-item-inner"></div>
+						</div>
+					))}
+				</div>
+			</div>
+		</>
+	);
+};
 
 export default ProjectSlider;

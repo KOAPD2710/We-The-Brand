@@ -1,5 +1,6 @@
 // mainScript.jsx (rename to .jsx if needed)
 import { initLenis, getLenis } from "@/components/core/lenis";
+import { initMouse } from "@/components/core/mouse";
 import { useEffect } from "react";
 
 const MainScript = ({ isInfiniteScroll, ...props }) => {
@@ -8,6 +9,7 @@ const MainScript = ({ isInfiniteScroll, ...props }) => {
         if (!getLenis(isInfiniteScroll)) {
             initLenis(isInfiniteScroll);
         }
+        initMouse()
     }, []);
 
     return null;

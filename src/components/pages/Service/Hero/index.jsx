@@ -51,7 +51,7 @@ const ServiceHero = ({ ...props }) => {
         <section className="service-hero" ref={ref} data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-hero-line line-1 slot-1">
-                    <div className="txt txt-16">@2024</div>
+                    <div className="txt txt-16">© 2024</div>
                 </div>
                 <div className="service-hero-line line-1 slot-2">
                     <div className="txt txt-16">&#123; Helping with &#125;</div>
