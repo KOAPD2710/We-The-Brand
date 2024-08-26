@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import './style.scss'
-import { chunkArray } from '@/js/utils';
+import React, { useEffect } from 'react';
+import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 
 const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
@@ -11,7 +11,9 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                     <div className="service-client-head-wrapper">
                         <div className="h1 txt-up service-client-title">
                             Who
-                            <div className="txt txt-16 service-client-label">&#123; Our clients &#125;</div>
+                            <div className="txt txt-16 service-client-label">
+                                <CurlyBrackets>Our clients</CurlyBrackets>
+                            </div>
                         </div>
                         <div className="h1 txt-up service-client-title">
                             (<span className='txt-italic txt-med'>Collaborated</span>)

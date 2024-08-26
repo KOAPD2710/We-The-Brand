@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
 import './style.scss'
+import { useEffect } from 'react';
 import { animate, inView, timeline, stagger } from 'motion';
 import AnimMaskLine from '@/components/common/AnimMaskLine';
+import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 const ServiceCollaborate = ({ CollaImg, ...props }) => {
 
@@ -25,12 +26,14 @@ const ServiceCollaborate = ({ CollaImg, ...props }) => {
     return (
         <section className='service-colla'>
             <div className="container grid">
-                <div className="service-colla-label">&#123; How we collaborate &#125;</div>
+                <div className="service-colla-label">
+                    <CurlyBrackets>How we collaborate</CurlyBrackets>
+                </div>
                 <div className="txt txt-16 service-colla-desc">
                     Mixing multicultural talents with top-notch service vibes!
                 </div>
                 <AnimMaskLine className="service-colla" textClass="h2">
-                    Alright, let's kick things off by getting to know each other better. We're all about diving (<span className='txt-italic'>deep into</span>) your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead.
+                    Alright, let's kick things off by getting to know each other better. We're all about diving (<span className='txt-italic'>deep</span> <span className='txt-italic'>into</span>) your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead.
                 </AnimMaskLine>
                 <div className="service-colla-thumb">
                     {CollaImg.map((img) => (

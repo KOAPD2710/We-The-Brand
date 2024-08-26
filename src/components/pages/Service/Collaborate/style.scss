@@ -9,13 +9,17 @@
 
         contain: paint;
 
+        @include md {
+            padding-block: 5rem 7rem;
+        }
+
         &-label {
-            grid-column: 1/3;
+            grid-column: 1/4;
             grid-row: 1/2;
         }
 
         &-desc {
-            grid-column: 1/3;
+            grid-column: 1/4;
             grid-row: 2/3;
             align-self: end;
         }
@@ -41,19 +45,35 @@
 
             margin-top: 10rem;
 
+            @include md {                
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 8rem;
+            }
+
             &-img {
                 contain: paint;
                 
                 &-wrapper {
                     height: 50rem;
 
+                    @include md {
+                        height: 31.1rem;
+                    }
+
                     &:nth-child(3) {
                         grid-column: 4/5;
+
+                        @include md {
+                            grid-column: unset;
+                        }
                     }
                 }
 
                 &,.img {
                     height: 50rem;
+                    @include md {
+                        height: 31.1rem;
+                    }
                 }
             }
         }

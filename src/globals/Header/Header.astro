@@ -1,5 +1,6 @@
 ---
     import Header from './';
+    import Logo from '@assets/logo.svg?raw';
     
     const currentPath = Astro.url.pathname;
 
@@ -20,4 +21,10 @@
 ---
 
 
-<Header currPath={currentPath} navigation={pathNav} client:visible/>
+<Header
+    currPath={currentPath}
+    navigation={pathNav}
+    client:load
+>
+    <Fragment set:html={Logo} slot='logo'></Fragment>
+</Header>

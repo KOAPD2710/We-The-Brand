@@ -1,9 +1,10 @@
+import './style.scss'
 import { useEffect, useState } from 'react';
 import { scroll, inView, animate, timeline, stagger } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 import { parseToRem, lerp, typeSplit } from '@/js/utils';
-import './style.scss'
 import SplitType from 'split-type';
+import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 const ServicePitch = ({ PitchImg, ...props }) => {
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
@@ -15,8 +16,6 @@ const ServicePitch = ({ PitchImg, ...props }) => {
         const target = document.querySelector('.service-pitch .scramble-txt')
         scrambleText(target, text)
     }
-
-
 
     useEffect(() => {
         // if (!isScrambleRun) return;
@@ -143,7 +142,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
             <div className="container grid">
                 <div className="service-pitch-content">
                     <div className="txt txt-16 service-pitch-label">
-                        &#123; Out pitch &#125;
+                        <CurlyBrackets>Out pitch</CurlyBrackets>
                     </div>
                     <h1 className='h1 txt-up service-pitch-title'>
                         We help brands be their most <span>(<span className='txt-italic txt-med'>inspiring</span>)</span> selves.<br /> Own their<br /><span className='txt-gradient txt-clip scramble-txt'>quirks</span>.

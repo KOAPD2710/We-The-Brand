@@ -120,7 +120,10 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                             &nbsp;
                         </div>
                         <div className="h1 txt-up service-why-title service-why-title-end">
-                            (<span className='txt-italic txt-med'>creative</span> )<br />connection
+                            <div className="service-why-title-end-inner mid">
+                                (<span className='txt-italic txt-med'>creative</span> )
+                            </div>
+                            <div className="service-why-title-end-inner end">connection</div>
                         </div>
                     </div>
                 </div>

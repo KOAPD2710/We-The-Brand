@@ -1,9 +1,9 @@
+import './style.scss';
 import { useEffect, useState, useRef } from 'react';
 import { useStore } from '@nanostores/react';
 import { isHeaderOnTop } from '@/globals/Header/store';
 import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
-import './style.scss';
 
 
 const ServiceHero = ({ ...props }) => {

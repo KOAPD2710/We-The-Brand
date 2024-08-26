@@ -60,6 +60,10 @@ body {
     --grid-gap: 2rem;
     display: grid;
     column-gap: var(--grid-gap);
+
+    @include md {
+        --grid-gap: 1.6rem;
+    }
 }
 
 .container {
@@ -78,6 +82,15 @@ body {
 
     &.grid {
         grid-template-columns: repeat(var(--grid-column), 1fr);
+    }
+
+    @include md {
+        --grid-column: 12;
+        --container-padding: 4rem;
+    }
+    @include sm {
+        --grid-column: 4;
+        --container-padding: 1.6rem;
     }
 }
 

@@ -6,7 +6,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    @include size(100%, 100vh);
+    @include size(100%, 100dvh);
 
     opacity: .5;
     mix-blend-mode: difference;
