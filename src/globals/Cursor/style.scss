@@ -16,6 +16,11 @@
 
     --animation: .3s ease-out;
 
+
+    @include md {
+        display: none;
+    }
+
     &-coor {
         position: absolute;
         @include size(0px);

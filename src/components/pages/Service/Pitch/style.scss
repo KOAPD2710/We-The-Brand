@@ -14,6 +14,10 @@
             @include md {
                 grid-column: 3/11;
             }
+
+            @include sm {
+                grid-column: 1/-1;
+            }
         }
 
         &-label {

@@ -1,22 +1,35 @@
 import './style.scss'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
+import { chunkArray } from '@/js/utils';
 
 
 const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
+    const [rowItems, setRowItems] = useState(3);
+    const [titleTxt, setTitleTxt] = useState('Collaborated');
+
+
+    useEffect(() => {
+        if (window.innerWidth < 768) {
+            setRowItems(2)
+            setTitleTxt('Partnered')
+        }
+    }, [])
+
+
     return (
         <section className="service-client" data-cursor-showcoor>
             <div className="container grid">
                 <div className="service-client-head">
                     <div className="service-client-head-wrapper">
-                        <div className="h1 txt-up service-client-title">
-                            Who
+                        <div className="h1 txt-up service-client-title label-wrapper">
+                            <div className="txt txt-title">Who</div>
                             <div className="txt txt-16 service-client-label">
                                 <CurlyBrackets>Our clients</CurlyBrackets>
                             </div>
                         </div>
                         <div className="h1 txt-up service-client-title">
-                            (<span className='txt-italic txt-med'>Collaborated</span>)
+                            (<span className='txt-italic txt-med'>{titleTxt}</span>)
                         </div>
                         <div className="h1 txt-up service-client-title">With Us</div>
                     </div>
@@ -33,7 +46,7 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                     </div>
                 </div>
                 <div className="service-client-list">
-                    {ClientData.map((list, listIdx) => (
+                    {chunkArray(ClientData, rowItems).map((list, listIdx) => (
                         <div className="h2 service-client-row" key={listIdx}>
                             {list.map((client, clientIdx) => (
                                 <React.Fragment key={client}>
@@ -45,6 +58,9 @@ const ServiceClient = ({ ClientImg, ClientData, ...props }) => {
                             ))}
                         </div>
                     ))}
+                </div>
+                <div className="service-client-link-sm-wrapper">
+                    <a href='./' className="txt txt-16 txt-med hover-line service-client-link">Let's work together!</a>
                 </div>
             </div>
         </section>

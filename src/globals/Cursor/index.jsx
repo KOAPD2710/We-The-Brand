@@ -86,7 +86,9 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
             myReq = requestAnimationFrame(moveCursor)
         }
 
-        myReq = requestAnimationFrame(moveCursor)
+        if (window.innerWidth > 991) {
+            myReq = requestAnimationFrame(moveCursor)
+        }
 
         return () => {
             window.removeEventListener('pointermove', getCursor)

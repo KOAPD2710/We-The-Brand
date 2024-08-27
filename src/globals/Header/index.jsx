@@ -6,32 +6,35 @@ import { isHeaderOnTop, isHeaderOnBot } from './store';
 import './style.scss';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
+function getCurrTime(timeZone) {
+    let result = new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: timeZone || 'Asia/Ho_Chi_Minh',
+    }).format(new Date())
+
+    return result
+}
+
 const Header = ({ logo, pathNav, currPath, ...props }) => {
     const header = useRef();
     const $isHeaderOnTop = useStore(isHeaderOnTop);
     const $isHeaderOnBot = useStore(isHeaderOnBot);
 
-    const [vietnamTime, setVietnamTime] = useState('9:30 AM');
-    const [singaporeTime, setSingaporeTime] = useState('10:30 AM');
+    const [vietnamTime, setVietnamTime] = useState(getCurrTime('Asia/Ho_Chi_Minh'));
+    const [singaporeTime, setSingaporeTime] = useState(getCurrTime('Asia/Singapore'));
+
+
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setVietnamTime(
-                new Intl.DateTimeFormat('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                    timeZone: 'Asia/Ho_Chi_Minh',
-                }).format(new Date())
-            );
-            setSingaporeTime(
-                new Intl.DateTimeFormat('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                    timeZone: 'Asia/Singapore',
-                }).format(new Date())
-            );
+            if (getCurrTime('Asia/Ho_Chi_Minh') != vietnamTime) {
+                setVietnamTime(getCurrTime('Asia/Ho_Chi_Minh'))
+            }
+            if (getCurrTime('Asia/Singapore') != singaporeTime) {
+                setVietnamTime(getCurrTime('Asia/Singapore'))
+            }
         }, 1000);
         return () => clearInterval(interval);
     }, [vietnamTime, singaporeTime]);

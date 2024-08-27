@@ -40,65 +40,66 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
             thumbTranslate: document.querySelector('.service-why-list-thumb-translate'),
         }
 
-        let activeIdx = undefined;
-
-        target.listItem.forEach((el, idx) => {
-            el.addEventListener('pointerenter', function (e) {
-                let itemIdx = [...target.listItem].indexOf(el)
-                activeIdx = itemIdx
-            })
-            el.addEventListener('pointerleave', function () {
-                activeIdx = undefined;
-            })
-        })
-        let cloneArr = Array.from(target.listItem, (el) => el.cloneNode(true))
-
-        // console.log(cloneArr);
-
-        // gsap.set(target.listItem, {
-        //     clipPath: `inset`
-        // })
-
         let raf;
-        let speed = 0.06
-        let pointer = {
-            x: 0,
-            y: 0
-        }
-        let targetPos = {
-            x: 0,
-            y: 0
-        }
 
-        function moveThumb() {
-            let curPos = {
-                x: xGetter(target.thumbTranslate),
-                y: yGetter(target.thumbTranslate),
-                rotate: rotGetter(target.thumbTranslate)
+        function moveThumbFunc() {
+            let speed = 0.06
+            let pointer = {
+                x: 0,
+                y: 0
             }
+            let targetPos = {
+                x: 0,
+                y: 0
+            }
+            let activeIdx = undefined;
 
-            if (ScrollTrigger.isInViewport(target.thumbWrapper)) {
-                pointer = Mouse()
+            target.listItem.forEach((el, idx) => {
+                el.addEventListener('pointerenter', function (e) {
+                    let itemIdx = [...target.listItem].indexOf(el)
+                    activeIdx = itemIdx
+                })
+                el.addEventListener('pointerleave', function () {
+                    activeIdx = undefined;
+                })
+            })
 
-                let wrapperBounding = target.thumbWrapper.getBoundingClientRect()
-                targetPos = {
-                    x: pointer.x - wrapperBounding.left - wrapperBounding.width / 2,
-                    y: pointer.y - wrapperBounding.top - wrapperBounding.height / 2 - parseRem(50),
+
+
+            function moveThumb() {
+                let curPos = {
+                    x: xGetter(target.thumbTranslate),
+                    y: yGetter(target.thumbTranslate),
+                    rotate: rotGetter(target.thumbTranslate)
                 }
-                let targetRotate = targetPos.x / (wrapperBounding.width / 2) * 30
 
-                xSetter(target.thumbTranslate)(lerp(curPos.x, targetPos.x, speed))
-                ySetter(target.thumbTranslate)(lerp(curPos.y, targetPos.y, speed))
-                rotSetter(target.thumbTranslate)(lerp(curPos.rotate, targetRotate, speed))
-            } else {
-                xSetter(target.thumbTranslate)(lerp(curPos.x, 0, speed))
-                ySetter(target.thumbTranslate)(lerp(curPos.y, 0, speed))
-                rotSetter(target.thumbTranslate)(lerp(curPos.rotate, 0, speed))
+                if (ScrollTrigger.isInViewport(target.thumbWrapper)) {
+                    pointer = Mouse()
+
+                    let wrapperBounding = target.thumbWrapper.getBoundingClientRect()
+                    targetPos = {
+                        x: pointer.x - wrapperBounding.left - wrapperBounding.width / 2,
+                        y: pointer.y - wrapperBounding.top - wrapperBounding.height / 2 - parseRem(50),
+                    }
+                    let targetRotate = targetPos.x / (wrapperBounding.width / 2) * 30
+
+                    xSetter(target.thumbTranslate)(lerp(curPos.x, targetPos.x, speed))
+                    ySetter(target.thumbTranslate)(lerp(curPos.y, targetPos.y, speed))
+                    rotSetter(target.thumbTranslate)(lerp(curPos.rotate, targetRotate, speed))
+                } else {
+                    xSetter(target.thumbTranslate)(lerp(curPos.x, 0, speed))
+                    ySetter(target.thumbTranslate)(lerp(curPos.y, 0, speed))
+                    rotSetter(target.thumbTranslate)(lerp(curPos.rotate, 0, speed))
+                }
+
+                raf = window.requestAnimationFrame(moveThumb)
             }
-
             raf = window.requestAnimationFrame(moveThumb)
         }
-        raf = window.requestAnimationFrame(moveThumb)
+
+        if (window.innerWidth > 991) {
+            moveThumbFunc()
+        }
 
         return () => {
             cancelAnimationFrame(raf)
@@ -128,12 +129,10 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                     </div>
                 </div>
                 <div className="service-why-main">
-                    <div className="service-why-label-wrapper">
-                        <div className="txt txt-16 service-why-label">
-                            <CurlyBrackets>
-                                Why choose us
-                            </CurlyBrackets>
-                        </div>
+                    <div className="txt txt-16 service-why-label">
+                        <CurlyBrackets>Why choose us</CurlyBrackets>
+                    </div>
+                    <div className="service-why-link-wrapper">
                         <a href="./" className='txt-med hover-line service-why-link'>Let's work together!</a>
                     </div>
                     <div className="service-why-list">
@@ -148,7 +147,10 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                                 <div className="txt txt-16 service-why-item-desc">
                                     {reason.desc}
                                 </div>
-                                <div className="line"></div>
+                                <div className="line line-top"></div>
+                                {idx == WhyData.length - 1 && (
+                                    <div className="line line-bot"></div>
+                                )}
                             </div>
                         ))}
                         <div className="service-why-list-thumb">

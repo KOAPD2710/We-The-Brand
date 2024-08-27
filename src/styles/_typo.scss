@@ -72,11 +72,17 @@ html {
         --fs-h1: 7.2rem;
 
         --fs-h2: 4.8rem;
+
+        --fs-h3: 2.8rem;
     }
 
     @include sm {
         --fs-h0: 10rem;
 
+        --fs-h1: 5.4rem;
+
+        --fs-h2: 3.6rem;
+        --lh-h2: 1.05em;
     }
 }
 

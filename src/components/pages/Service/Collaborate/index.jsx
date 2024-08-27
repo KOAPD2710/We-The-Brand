@@ -33,7 +33,7 @@ const ServiceCollaborate = ({ CollaImg, ...props }) => {
                     Mixing multicultural talents with top-notch service vibes!
                 </div>
                 <AnimMaskLine className="service-colla" textClass="h2">
-                    Alright, let's kick things off by getting to know each other better. We're all about diving (<span className='txt-italic'>deep</span> <span className='txt-italic'>into</span>) your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead.
+                    Alright, let's kick things off by getting to know each other better. We're all about diving <span>(<span className='txt-italic'>deep</span></span> <span><span className='txt-italic'>into</span>)</span> your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead.
                 </AnimMaskLine>
                 <div className="service-colla-thumb">
                     {CollaImg.map((img) => (

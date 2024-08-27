@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import './style.scss';
+import { useEffect } from 'react';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 
@@ -30,7 +30,7 @@ const ServiceService = ({ Expertise, ...props }) => {
                     {Expertise.map((service) => (
                         <div className="service-service-item" key={service.name}>
                             <div className="service-service-label">
-                                &#123; {service.name} &#125;
+                                <CurlyBrackets>{service.name}</CurlyBrackets>
                             </div>
                             <div className="line"></div>
                             <div className="txt txt-16 service-service-desc">
