@@ -5,7 +5,7 @@
 .service {
     &-hero {
         position: relative;
-        height: 100dvh;
+        height: 100svh;
         padding-bottom: 2rem;
         contain: paint;
 
@@ -154,7 +154,7 @@
             z-index: 1;
             user-select: none;
             pointer-events: none;
-            @include size(100vw, 100vh);
+            @include size(100vw, 100svh);
 
             video.img {
                 position: relative;
