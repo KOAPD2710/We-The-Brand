@@ -86,9 +86,9 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         toggleRef.current.addEventListener('click', function () {
             let isActive = headerRef.current.classList.contains('active')
             if (isActive) {
+                setIsNavOpen(false)
+                lenis.start()
                 setTimeout(() => {
-                    setIsNavOpen(false)
-                    lenis.start()
                 }, 100)
             } else {
                 lenis.stop()
