@@ -53,9 +53,11 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         }
     }
 
+    
+
 
     return (
-        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderUp && 'on-up')} ref={header}>
+        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderUp && 'on-up', isNavOpen && 'active')} ref={header}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">{logo}</a>

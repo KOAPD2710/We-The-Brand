@@ -1,4 +1,4 @@
-import { getLenis } from "@/components/core/lenis";
+import { getLenis, resetLenis } from "@/components/core/lenis";
 import {
 	lerp,
 	parseRem,
@@ -7,18 +7,7 @@ import {
 	scaleXSetter,
 	xSetter,
 } from "@/js/utils";
-import { useKeenSlider } from "keen-slider/react";
-import { useState, useEffect } from "react";
-
-const isInview = (el, gap) => {
-	let viewport = {
-		width: window.innerWidth,
-		height: window.innerHeight,
-	};
-	const { width, left, right } = el.getBoundingClientRect();
-
-	return left <= viewport.width + gap && right >= -gap ? true : false;
-};
+import { useState, useEffect, useRef } from "react";
 
 const ProjectSlider = ({ allProject, ...props }) => {
 	let currScroll = 0;
@@ -26,11 +15,14 @@ const ProjectSlider = ({ allProject, ...props }) => {
 	let direction = 1;
 	let isDevMode = false;
 
+
+
 	useEffect(() => {
-		const lenis = getLenis(true);
+		resetLenis(window.innerWidth > 991 ? true : false)
+		const lenis = getLenis();
 
 		lenis.on("scroll", (e) => {
-			let targetScroll = currScroll + e.direction * 3 * Math.abs(e.velocity);
+			let targetScroll = currScroll + e.direction * 3.5 * Math.abs(e.velocity);
 			currScroll = lerp(currScroll, targetScroll, 0.05);
 			direction = e.direction;
 		});
@@ -38,7 +30,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 		return () => {
 			lenis.off("scroll");
 		};
-	}, []);
+	}, []); //Lenis
 
 	useEffect(() => {
 		const target = {
@@ -130,7 +122,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 		if (window.innerWidth > 991) {
 			translateThumbFunc()
 		} else {
-			cloneInfinityDOM()
+			// cloneInfinityDOM()
 		}
 
 		return () => {
@@ -140,9 +132,9 @@ const ProjectSlider = ({ allProject, ...props }) => {
 
 	return (
 		<>
-			<div className="work-project-thumb container grid">
+			<div className="keen-slider work-project-thumb container grid">
 				{allProject.map((proj, idx) => (
-					<div className="work-project-thumb-item" key={proj.name + idx}>
+					<div className="keen-slider__slide work-project-thumb-item" key={proj.name + idx}>
 						<div className="work-project-thumb-item-img">
 							<img src={proj.thumb.src} alt="" className="img img-fill" />
 						</div>

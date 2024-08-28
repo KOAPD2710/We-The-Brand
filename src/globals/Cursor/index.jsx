@@ -15,9 +15,9 @@ const GlobalCursor = ({ PlusArrow, ...props }) => {
     function getCursor(e) {
         if (
             // cursorCoor.current.classList.contains('on-load') &&
-            cursorInner.current.classList.contains('on-load')) {
+            cursorInner.current?.classList.contains('on-load')) {
             // cursorCoor.current.classList.remove('on-load')
-            cursorInner.current.classList.remove('on-load')
+            cursorInner.current?.classList.remove('on-load')
         }
     }
 

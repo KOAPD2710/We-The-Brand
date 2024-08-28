@@ -31,6 +31,12 @@
         transform: translateY(-100%);
     }
 
+    &.active {
+        color: $cl-bg;
+        filter: invert(0);
+        mix-blend-mode: unset;
+    }
+
     &-menu {
         &-wrapper {
             display: none;
@@ -280,6 +286,8 @@
                 pointer-events: none;
                 user-select: none;
                 opacity: 0;
+                transition: opacity .3s ease;
+                will-change: opacity;
 
                 &.active {
                     opacity: 1;

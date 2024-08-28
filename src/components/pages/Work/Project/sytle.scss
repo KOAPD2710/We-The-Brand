@@ -48,6 +48,13 @@
 					position: unset;
 					@include size(100%);
 					flex-direction: column;
+					padding-top: 12rem;
+					padding-bottom: calc(50dvh - 48.2rem / 2);
+				}
+
+				@include sm {
+					padding-top: 10rem;
+					padding-bottom: calc(50dvh - 24.5rem * 1.5);
 				}
 			}
 
@@ -71,6 +78,11 @@
 					
 					padding-right: unset;
 					padding-bottom: 2rem;
+				}
+
+				@include sm {
+					height: 24.5rem;
+					padding-bottom: 1.6rem;
 				}
 
 				.name {
@@ -107,6 +119,10 @@
 			justify-content: center;
 			align-items: center;
 			width: 100%;
+
+			@include md {
+				display: none;
+			}
 
 			&-wrapper {
 				position: relative;
