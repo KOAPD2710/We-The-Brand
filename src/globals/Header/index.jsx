@@ -104,7 +104,7 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderHide && 'on-hide', isNavOpen && 'active')} ref={headerRef}>
             <div className="container grid">
                 <div className="header-logo">
-                    <a href="/" className="header-logo-link">{logo}</a>
+                    <a href="#" className="header-logo-link">{logo}</a>
                 </div>
                 <div className={cn('header-nav-wrapper', isNavOpen && 'active')}>
                     <div className="header-location">

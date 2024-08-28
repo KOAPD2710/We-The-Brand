@@ -15,7 +15,7 @@ const Footer = ({ FooterData, ...props }) => {
             trigger: footerRef.current,
             start: 'top top+=20%',
             end: 'bottom bottom-=10%',
-            markers: true,
+            // markers: true,
             onEnter: () => isHeaderHide.set(true),
             onLeaveBack: () => isHeaderHide.set(false),
             onEnterBack: () => isHeaderHide.set(true),

@@ -122,8 +122,8 @@
 			align-items: center;
 			width: 100%;
 
+			display: none;
 			@include md {
-				display: none;
 			}
 
 			&-wrapper {

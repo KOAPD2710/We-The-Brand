@@ -20,7 +20,7 @@ const ServiceHero = ({ ...props }) => {
     }
     useEffect(() => {
         isHeaderLight.set(true);
-    }, [])
+    }, [$isHeaderLight])
 
     useGSAP(() => {
         ScrollTrigger.create({
