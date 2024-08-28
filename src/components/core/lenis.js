@@ -17,8 +17,8 @@ function callLenis(isInfinite) {
         smoothTouch: true,
         touchMultiplier: 2,
         infinite: isInfinite ? true : false,
-        syncTouch: true,
-        syncTouchLerp: 0.075
+        syncTouch: isInfinite ? true : false,
+        syncTouchLerp: isInfinite ? 0.075 : false
     })
 
     lenis.on('scroll', ScrollTrigger.update)
