@@ -46,7 +46,7 @@
 
                         @include sm {
                             grid-row: 3/4;
-                            margin-top: 16.2rem;
+                            margin-top: unset;
                         }
                     }
                     &.slot-2 {
@@ -71,6 +71,7 @@
                         @include sm {
                             grid-row: 2/3;
                             grid-column: 3/-1;
+                            margin-bottom: 50%;
                         }
                     }
                 }
