@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import cn from 'clsx';
 import { scroll, animate } from 'motion';
 import { useStore } from '@nanostores/react';
-import { isHeaderLight, isHeaderUp } from './store';
+import { isHeaderLight, isHeaderHide } from './store';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { getLenis } from '@/components/core/lenis';
 
@@ -21,13 +21,16 @@ function getCurrTime(timeZone) {
 const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
     const header = useRef();
     const $isHeaderLight = useStore(isHeaderLight);
-    const $isHeaderUp = useStore(isHeaderUp);
+    const $isHeaderHide = useStore(isHeaderHide);
+
 
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const [vietnamTime, setVietnamTime] = useState(getCurrTime('Asia/Ho_Chi_Minh'));
     const [singaporeTime, setSingaporeTime] = useState(getCurrTime('Asia/Singapore'));
 
+
+    useEffect(() => { isHeaderHide.set(false); console.log('troll'); }, [])
     useEffect(() => {
         const interval = setInterval(() => {
             if (getCurrTime('Asia/Ho_Chi_Minh') != vietnamTime) {
@@ -53,11 +56,9 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         }
     }
 
-    
-
 
     return (
-        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderUp && 'on-up', isNavOpen && 'active')} ref={header}>
+        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderHide && 'on-hide', isNavOpen && 'active')} ref={header}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">{logo}</a>
@@ -125,6 +126,13 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                                 </React.Fragment>
                             ))}
                         </div>
+                    </div>
+                    <div className="header-nav-curtain">
+                        <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
                     </div>
                 </div>
                 <div className="header-menu-wrapper">

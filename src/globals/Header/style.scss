@@ -27,7 +27,7 @@
         mix-blend-mode: unset;
     }
 
-    &.on-up {
+    &.on-hide {
         transform: translateY(-100%);
     }
 
@@ -341,6 +341,25 @@
                 &:hover {
                     opacity: 1;
                 }
+            }
+        }
+
+        &-curtain {
+            display: none;
+
+            @include md {
+                display: unset;
+                position: absolute;
+                @include size(100%);
+                display: flex;
+
+                background-color: red;
+                z-index: -1;
+            }
+
+            &-inner {
+                background-color: yellowgreen;
+                @include size(100%);
             }
         }
     }

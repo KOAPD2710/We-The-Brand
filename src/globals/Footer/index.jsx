@@ -3,27 +3,28 @@ import { useStore } from '@nanostores/react';
 import { useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 
-import { isHeaderUp } from '../Header/store';
+import { isHeaderHide } from '../Header/store';
 import { scroll } from 'motion';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 const Footer = ({ FooterData, ...props }) => {
     const footerRef = useRef();
-    const $isHeaderUp = useStore(isHeaderUp);
+    const $isHeaderHide = useStore(isHeaderHide);
 
 
     useEffect(() => {
         scroll(({ y }) => {
             if (y.progress > .8) {
-                isHeaderUp.set(true)
+                isHeaderHide.set(true)
             } else {
-                isHeaderUp.set(false)
+                isHeaderHide.set(false)
             }
         }, {
             target: footerRef.current,
             offset: ["start end", "end end"]
         })
     }, [])
+    
     return (
         <footer className='footer' data-cursor-showcoor ref={footerRef}>
             <div className="container grid">

@@ -81,7 +81,7 @@ const ServiceHero = ({ ...props }) => {
                 </div>
             </div>
             <div className="service-hero-bg">
-                <video className='img img-fill' muted autoPlay loop>
+                <video className='img img-fill' muted autoPlay loop playsInline controls={false}>
                     <source src='/video/Ser-hero.mp4' type="video/mp4" />
                 </video>
                 <div className="service-hero-bg-filter"></div>
