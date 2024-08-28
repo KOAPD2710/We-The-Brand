@@ -5,6 +5,7 @@ import { scroll, animate } from 'motion';
 import { useStore } from '@nanostores/react';
 import { isHeaderLight, isHeaderUp } from './store';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
+import { getLenis } from '@/components/core/lenis';
 
 function getCurrTime(timeZone) {
     let result = new Intl.DateTimeFormat('en-US', {
@@ -33,11 +34,25 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                 setVietnamTime(getCurrTime('Asia/Ho_Chi_Minh'))
             }
             if (getCurrTime('Asia/Singapore') != singaporeTime) {
-                setVietnamTime(getCurrTime('Asia/Singapore'))
+                setSingaporeTime(getCurrTime('Asia/Singapore'))
             }
         }, 1000);
         return () => clearInterval(interval);
     }, [vietnamTime, singaporeTime]);
+
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen)
+    }
+    const toggleScroll = () => {
+        const lenis = getLenis()
+
+        if (isNavOpen) {
+            lenis.start()
+        } else {
+            lenis.stop()
+        }
+    }
+
 
     return (
         <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderUp && 'on-up')} ref={header}>
@@ -111,7 +126,7 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                     </div>
                 </div>
                 <div className="header-menu-wrapper">
-                    <button onClick={() => { setIsNavOpen(!isNavOpen) }} className='header-menu-toggle'>
+                    <button onClick={() => { toggleScroll(); toggleNav() }} className='header-menu-toggle'>
                         <div className={cn('ic header-menu-toggle-ic', isNavOpen && 'active')}>
                             <div className="header-menu-toggle-ic-anchor">
                                 <div className='header-menu-toggle-ic-line-anchor open left'>

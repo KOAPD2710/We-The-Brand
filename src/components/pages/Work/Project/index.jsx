@@ -3,29 +3,29 @@ import { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import ProjectSlider from './ProjectSlider';
 
-const Plane = ({ img, positionX, idx, ...props }) => {
-    const ref = useRef()
-    const { viewport, size } = useThree();
-    const aspect = img.width / img.height;
-    const heightPercent = .6;
-    const sizePlane = [aspect * viewport.height * heightPercent, viewport.height * heightPercent]
-    const pos = (positionX) * heightPercent / 226.85
+// const Plane = ({ img, positionX, idx, ...props }) => {
+//     const ref = useRef()
+//     const { viewport, size } = useThree();
+//     const aspect = img.width / img.height;
+//     const heightPercent = .6;
+//     const sizePlane = [aspect * viewport.height * heightPercent, viewport.height * heightPercent]
+//     const pos = (positionX) * heightPercent / 226.85
 
-    useFrame(({ clock }) => {
-        ref.current.position.x -= .01
+//     useFrame(({ clock }) => {
+//         ref.current.position.x -= .01
 
-        return
-    }, [])
+//         return
+//     }, [])
 
-    return (
-        <mesh position={[pos, 0, 0]} ref={ref}>
-            <planeGeometry args={[...sizePlane, 32, 32]} />
-            <shaderMaterial
-                wireframe={true}
-            />
-        </mesh>
-    )
-}
+//     return (
+//         <mesh position={[pos, 0, 0]} ref={ref}>
+//             <planeGeometry args={[...sizePlane, 32, 32]} />
+//             <shaderMaterial
+//                 wireframe={true}
+//             />
+//         </mesh>
+//     )
+// }
 
 
 const WorkProject = ({ allProject, ...props }) => {

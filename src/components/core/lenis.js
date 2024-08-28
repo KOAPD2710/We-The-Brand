@@ -10,7 +10,7 @@ function initLenis(isInfinite) {
     if (!lenis) {
         lenis = new Lenis({
             duration: 1.5,
-            easing: (t) => (easeOutExpo(t)),
+            easing: (window.innerWidth > 991) ? (t) => easeOutExpo(t) : undefined,
             direction: "vertical",
             gestureDirection: "vertical",
             smooth: true,
