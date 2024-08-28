@@ -29,7 +29,6 @@ import ProjectSlider from './ProjectSlider';
 
 
 const WorkProject = ({ allProject, ...props }) => {
-
     return (
         <section className='work-project'>
             {/* <div className="work-project-canvas-wrapper">

@@ -1,12 +1,6 @@
+import Video from "@/components/common/VideoFormat";
 import { getLenis, resetLenis } from "@/components/core/lenis";
-import {
-	lerp,
-	parseRem,
-	parseToRem,
-	sawtooth,
-	scaleXSetter,
-	xSetter,
-} from "@/js/utils";
+import { lerp, parseRem, sawtooth, xSetter } from "@/js/utils";
 import { useState, useEffect, useRef } from "react";
 
 const ProjectSlider = ({ allProject, ...props }) => {
@@ -14,8 +8,6 @@ const ProjectSlider = ({ allProject, ...props }) => {
 	let time = 0;
 	let direction = 1;
 	let isDevMode = false;
-
-
 
 	useEffect(() => {
 		resetLenis(window.innerWidth > 991 ? true : false)
@@ -82,7 +74,9 @@ const ProjectSlider = ({ allProject, ...props }) => {
 						initPos[idx] = wrapperWidth * multiply;
 					}
 					let normalizeOffset = (right / (window.innerWidth + width) - 0.5) * 2;
-					xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
+					if (left > -window.innerWidth / 2 && right < window.innerWidth * 3 / 2) {
+						xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
+					}
 					xSetter(el)(scrollPos + initPos[idx]);
 				});
 
@@ -98,6 +92,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 					let limit = 2.5
 
 					let test = Math.max(Math.min((process - midProcess) * target.allPagination.length, limit), -limit) / limit
+
 					if (idx == 1) {
 						if (isDevMode) {
 							target.testPos.innerHTML = process
@@ -132,11 +127,16 @@ const ProjectSlider = ({ allProject, ...props }) => {
 
 	return (
 		<>
-			<div className="keen-slider work-project-thumb container grid">
+			<div className="work-project-thumb container grid">
 				{allProject.map((proj, idx) => (
-					<div className="keen-slider__slide work-project-thumb-item" key={proj.name + idx}>
+					<div className="work-project-thumb-item" key={proj.name + idx}>
 						<div className="work-project-thumb-item-img">
-							<img src={proj.thumb.src} alt="" className="img img-fill" />
+							{proj.thumbType == 'image' && (
+								<img src={proj.thumb.src} alt="" className="img img-fill" />
+							)}
+							{proj.thumbType == 'video' && (
+								<Video src={proj.thumb} className={'img img-fill'} />
+							)}
 						</div>
 					</div>
 				))}

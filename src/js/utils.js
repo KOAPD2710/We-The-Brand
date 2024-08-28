@@ -105,7 +105,16 @@ const rotGetter = (el) => gsap.getProperty(el, 'rotate');
 const scaleXSetter = (el) => gsap.quickSetter(el, 'scaleX');
 const scaleXGetter = (el) => gsap.getProperty(el, 'scaleX');
 
+function debounce(func, delay = 100) {
+    let timer;
+    return function (event) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(func, delay, event);
+    };
+}
+
 export {
+    debounce,
     dom,
     addEvent,
     typeSplit,

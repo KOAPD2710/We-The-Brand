@@ -4,27 +4,26 @@ import { useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 
 import { isHeaderHide } from '../Header/store';
-import { scroll } from 'motion';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 const Footer = ({ FooterData, ...props }) => {
     const footerRef = useRef();
     const $isHeaderHide = useStore(isHeaderHide);
 
+    useGSAP(() => {
+        ScrollTrigger.create({
+            trigger: footerRef.current,
+            start: 'top top+=20%',
+            end: 'bottom bottom-=10%',
+            markers: true,
+            onEnter: () => isHeaderHide.set(true),
+            onLeaveBack: () => isHeaderHide.set(false),
+            onEnterBack: () => isHeaderHide.set(true),
+            onLeave: () => isHeaderHide.set(false),
+        });
+    })
 
-    useEffect(() => {
-        scroll(({ y }) => {
-            if (y.progress > .8) {
-                isHeaderHide.set(true)
-            } else {
-                isHeaderHide.set(false)
-            }
-        }, {
-            target: footerRef.current,
-            offset: ["start end", "end end"]
-        })
-    }, [])
-    
+
     return (
         <footer className='footer' data-cursor-showcoor ref={footerRef}>
             <div className="container grid">

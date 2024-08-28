@@ -4,6 +4,7 @@ import { useStore } from '@nanostores/react';
 import { isHeaderLight } from '@/globals/Header/store';
 import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
+import { useGSAP } from '@gsap/react';
 
 
 const ServiceHero = ({ ...props }) => {
@@ -17,19 +18,21 @@ const ServiceHero = ({ ...props }) => {
         const target = document.querySelector('.service-hero-line .scramble-txt')
         scrambleText(target, text, { type: 'text' })
     }
-
     useEffect(() => {
-        scroll(({ y }) => {
-            if (y.progress < .5) {
-                isHeaderLight.set(true)
-            } else {
-                isHeaderLight.set(false)
-            }
-        }, {
-            target: ref.current,
-            offset: ["start start", "end start"]
-        })
+        isHeaderLight.set(true);
     }, [])
+
+    useGSAP(() => {
+        ScrollTrigger.create({
+            trigger: ref.current,
+            start: 'top top+=5%',
+            end: 'bottom center',
+            onEnter: () => isHeaderLight.set(true),
+            onLeaveBack: () => isHeaderLight.set(false),
+            onEnterBack: () => isHeaderLight.set(true),
+            onLeave: () => isHeaderLight.set(false),
+        });
+    })
 
     useEffect(() => {
         let timeout;

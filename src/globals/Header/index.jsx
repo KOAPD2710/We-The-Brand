@@ -6,6 +6,9 @@ import { useStore } from '@nanostores/react';
 import { isHeaderLight, isHeaderHide } from './store';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { getLenis } from '@/components/core/lenis';
+import { useGSAP } from '@gsap/react';
+import SplitType from 'split-type';
+import { debounce, typeSplit } from '@/js/utils';
 
 function getCurrTime(timeZone) {
     let result = new Intl.DateTimeFormat('en-US', {
@@ -19,7 +22,8 @@ function getCurrTime(timeZone) {
 }
 
 const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
-    const header = useRef();
+    const headerRef = useRef();
+    const toggleRef = useRef();
     const $isHeaderLight = useStore(isHeaderLight);
     const $isHeaderHide = useStore(isHeaderHide);
 
@@ -30,7 +34,7 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
     const [singaporeTime, setSingaporeTime] = useState(getCurrTime('Asia/Singapore'));
 
 
-    useEffect(() => { isHeaderHide.set(false); console.log('troll'); }, [])
+    useEffect(() => { isHeaderHide.set(false) }, [])
     useEffect(() => {
         const interval = setInterval(() => {
             if (getCurrTime('Asia/Ho_Chi_Minh') != vietnamTime) {
@@ -43,22 +47,61 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         return () => clearInterval(interval);
     }, [vietnamTime, singaporeTime]);
 
-    const toggleNav = () => {
-        setIsNavOpen(!isNavOpen)
-    }
-    const toggleScroll = () => {
+    // useGSAP((context, contextSafe) => {
+    //     gsap.set('.header-nav-curtain-inner', {
+    //         scaleX: 0,
+    //         transformOrigin: 'left'
+    //     })
+    //     // const splitTxt = {
+    //     //     locationName: new SplitType('.header-location-name', { ...typeSplit, types: 'chars' })
+    //     // }
+
+    //     let navOpenAnim = contextSafe(() => {
+    //         gsap.to('.header-nav-curtain-inner', {
+    //             scaleX: toggleRef.current.classList.contains('active') ? 0 : 1,
+    //             stagger: .05,
+    //             duration: .3,
+    //             transformOrigin: toggleRef.current.classList.contains('active') ? 'right' : 'left',
+    //             overwrite: true,
+    //             onStart: () => {
+    //                 !toggleRef.current.classList.contains('active') && setIsNavOpen(true)
+    //             },
+    //             onComplete: () => {
+    //                 // toggleRef.current.classList.contains('active') && setIsNavOpen(false)
+    //             }
+    //         })
+
+    //         console.log(context.data.length);
+    //     })
+
+    //     toggleRef.current.addEventListener('click', navOpenAnim)
+
+    // }, {
+    //     scope: headerRef,
+    // })
+
+    useEffect(() => {
         const lenis = getLenis()
 
-        if (isNavOpen) {
-            lenis.start()
-        } else {
-            lenis.stop()
-        }
-    }
+        toggleRef.current.addEventListener('click', function () {
+            let isActive = headerRef.current.classList.contains('active')
+            if (isActive) {
+                setTimeout(() => {
+                    setIsNavOpen(false)
+                    lenis.start()
+                }, 100)
+            } else {
+                lenis.stop()
+                setIsNavOpen(true)
+            }
+        })
+
+
+    }, [])
 
 
     return (
-        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderHide && 'on-hide', isNavOpen && 'active')} ref={header}>
+        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderHide && 'on-hide', isNavOpen && 'active')} ref={headerRef}>
             <div className="container grid">
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">{logo}</a>
@@ -133,10 +176,12 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                         <div className="header-nav-curtain-inner"></div>
                         <div className="header-nav-curtain-inner"></div>
                         <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
+                        <div className="header-nav-curtain-inner"></div>
                     </div>
                 </div>
                 <div className="header-menu-wrapper">
-                    <button onClick={() => { toggleScroll(); toggleNav() }} className='header-menu-toggle'>
+                    <button className={cn('header-menu-toggle', isNavOpen && 'active')} ref={toggleRef}>
                         <div className={cn('ic header-menu-toggle-ic', isNavOpen && 'active')}>
                             <div className="header-menu-toggle-ic-anchor">
                                 <div className='header-menu-toggle-ic-line-anchor open left'>
