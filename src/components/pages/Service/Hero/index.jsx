@@ -98,10 +98,10 @@ const ServiceHero = ({ ...props }) => {
                 <div className="service-hero-line line-3">
                     <div className="txt h0 txt-up">ideas</div>
                 </div>
-            </div>
-            <div className="service-hero-bg">
-                <Video src={props.video} className='img img-fill'></Video>
-                <div className="service-hero-bg-filter"></div>
+                <div className="service-hero-bg">
+                    <Video src={props.video} className='img img-fill'></Video>
+                    <div className="service-hero-bg-filter"></div>
+                </div>
             </div>
         </section>
     )

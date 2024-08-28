@@ -11,19 +11,24 @@ const Footer = ({ FooterData, ...props }) => {
     const footerRef = useRef();
     const $isHeaderHide = useStore(isHeaderHide);
 
+    useGSAP(() => {
 
-    useEffect(() => {
-        scroll(({ y }) => {
-            if (y.progress > 0.75) {
-                isHeaderHide.set(true)
-            } else {
-                isHeaderHide.set(false)
-            }
-        }, {
-            target: footerRef.current,
-            offset: ['start end', 'end end']
-        })
-    }, [])
+    }, {
+        scope: footerRef
+    })
+
+    // useEffect(() => {
+    //     scroll(({ y }) => {
+    //         if (y.progress > 0.75) {
+    //             isHeaderHide.set(true)
+    //         } else {
+    //             isHeaderHide.set(false)
+    //         }
+    //     }, {
+    //         target: footerRef.current,
+    //         offset: ['start end', 'end end']
+    //     })
+    // }, [])
 
     return (
         <footer className='footer' data-cursor-showcoor ref={footerRef}>
