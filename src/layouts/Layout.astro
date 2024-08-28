@@ -41,6 +41,10 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 			ease: "none",
 			duration: 1,
 		});
+		ScrollTrigger.getAll().forEach(triggers => {
+            triggers.update()
+            triggers.refresh()
+        })
 	</script>
 	<MainScript isInfiniteScroll={isNeedInfiniteScroll} client:load />
 	<SpeedInsights/>

@@ -2,6 +2,7 @@ import './style.scss'
 import { useStore } from '@nanostores/react';
 import { useRef, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
+import { scroll } from 'motion';
 
 import { isHeaderHide } from '../Header/store';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
@@ -10,19 +11,19 @@ const Footer = ({ FooterData, ...props }) => {
     const footerRef = useRef();
     const $isHeaderHide = useStore(isHeaderHide);
 
-    useGSAP(() => {
-        ScrollTrigger.create({
-            trigger: footerRef.current,
-            start: 'top top+=20%',
-            end: 'bottom bottom-=10%',
-            // markers: true,
-            onEnter: () => isHeaderHide.set(true),
-            onLeaveBack: () => isHeaderHide.set(false),
-            onEnterBack: () => isHeaderHide.set(true),
-            onLeave: () => isHeaderHide.set(false),
-        });
-    })
 
+    useEffect(() => {
+        scroll(({ y }) => {
+            if (y.progress > 0.75) {
+                isHeaderHide.set(true)
+            } else {
+                isHeaderHide.set(false)
+            }
+        }, {
+            target: footerRef.current,
+            offset: ['start end', 'end end']
+        })
+    }, [])
 
     return (
         <footer className='footer' data-cursor-showcoor ref={footerRef}>
@@ -39,7 +40,7 @@ const Footer = ({ FooterData, ...props }) => {
                             <div className="footer-nav-item-link-wrapper">
                                 {item.list.map((link) => (
                                     <div className="footer-nav-item-link" key={link.name}>
-                                        <a href={link.link} className='txt txt-16 hover-under'>{link.name}</a>
+                                        <a href={link.link} target='__blank' className='txt txt-16 hover-under'>{link.name}</a>
                                     </div>
                                 ))}
                             </div>

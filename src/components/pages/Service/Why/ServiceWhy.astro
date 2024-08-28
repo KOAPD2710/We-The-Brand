@@ -3,10 +3,10 @@
 import Image from 'astro/components/Image.astro';
 import ServiceWhy from '.';
 import SerWhyImg from '@assets/Ser-Why-img.jpg';
-import SerWhyThumb1 from '@assets/Ser-Why-Thumb-1.jpg';
-import SerWhyThumb2 from '@assets/Ser-Why-Thumb-2.jpg';
-import SerWhyThumb3 from '@assets/Ser-Why-Thumb-3.jpg';
-import SerWhyThumb4 from '@assets/Ser-Why-Thumb-4.jpg';
+import SerWhyThumb1 from '@assets/Work-2.jpg';
+import SerWhyThumb2 from '@assets/Work-3.jpg';
+import SerWhyThumb3 from '@assets/Work-1.jpg';
+import SerWhyThumb4 from '@assets/Proj-1.mp4';
 
 const SerWhyData = [
     {
@@ -27,7 +27,24 @@ const SerWhyData = [
 ]
 
 
-const WhyThumb = [SerWhyThumb1, SerWhyThumb2, SerWhyThumb3, SerWhyThumb4]
+const WhyThumb = [
+    {
+        thumb: SerWhyThumb1,
+        thumbType: 'image'
+    },
+    {
+        thumb: SerWhyThumb2,
+        thumbType: 'image'
+    },
+    {
+        thumb: SerWhyThumb3,
+        thumbType: 'image'
+    },
+    {
+        thumb: SerWhyThumb4,
+        thumbType: 'video'
+    },
+]
 ---
 
 <ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:idle >

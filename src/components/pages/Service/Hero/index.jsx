@@ -5,6 +5,7 @@ import { isHeaderLight } from '@/globals/Header/store';
 import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 import { useGSAP } from '@gsap/react';
+import Video from '@/components/common/VideoFormat';
 
 
 const ServiceHero = ({ ...props }) => {
@@ -12,15 +13,13 @@ const ServiceHero = ({ ...props }) => {
     const $isHeaderLight = useStore(isHeaderLight);
 
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
+
     const txtArray = ['turn ', 'build']
 
     function loopScrambleTxt(text) {
         const target = document.querySelector('.service-hero-line .scramble-txt')
         scrambleText(target, text, { type: 'text' })
     }
-    useEffect(() => {
-        isHeaderLight.set(true);
-    }, [$isHeaderLight])
 
     useGSAP(() => {
         ScrollTrigger.create({
@@ -32,11 +31,28 @@ const ServiceHero = ({ ...props }) => {
             onEnterBack: () => isHeaderLight.set(true),
             onLeave: () => isHeaderLight.set(false),
         });
+    }, {
+        scope: ref,
+        revertOnUpdate: true
     })
+
+
+    // useEffect(() => {
+    //     scroll(({ y }) => {
+    //         if (y.progress > 0.5) {
+    //             isHeaderLight.set(false)
+    //         } else {
+    //             isHeaderLight.set(true)
+    //         }
+    //     }, {
+    //         target: ref.current,
+    //         offset: ['start start', 'end start']
+    //     })
+    // }, [])
 
     useEffect(() => {
         let timeout;
-        inView('.service-hero', () => {
+        inView(ref.current, () => {
             timeout = setTimeout(() => {
                 const nextIndex = (currIdxTxt + 1) % txtArray.length;
                 setcurrIdxTxt(nextIndex);
@@ -84,9 +100,7 @@ const ServiceHero = ({ ...props }) => {
                 </div>
             </div>
             <div className="service-hero-bg">
-                <video className='img img-fill' muted autoPlay loop playsInline controls={false}>
-                    <source src='/video/Ser-hero.mp4' type="video/mp4" />
-                </video>
+                <Video src={props.video} className='img img-fill'></Video>
                 <div className="service-hero-bg-filter"></div>
             </div>
         </section>

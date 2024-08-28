@@ -4,6 +4,7 @@ import { lerp, parseRem, rotGetter, rotSetter, xGetter, xSetter, yGetter, ySette
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { useGSAP } from '@gsap/react';
 import { Mouse } from '@/components/core/mouse';
+import Video from '@/components/common/VideoFormat';
 
 const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
     const container = useRef();
@@ -100,11 +101,12 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
         if (window.innerWidth > 991) {
             moveThumbFunc()
         }
-
+        console.log(WhyData);
         return () => {
             cancelAnimationFrame(raf)
         }
     }, [])
+
 
     return (
         <section className='service-why' ref={container}>
@@ -167,9 +169,14 @@ const ServiceWhy = ({ SerWhyImg, WhyData, WhyThumb, ...props }) => {
                 <div className="service-why-thumb">
                     <div className="service-why-thumb-sticky">
                         <div className="service-why-thumb-translate">
-                            {WhyThumb.map((img, idx) => (
+                            {WhyThumb.map((thumb, idx) => (
                                 <div className="service-why-thumb-item" key={idx}>
-                                    <img src={img.src} alt="" width={img.width} className='img img-fill' />
+                                    {thumb.thumbType == 'image' && (
+                                        <img src={thumb.thumb.src} alt="" width={thumb.thumb.width} className='img img-fill' />
+                                    )}
+                                    {thumb.thumbType == 'video' && (
+                                        <Video src={thumb.thumb} className='img img-fill' />
+                                    )}
                                 </div>
                             ))}
                         </div>

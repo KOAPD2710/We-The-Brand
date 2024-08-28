@@ -159,7 +159,13 @@
             video.img {
                 position: relative;
                 z-index: 1;
-                filter: contrast(1.2) saturate(1.5) brightness(1.1);
+                filter: contrast(2) saturate(1.2) brightness(.95);
+            }
+
+            @keyframes test {
+                0% {
+
+                }
             }
 
             &-filter {
