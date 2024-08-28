@@ -1,6 +1,8 @@
 ---
 import "@styles/global.scss";
 import { ViewTransitions } from 'astro:transitions';
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+
 import BaseHead from "@/globals/BaseHead.astro";
 import Cursor from "@/globals/Cursor/Cursor.astro";
 import Header from "@/globals/Header/Header.astro";
@@ -41,4 +43,5 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 		});
 	</script>
 	<MainScript isInfiniteScroll={isNeedInfiniteScroll} client:load />
+	<SpeedInsights/>
 </html>
