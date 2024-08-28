@@ -1,14 +1,14 @@
 import './style.scss';
 import { useEffect, useState, useRef } from 'react';
 import { useStore } from '@nanostores/react';
-import { isHeaderOnTop } from '@/globals/Header/store';
+import { isHeaderLight } from '@/globals/Header/store';
 import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 
 
 const ServiceHero = ({ ...props }) => {
     const ref = useRef()
-    const $isHeaderOnTop = useStore(isHeaderOnTop);
+    const $isHeaderLight = useStore(isHeaderLight);
 
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
     const txtArray = ['turn ', 'build']
@@ -21,9 +21,9 @@ const ServiceHero = ({ ...props }) => {
     useEffect(() => {
         scroll(({ y }) => {
             if (y.progress < .5) {
-                isHeaderOnTop.set(true)
+                isHeaderLight.set(true)
             } else {
-                isHeaderOnTop.set(false)
+                isHeaderLight.set(false)
             }
         }, {
             target: ref.current,

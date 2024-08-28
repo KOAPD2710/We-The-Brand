@@ -1,29 +1,31 @@
 import './style.scss'
 import { useStore } from '@nanostores/react';
 import { useRef, useEffect } from 'react';
+import { useGSAP } from '@gsap/react';
 
-import { isHeaderOnBot } from '../Header/store';
+import { isHeaderUp } from '../Header/store';
 import { scroll } from 'motion';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 const Footer = ({ FooterData, ...props }) => {
-    const ref = useRef();
-    const $isHeaderOnBot = useStore(isHeaderOnBot);
+    const footerRef = useRef();
+    const $isHeaderUp = useStore(isHeaderUp);
+
 
     useEffect(() => {
         scroll(({ y }) => {
             if (y.progress > .8) {
-                isHeaderOnBot.set(true)
+                isHeaderUp.set(true)
             } else {
-                isHeaderOnBot.set(false)
+                isHeaderUp.set(false)
             }
         }, {
-            target: ref.current,
+            target: footerRef.current,
             offset: ["start end", "end end"]
         })
     }, [])
     return (
-        <footer className='footer' data-cursor-showcoor ref={ref}>
+        <footer className='footer' data-cursor-showcoor ref={footerRef}>
             <div className="container grid">
                 <div className="h0 footer-display">
                     We The (<span className='txt-italic txt-med'>Brand</span>)

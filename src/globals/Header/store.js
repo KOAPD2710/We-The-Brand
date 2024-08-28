@@ -1,4 +1,4 @@
 import { atom } from 'nanostores';
 
-export const isHeaderOnTop = atom(false);
-export const isHeaderOnBot = atom(false);
+export const isHeaderLight = atom(false);
+export const isHeaderUp = atom(false);

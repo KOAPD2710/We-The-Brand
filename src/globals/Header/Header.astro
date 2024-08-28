@@ -18,12 +18,32 @@
             url: '/about'
         }
     ]
+    const socialData = [
+        {
+            name: 'Facebook',
+            url: '#'
+        },
+        {
+            name: 'Instagram',
+            url: '#'
+        },
+        {
+            name: 'LinkedIn',
+            url: '#'
+        }
+    ]
+    const mailLink = {
+            name: 'wethebrand@studio.com',
+            url: 'wethebrand@studio.com'
+        }
 ---
 
 
 <Header
     currPath={currentPath}
     navigation={pathNav}
+    socialData={socialData}
+    contact={mailLink}
     client:load
 >
     <Fragment set:html={Logo} slot='logo'></Fragment>

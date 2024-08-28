@@ -50,75 +50,88 @@ const ProjectSlider = ({ allProject, ...props }) => {
 			testPos: document.querySelector(".work-project-pagi .test-pos")
 		};
 		if (!isDevMode) {
-			target.testPos.remove()
+			target.testPos.classList.remove('isDev')
 		}
-
-		let wrapperWidth = target.wrapper.clientWidth;
-		document.querySelector(".work-project").style.height = `${wrapperWidth * 4
-			}px`;
-
 		let raf;
-		let initPos = Array.from(target.allThumbs, (el) => 0);
-		let expandWidth = parseRem(
-			10 *
-			parseFloat(
-				window
-					.getComputedStyle(target.wrapper)
-					.getPropertyValue("--expand-w"),
-			),
-		);
-		let pagiWrapperOffsetLeft = target.pagiWrapper.getBoundingClientRect().left;
-		let pagiWrapperWidth = target.pagiWrapper.getBoundingClientRect().width;
 
-		function translateThumb() {
-			time += (direction > 0 ? -1 : 1) / 2;
-			let scrollPos = -currScroll + time;
-			let process = sawtooth(Math.abs((-wrapperWidth * 20 + scrollPos) / wrapperWidth), 1,);
-			let processOffset = (-wrapperWidth * 20 + scrollPos) / wrapperWidth;
+		function translateThumbFunc() {
+			let wrapperWidth = target.wrapper.clientWidth;
+			document.querySelector(".work-project").style.height = `${wrapperWidth * 4}px`;
 
-			target.allThumbs.forEach((el, idx) => {
-				let targetImg = el.querySelector(".work-project-thumb-item-img img");
-				const { left, width, right } = el.getBoundingClientRect();
-				if (right < -window.innerWidth / 2) {
-					let multiply =
-						Math.floor(-scrollPos / wrapperWidth) +
-						(idx === target.allThumbs.length - 1 ? 0 : 1);
-					initPos[idx] = wrapperWidth * multiply;
-				}
-				if (right > wrapperWidth - window.innerWidth / 2) {
-					let multiply = Math.floor(-scrollPos / wrapperWidth);
-					initPos[idx] = wrapperWidth * multiply;
-				}
-				let normalizeOffset = (right / (window.innerWidth + width) - 0.5) * 2;
-				xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
-				xSetter(el)(scrollPos + initPos[idx]);
-			});
+			let initPos = Array.from(target.allThumbs, (el) => 0);
+			let expandWidth = parseRem(
+				10 *
+				parseFloat(
+					window
+						.getComputedStyle(target.wrapper)
+						.getPropertyValue("--expand-w"),
+				),
+			);
+			let pagiWrapperOffsetLeft = target.pagiWrapper.getBoundingClientRect().left;
+			let pagiWrapperWidth = target.pagiWrapper.getBoundingClientRect().width;
 
-			xSetter(target.testProcess)(process * target.pagiWrapper.getBoundingClientRect().width)
+			function translateThumb() {
+				time += (direction > 0 ? -1 : 1) / 2;
+				let scrollPos = -currScroll + time;
+				let process = sawtooth(Math.abs((-wrapperWidth * 20 + scrollPos) / wrapperWidth), 1,);
+				let processOffset = (-wrapperWidth * 20 + scrollPos) / wrapperWidth;
 
-			target.allPagination.forEach((el, idx) => {
-				const { left, width } = el.getBoundingClientRect();
-				let leftProcess = (left - pagiWrapperOffsetLeft) / pagiWrapperWidth;
-				let midProcess = (left - pagiWrapperOffsetLeft + width / 2) / pagiWrapperWidth;
-				// let normalizeProcess = (((process - midProcess) * target.allPagination.length) - .5) * 2;
-				// let limitProcess = Math.max(Math.min(normalizeProcess, 3), -3)
-				// let pagiProcess = process / (leftProcess);
-				let limit = 2.5
-
-				let test = Math.max(Math.min((process - midProcess) * target.allPagination.length, limit), -limit) / limit
-				if (idx == 1) {
-					if (isDevMode) {
-						target.testPos.innerHTML = process
+				target.allThumbs.forEach((el, idx) => {
+					let targetImg = el.querySelector(".work-project-thumb-item-img img");
+					const { left, width, right } = el.getBoundingClientRect();
+					if (right < -window.innerWidth / 2) {
+						let multiply =
+							Math.floor(-scrollPos / wrapperWidth) +
+							(idx === target.allThumbs.length - 1 ? 0 : 1);
+						initPos[idx] = wrapperWidth * multiply;
 					}
-				}
-				el.style.setProperty('--radius', test);
-			});
+					if (right > wrapperWidth - window.innerWidth / 2) {
+						let multiply = Math.floor(-scrollPos / wrapperWidth);
+						initPos[idx] = wrapperWidth * multiply;
+					}
+					let normalizeOffset = (right / (window.innerWidth + width) - 0.5) * 2;
+					xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
+					xSetter(el)(scrollPos + initPos[idx]);
+				});
 
+				xSetter(target.testProcess)(process * target.pagiWrapper.getBoundingClientRect().width)
+
+				target.allPagination.forEach((el, idx) => {
+					const { left, width } = el.getBoundingClientRect();
+					let leftProcess = (left - pagiWrapperOffsetLeft) / pagiWrapperWidth;
+					let midProcess = (left - pagiWrapperOffsetLeft + width / 2) / pagiWrapperWidth;
+					// let normalizeProcess = (((process - midProcess) * target.allPagination.length) - .5) * 2;
+					// let limitProcess = Math.max(Math.min(normalizeProcess, 3), -3)
+					// let pagiProcess = process / (leftProcess);
+					let limit = 2.5
+
+					let test = Math.max(Math.min((process - midProcess) * target.allPagination.length, limit), -limit) / limit
+					if (idx == 1) {
+						if (isDevMode) {
+							target.testPos.innerHTML = process
+						}
+					}
+					el.style.setProperty('--radius', test);
+				});
+
+
+				raf = window.requestAnimationFrame(translateThumb);
+			}
 
 			raf = window.requestAnimationFrame(translateThumb);
 		}
 
-		raf = window.requestAnimationFrame(translateThumb);
+		function cloneInfinityDOM() {
+			let cloner = target.wrapper.cloneNode(true)
+			cloner.classList.add('cloneDOM')
+			target.wrapper.parentNode.append(cloner)
+		}
+
+		if (window.innerWidth > 991) {
+			translateThumbFunc()
+		} else {
+			cloneInfinityDOM()
+		}
 
 		return () => {
 			window.cancelAnimationFrame(raf);
@@ -127,7 +140,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 
 	return (
 		<>
-			<div className="work-project-thumb">
+			<div className="work-project-thumb container grid">
 				{allProject.map((proj, idx) => (
 					<div className="work-project-thumb-item" key={proj.name + idx}>
 						<div className="work-project-thumb-item-img">
@@ -139,7 +152,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 			<div className="work-project-pagi">
 				<div className="work-project-pagi-wrapper">
 					<div className="test-process txt-24"></div>
-					<div className="test-pos txt-24">1</div>
+					<div className="test-pos txt-24 isDev">1</div>
 					{allProject.map((proj, idx) => (
 						<div className="work-project-pagi-item" key={proj.name + idx}>
 							<div className="work-project-pagi-item-inner"></div>

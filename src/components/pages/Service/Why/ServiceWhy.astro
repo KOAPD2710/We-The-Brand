@@ -30,6 +30,6 @@ const SerWhyData = [
 const WhyThumb = [SerWhyThumb1, SerWhyThumb2, SerWhyThumb3, SerWhyThumb4]
 ---
 
-<ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:visible={{rootMargin: "100% 100%"}}>
+<ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:idle >
     <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'></Image>
 </ServiceWhy>

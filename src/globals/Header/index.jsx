@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import './style.scss';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'clsx';
 import { scroll, animate } from 'motion';
 import { useStore } from '@nanostores/react';
-import { isHeaderOnTop, isHeaderOnBot } from './store';
-import './style.scss';
+import { isHeaderLight, isHeaderUp } from './store';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 function getCurrTime(timeZone) {
@@ -17,15 +17,15 @@ function getCurrTime(timeZone) {
     return result
 }
 
-const Header = ({ logo, pathNav, currPath, ...props }) => {
+const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
     const header = useRef();
-    const $isHeaderOnTop = useStore(isHeaderOnTop);
-    const $isHeaderOnBot = useStore(isHeaderOnBot);
+    const $isHeaderLight = useStore(isHeaderLight);
+    const $isHeaderUp = useStore(isHeaderUp);
+
+    const [isNavOpen, setIsNavOpen] = useState(false);
 
     const [vietnamTime, setVietnamTime] = useState(getCurrTime('Asia/Ho_Chi_Minh'));
     const [singaporeTime, setSingaporeTime] = useState(getCurrTime('Asia/Singapore'));
-
-
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -40,13 +40,14 @@ const Header = ({ logo, pathNav, currPath, ...props }) => {
     }, [vietnamTime, singaporeTime]);
 
     return (
-        <header className={cn('header', $isHeaderOnTop && 'on-top', $isHeaderOnBot && 'on-bot')} ref={header}>
+        <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderUp && 'on-up')} ref={header}>
             <div className="container grid">
                 <div className="header-logo">
-                    <a href="./" className="header-logo-link">{logo}</a>
+                    <a href="/" className="header-logo-link">{logo}</a>
                 </div>
-                <div className="header-menu-wrapper">
+                <div className={cn('header-nav-wrapper', isNavOpen && 'active')}>
                     <div className="header-location">
+                        <div className="txt txt-16 header-location-name">We The Brand Studio</div>
                         <div className="header-location-inner">
                             <div className="header-country" data-country="VietNam">
                                 <div className="header-country-name">
@@ -63,12 +64,21 @@ const Header = ({ logo, pathNav, currPath, ...props }) => {
                                     <div className="txt txt-16">Singapore</div>
                                 </div>
                                 <div className="txt txt-16 header-country-time">
-                                    &#123; <span className='time'>{singaporeTime}</span> &#125;
+                                    <CurlyBrackets>
+                                        <span className='time'>{singaporeTime}</span>
+                                    </CurlyBrackets>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="header-nav">
+                        <div className={cn('header-nav-item home', currPath === '/' && 'active')}>
+                            <a href='/' className='txt txt-16 header-nav-link'>
+                                <span className="slash">(</span>
+                                <span className={cn('header-nav-link-txt', currPath === '/' && 'txt-italic')}>Home</span>
+                                <span className="slash">)</span>
+                            </a>
+                        </div>
                         {props.navigation.map((path) => (
                             <div className={cn('header-nav-item', currPath === path.url && 'active')} key={path.name}>
                                 <a href={path.url} className='txt txt-16 header-nav-link'>
@@ -80,16 +90,45 @@ const Header = ({ logo, pathNav, currPath, ...props }) => {
                         ))}
                     </div>
                     <div className="header-contact">
-                        <a href="./" className="txt txt-16 header-contact-link">Contact</a>
-                    </div>
-                    <a href="#" className='header-menu-toggle'>
-                        <div className='header-menu-toggle-ic'>
-                            <svg width="100%" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="6.5" y1="0.768066" x2="6.5" y2="20.7681" stroke="currentColor" />
-                                <line x1="14.5" y1="0.768066" x2="14.5" y2="20.7681" stroke="currentColor" />
-                            </svg>
+                        <div className="header-contact-email-wrapper">
+                            <a href={contact.url} className="txt txt-16 header-contact-email">{contact.name}</a>
                         </div>
-                    </a>
+                        <div className="header-contact-link-wrapper">
+                            <a href={contact.url} className="txt txt-16 header-contact-link">Contact</a>
+                        </div>
+                        <div className="txt txt-16 header-contact-social">
+                            {socialData.map((item, idx) => (
+                                <React.Fragment key={item.name}>
+                                    <div className="header-contact-social-item">
+                                        <a href={item.url} className="header-social-link">{item.name}</a>
+                                    </div>
+                                    {idx != socialData.length - 1 && (
+                                        <div className="slash txt-light">/</div>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className="header-menu-wrapper">
+                    <button onClick={() => { setIsNavOpen(!isNavOpen) }} className='header-menu-toggle'>
+                        <div className={cn('ic header-menu-toggle-ic', isNavOpen && 'active')}>
+                            <div className="header-menu-toggle-ic-anchor">
+                                <div className='header-menu-toggle-ic-line-anchor open left'>
+                                    <div className="header-menu-toggle-ic-line"></div>
+                                </div>
+                                <div className='header-menu-toggle-ic-line-anchor open right'>
+                                    <div className="header-menu-toggle-ic-line"></div>
+                                </div>
+                                <div className='header-menu-toggle-ic-line-anchor close left'>
+                                    <div className="header-menu-toggle-ic-line"></div>
+                                </div>
+                                <div className='header-menu-toggle-ic-line-anchor close right'>
+                                    <div className="header-menu-toggle-ic-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
         </header>

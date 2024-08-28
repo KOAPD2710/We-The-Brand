@@ -1,4 +1,4 @@
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 
 let lenis;
 
@@ -7,8 +7,6 @@ function easeOutExpo(x) {
 }
 
 function initLenis(isInfinite) {
-    // console.log('init lenis')
-    // console.log(isInfinite);
     if (!lenis) {
         lenis = new Lenis({
             duration: 1.5,
@@ -16,18 +14,21 @@ function initLenis(isInfinite) {
             direction: "vertical",
             gestureDirection: "vertical",
             smooth: true,
-            smoothTouch: false,
+            smoothTouch: true,
             touchMultiplier: 2,
             infinite: isInfinite ? true : false,
-            syncTouch: true
+            syncTouch: true,
+            syncTouchLerp: 0.075
         })
 
         lenis.on('scroll', ScrollTrigger.update)
+
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000)
         })
-
         gsap.ticker.lagSmoothing(0)
+
+        lenis.scrollTo(0, { immediate: true })
     }
 
     function onRaf(time) {
@@ -36,6 +37,7 @@ function initLenis(isInfinite) {
     }
     requestAnimationFrame(onRaf)
 }
+
 
 function getLenis(isInfinite) {
     if (!lenis) {
