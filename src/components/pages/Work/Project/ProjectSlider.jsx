@@ -39,8 +39,8 @@ const ProjectSlider = ({ allProject, ...props }) => {
 		let raf;
 
 		function translateThumbFunc() {
-			let wrapperWidth = target.wrapper.clientWidth;
-			document.querySelector(".work-project").style.height = `${wrapperWidth * 4}px`;
+			let projectDomHeight = target.wrapper.clientWidth;
+			document.querySelector(".work-project").style.height = `${projectDomHeight * 4}px`;
 
 			let initPos = Array.from(target.allThumbs, (el) => 0);
 			let expandWidth = parseRem(
@@ -56,6 +56,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 
 			function translateThumb() {
 				time += (direction > 0 ? -1 : 1) / 2;
+				let wrapperWidth = target.wrapper.clientWidth;
 				let scrollPos = -currScroll + time;
 				let process = sawtooth(Math.abs((-wrapperWidth * 20 + scrollPos) / wrapperWidth), 1,);
 				let processOffset = (-wrapperWidth * 20 + scrollPos) / wrapperWidth;
