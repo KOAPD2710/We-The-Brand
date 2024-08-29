@@ -12,9 +12,16 @@ const Footer = ({ FooterData, ...props }) => {
     const $isHeaderHide = useStore(isHeaderHide);
 
     useGSAP(() => {
-
+        ScrollTrigger.create({
+            trigger: footerRef.current,
+            start: 'top top+=35%',
+            // markers: true,
+            onEnter: () => isHeaderHide.set(true),
+            onLeaveBack: () => isHeaderHide.set(false)
+        })
     }, {
-        scope: footerRef
+        scope: footerRef,
+        revertOnUpdate: true
     })
 
     // useEffect(() => {

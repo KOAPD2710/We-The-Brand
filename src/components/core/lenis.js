@@ -20,9 +20,6 @@ function callLenis(isInfinite) {
         syncTouch: isInfinite ? true : false,
         syncTouchLerp: isInfinite ? 0.075 : false
     })
-
-
-
 }
 
 function initLenis(isInfinite) {
@@ -48,7 +45,7 @@ function resetLenis(isInfinite) {
         initLenis(isInfinite)
     } else {
         lenis.destroy()
-        callLenis(isInfinite)
+        initLenis(isInfinite)
     }
 }
 
