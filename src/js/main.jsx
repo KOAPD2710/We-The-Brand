@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 const MainScript = ({ isInfiniteScroll, ...props }) => {
     useEffect(() => {
-        document.querySelector(".main").classList.remove("on-load");
-        resetLenis(isInfiniteScroll)
-        initMouse()
+        // document.querySelector(".main").classList.remove("on-load");
+        // resetLenis(isInfiniteScroll)
+        // initMouse()
     }, []);
 
     return null

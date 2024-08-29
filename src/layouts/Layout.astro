@@ -9,8 +9,6 @@ import Header from "@/globals/Header/Header.astro";
 import Footer from "@/globals/Footer/Footer.astro";
 import NoisePattern from "@/globals/NoisePattern/NoisePattern.astro";
 import FluidDistortion from "@/globals/FluidDistortion/FluidDistortion.astro";
-
-import MainScript from "@/js/main";
 import TestForm from "@/globals/TestForm/TestForm.astro";
 const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 ---
@@ -32,6 +30,10 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 	<script>
 		import gsap from "gsap";
 		import ScrollTrigger from "gsap/ScrollTrigger";
+		import { initMouse } from "@/components/core/mouse";
+		import { resetLenis } from "@/components/core/lenis";
+
+        document.querySelector(".main").classList.remove("on-load");
 
 		window.gsap = gsap;
 		window.ScrollTrigger = ScrollTrigger;
@@ -45,7 +47,8 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
             triggers.update()
             triggers.refresh()
         })
+		resetLenis()
+		initMouse()
 	</script>
-	<MainScript isInfiniteScroll={isNeedInfiniteScroll} client:load />
 	<SpeedInsights/>
 </html>
