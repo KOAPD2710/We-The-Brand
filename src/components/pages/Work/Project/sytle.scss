@@ -26,6 +26,7 @@
 			flex-shrink: 0;
 			padding: unset;
 			margin: unset;
+			column-gap: unset;
 			@include size(unset, 100%);
 
 			@include md {

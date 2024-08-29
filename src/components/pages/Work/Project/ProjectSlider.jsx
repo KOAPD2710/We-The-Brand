@@ -75,7 +75,7 @@ const ProjectSlider = ({ allProject, ...props }) => {
 					}
 					let normalizeOffset = (right / (window.innerWidth + width) - 0.5) * 2;
 					if (left > -window.innerWidth / 2 && right < window.innerWidth * 3 / 2) {
-						// xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
+						xSetter(targetImg)((-normalizeOffset * expandWidth) / 2);
 					}
 					xSetter(el)(scrollPos + initPos[idx]);
 				});
