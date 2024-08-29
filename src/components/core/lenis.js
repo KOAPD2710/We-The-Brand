@@ -21,6 +21,12 @@ function callLenis(isInfinite) {
         syncTouchLerp: isInfinite ? 0.075 : false
     })
 
+
+
+}
+
+function initLenis(isInfinite) {
+    callLenis(isInfinite)
     lenis.on('scroll', ScrollTrigger.update)
 
     gsap.ticker.add((time) => {
@@ -28,17 +34,13 @@ function callLenis(isInfinite) {
     })
     gsap.ticker.lagSmoothing(0)
 
-    lenis.scrollTo(0, { immediate: true })
-}
-
-function initLenis(isInfinite) {
-    callLenis(isInfinite)
-
     function onRaf(time) {
         lenis.raf(time)
         lenisRaf = window.requestAnimationFrame(onRaf)
     }
     lenisRaf = window.requestAnimationFrame(onRaf)
+
+    lenis.scrollTo(0, { immediate: true })
 }
 
 function resetLenis(isInfinite) {
