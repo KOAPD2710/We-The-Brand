@@ -1,6 +1,6 @@
 ---
 import Image from "astro/components/Image.astro";
-import ServiceService from ".";
+import HomeServiceComp from ".";
 import SerCat from '@assets/Ser-cat.jpg';
 
 
@@ -112,6 +112,9 @@ const Expertise = [
 ]
 ---
 
-<ServiceService Expertise={Expertise} client:visible={{rootMargin: "100% 0%"}}>
+<HomeServiceComp 
+    Expertise={Expertise}
+    client:visible={{rootMargin: "100% 0%"}}
+>
     <Image src={SerCat} alt="Number1 Cat" slot="SerCat"></Image>
-</ServiceService>
+</HomeServiceComp>

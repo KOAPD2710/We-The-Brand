@@ -1,0 +1,40 @@
+---
+import HomeWorkComp from './';
+import SerWhyThumb1 from '@assets/work-cmm-2.jpg';
+import SerWhyThumb2 from '@assets/work-cmm-1.jpg';
+import SerWhyThumb3 from '@assets/Work-1.jpg';
+import SerWhyThumb4 from '@assets/Work-Klab.jpg';
+
+const ProjThumb = [
+    {
+        thumb: SerWhyThumb1,
+        name: 'BeanBeauty',
+        scope: ['Branding', 'Production', 'Business']
+    },
+    {
+        thumb: SerWhyThumb2,
+        name: 'Squidy Vietnam',
+        scope: ['Branding', 'Production', 'Business', 'Marketing']
+    },
+    // {
+    //     thumb: SerWhyThumb3,
+    //     thumbType: 'image',
+    //     name: 'BeanBeauty1',
+    //     scope: ['Branding', 'Production', 'Business']
+    // },
+    // {
+    //     thumb: SerWhyThumb4,
+    //     thumbType: 'image',
+    //     name: 'Squitdy1',
+    //     scope: ['Branding', 'Production', 'Business', 'Marketing']
+    // },
+]
+---
+
+<HomeWorkComp
+    client:visible={{rootMargin: "100% 0% 100% 0%"}}
+    Work={ProjThumb}
+>
+
+
+</HomeWorkComp>
