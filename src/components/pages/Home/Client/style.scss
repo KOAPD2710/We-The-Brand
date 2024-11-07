@@ -2,9 +2,12 @@
 @use '@styles/colors' as *;
 
 
-.service {
+.home {
     &-client {
-        padding-block: 13rem 32rem;
+        position: relative;
+        background-color: white;
+
+        padding-block: 13rem 16rem;
 
         contain: paint;
 

@@ -1,13 +1,21 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import ServiceHero from "@components/pages/Service/Hero/ServiceHero.astro";
-import ServicePitch from "@components/pages/Service/Pitch/ServicePitch.astro";
-import ServiceService from "@components/pages/Service/Service/ServiceService.astro";
-import ServiceCollaborate from "@components/pages/Service/Collaborate/ServiceCollaborate.astro";
-import ServiceWhy from "@components/pages/Service/Why/ServiceWhy.astro";
-import ServiceClient from "@components/pages/Service/Client/ServiceClient.astro";
+import Layout from "@/layouts/Layout.astro";
+import HomeHero from "@components/pages/Home/Hero/HomeHero.astro";
+import HomePitch from "@components/pages/Home/Pitch/HomePitch.astro";
+import HomeService from "@components/pages/Home/Service/HomeService.astro";
+import HomeCollaborate from "@components/pages/Home/Collaborate/HomeCollaborate.astro";
+import HomeWhy from "@components/pages/Home/Why/HomeWhy.astro";
+import HomeClient from "@components/pages/Home/Client/HomeClient.astro";
+import HomeWork from "@/components/pages/Home/Work/HomeWork.astro";
 ---
 
-<Layout title="We The Brand" isNeedFooter="true">
-	<ServiceHero />
+
+<Layout title="We the Brand" isNeedFooter={true}>
+    <HomeHero />
+    <HomePitch />
+    <HomeCollaborate/>
+    <HomeWhy/>
+	<HomeWork/>
+    <HomeService/>
+    <HomeClient/>
 </Layout>

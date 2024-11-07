@@ -19,6 +19,20 @@ const Footer = ({ FooterData, ...props }) => {
             onEnter: () => isHeaderHide.set(true),
             onLeaveBack: () => isHeaderHide.set(false)
         })
+
+        const tlStack = gsap.timeline({
+            scrollTrigger: {
+                trigger: footerRef.current,
+                start: 'top+=25% bottom',
+                end: 'top+=25% top',
+                scrub: true,
+            }
+        })
+
+        tlStack.from(footerRef.current, {
+            yPercent: -25,
+            ease: 'none'
+        })
     }, {
         scope: footerRef,
         revertOnUpdate: true
@@ -63,7 +77,7 @@ const Footer = ({ FooterData, ...props }) => {
                     <div className="txt txt-16">We strive to push boundaries and create experiences that enable big brands to cut through the noise.</div>
                 </div>
                 <div className="footer-bot">
-                    <div className="txt txt-16 footer-bot-name">We The Brand Studio</div>
+                    <div className="txt txt-16 footer-bot-name">We The Brand</div>
                     <div className="txt txt-16 footer-bot-date">© 2024</div>
                 </div>
             </div>

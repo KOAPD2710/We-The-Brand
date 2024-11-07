@@ -1,0 +1,121 @@
+@use '@styles/mixins' as *;
+@use '@styles/colors' as *;
+
+.home {
+    &-work {
+        position: relative;
+
+        .container {
+
+        }
+
+        &-sticky {
+            position: sticky;
+            top: 0;
+            left: 0;
+            @include size(100%, 100svh);
+            background-color: aqua;
+
+            display: flex;
+            contain: paint;
+
+
+            &-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+
+                background-color: red;
+            }
+        }
+
+        &-translate {
+            flex-shrink: 0;
+            display: flex;
+        }
+
+        &-item {
+            contain: paint;
+            @include size(100svw, 100svh);
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-thumb {
+                position: absolute;
+                @include size(120%, 100%);
+            }
+        }
+
+        &-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include size(100%, 100svh);
+
+            display: grid;
+            color: $cl-bg;
+            mix-blend-mode: difference;
+
+
+            &-item {
+                color: inherit;
+                grid-column: 1/-1;
+                grid-row: 1/-1;
+                @include size(100%, 100%);
+                
+                grid-template-rows: 1fr;
+                align-items: end;
+
+                --offset-left: 100%;
+                --offset-right: 0%;
+                clip-path: inset(0% var(--offset-right) 0% var(--offset-left));
+
+
+                // background-color: aqua;
+
+                // opacity: 0.2;
+
+                // @for $i from 1 through 5 {
+                //     &:nth-child(#{$i}) {
+                //         filter: hue-rotate($i * 30deg);
+                //     }
+                // }
+
+                &-title {
+                    grid-column: 1/-1;
+                    margin-block: 2.4rem 6rem;
+                }
+                &-scope {
+                    grid-column: 5/10;
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 1.6rem;
+                }
+            }
+        }
+
+        &-spacer {
+            grid-column: 1/-1;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+
+
+            &-inner {
+                height: 100svh;
+                background-color: teal;
+
+                @for $i from 1 through 5 {
+                    &:nth-child(#{$i}) {
+                        filter: hue-rotate($i * 30deg);
+                    }
+                }
+            }
+        }
+    }
+}

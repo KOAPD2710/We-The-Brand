@@ -1,8 +1,10 @@
 @use '@styles/mixins' as *;
 @use '@styles/colors' as *;
 
-.service {
+.home {
     &-pitch {
+        position: relative;
+        background-color: $cl-bg;
         padding-block: 22.5rem;
 
         &-content {

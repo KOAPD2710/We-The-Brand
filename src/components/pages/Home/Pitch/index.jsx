@@ -1,19 +1,42 @@
 import './style.scss'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { scroll, inView, animate, timeline, stagger } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 import { parseToRem, lerp, typeSplit } from '@/js/utils';
 import SplitType from 'split-type';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
+import { useGSAP } from '@gsap/react';
 
-const ServicePitch = ({ PitchImg, ...props }) => {
+const HomePitch = ({ PitchImg, ...props }) => {
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
     const txtGradientArray = ['quirks', 'features', 'edges'];
     const [isScrambleRun, setIsScrambleRun] = useState(false);
 
+    const container = useRef()
+
+    useGSAP(() => {
+        const tlStack = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: 'bottom bottom',
+                end: 'bottom top',
+                scrub: true,
+                // markers: true
+            }
+        })
+
+        tlStack.to(container.current, {
+            yPercent: 25,
+            ease: 'none'
+        })
+    }, {
+        scope: container,
+        revertOnUpdate: true
+    })
+
 
     function loopScrambleTxt(text) {
-        const target = document.querySelector('.service-pitch .scramble-txt')
+        const target = document.querySelector('.home-pitch .scramble-txt')
         scrambleText(target, text)
     }
 
@@ -21,7 +44,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
         // if (!isScrambleRun) return;
 
         let timeout;
-        inView('.service-pitch', () => {
+        inView('.home-pitch', () => {
             timeout = setTimeout(() => {
                 const nextIndex = (currIdxTxt + 1) % txtGradientArray.length;
                 setcurrIdxTxt(nextIndex);
@@ -38,22 +61,22 @@ const ServicePitch = ({ PitchImg, ...props }) => {
 
     useEffect(() => {
         const target = {
-            allThumb: document.querySelectorAll('.service-pitch-thumb-img-wrapper'),
-            allTranslateDOM: document.querySelectorAll('.service-pitch-thumb-img-translate'),
-            content: document.querySelector('.service-pitch-content'),
+            allThumb: document.querySelectorAll('.home-pitch-thumb-img-wrapper'),
+            allTranslateDOM: document.querySelectorAll('.home-pitch-thumb-img-translate'),
+            content: document.querySelector('.home-pitch-content'),
         }
 
         target.allThumb.forEach((el) => {
             let { height } = el.getBoundingClientRect()
-            animate(el.querySelector('.service-pitch-thumb-img'), { height: 0 }, { duration: 0 })
+            animate(el.querySelector('.home-pitch-thumb-img'), { height: 0 }, { duration: 0 })
 
             let sequence = [
-                [el.querySelector('.service-pitch-thumb-img'), { height: `${parseToRem(height)}rem` }, { duration: .6 }]
+                [el.querySelector('.home-pitch-thumb-img'), { height: `${parseToRem(height)}rem` }, { duration: .6 }]
             ]
 
             inView(el, () => {
                 timeline(sequence).finished.then(() => {
-                    el.querySelector('.service-pitch-thumb-img').removeAttribute('style')
+                    el.querySelector('.home-pitch-thumb-img').removeAttribute('style')
                 })
             }, { margin: '-20% 0% -30% 0%' })
         })
@@ -67,12 +90,12 @@ const ServicePitch = ({ PitchImg, ...props }) => {
 
             target.content.style.transform = `translateY(${(-(progress - .5) * 2) * 5}rem)`;
         }, {
-            target: document.querySelector('.service-pitch'),
+            target: document.querySelector('.home-pitch'),
             offset: ["start end", "end start"]
         })
 
         const SplitTxt = {
-            label: new SplitType('.service-pitch-label', { types: 'lines, chars', ...typeSplit }),
+            label: new SplitType('.home-pitch-label', { types: 'lines, chars', ...typeSplit }),
         }
         animate(SplitTxt.label.chars, { opacity: 0, y: '100%' }, { duration: 0 })
 
@@ -80,7 +103,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
             [SplitTxt.label.chars, { opacity: 1, y: '0%' }, { duration: 0.5, delay: stagger(0.02), at: '0' }]
         ]
 
-        inView('.service-pitch .container', () => {
+        inView('.home-pitch .container', () => {
             timeline(sequence).finished.then(() => {
                 SplitTxt.label.revert()
             })
@@ -97,7 +120,7 @@ const ServicePitch = ({ PitchImg, ...props }) => {
         let speed = .05;
         let inview = false
 
-        inView('.service-pitch', () => {
+        inView('.home-pitch', () => {
             inview = true
 
             return () => inview = false
@@ -138,21 +161,21 @@ const ServicePitch = ({ PitchImg, ...props }) => {
     }, [])
 
     return (
-        <section className="service-pitch" data-cursor-showcoor>
+        <section className="home-pitch" ref={container} data-cursor-showcoor>
             <div className="container grid">
-                <div className="service-pitch-content">
-                    <div className="txt txt-16 service-pitch-label">
+                <div className="home-pitch-content">
+                    <div className="txt txt-16 home-pitch-label">
                         <CurlyBrackets>Out pitch</CurlyBrackets>
                     </div>
-                    <h1 className='h1 txt-up service-pitch-title'>
+                    <h1 className='h1 txt-up home-pitch-title'>
                         We help brands be their most <span>(<span className='txt-italic txt-med'>inspiring</span>)</span> selves.<br /> Own their<br /><span className='txt-gradient txt-clip scramble-txt'>quirks</span>.
                     </h1>
                 </div>
-                <div className="service-pitch-thumb">
+                <div className="home-pitch-thumb">
                     {PitchImg.map((img) => (
-                        <div className="service-pitch-thumb-img-wrapper" key={img.name}>
-                            <div className="service-pitch-thumb-img-translate">
-                                <div className="service-pitch-thumb-img">
+                        <div className="home-pitch-thumb-img-wrapper" key={img.name}>
+                            <div className="home-pitch-thumb-img-translate">
+                                <div className="home-pitch-thumb-img">
                                     <img src={img.img.src} alt="" className='img img-fill' />
                                 </div>
                             </div>
@@ -165,4 +188,4 @@ const ServicePitch = ({ PitchImg, ...props }) => {
 }
 
 
-export default ServicePitch;
+export default HomePitch;

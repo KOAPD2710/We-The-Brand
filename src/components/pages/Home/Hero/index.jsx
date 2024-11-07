@@ -6,10 +6,11 @@ import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 import { useGSAP } from '@gsap/react';
 import Video from '@/components/common/VideoFormat';
+import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 
-const ServiceHero = ({ ...props }) => {
-    const ref = useRef()
+const HomeHero = ({ ...props }) => {
+    const container = useRef()
     const $isHeaderLight = useStore(isHeaderLight);
 
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
@@ -17,13 +18,13 @@ const ServiceHero = ({ ...props }) => {
     const txtArray = ['turn ', 'build']
 
     function loopScrambleTxt(text) {
-        const target = document.querySelector('.service-hero-line .scramble-txt')
+        const target = document.querySelector('.home-hero-line .scramble-txt')
         scrambleText(target, text, { type: 'text' })
     }
 
     useGSAP(() => {
         ScrollTrigger.create({
-            trigger: ref.current,
+            trigger: container.current,
             start: 'top top+=5%',
             end: 'bottom center',
             onEnter: () => isHeaderLight.set(true),
@@ -31,8 +32,36 @@ const ServiceHero = ({ ...props }) => {
             onEnterBack: () => isHeaderLight.set(true),
             onLeave: () => isHeaderLight.set(false),
         });
+
+        const tlThumb = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: .2,
+            }
+        })
+        tlThumb.to('.home-hero-bg-inner', {
+            yPercent: 30,
+            scale: .95,
+            ease: 'none'
+        })
+
+        const tlStack = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: 'bottom bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
+        })
+
+        tlStack.to(container.current, {
+            yPercent: 25,
+            ease: 'none'
+        })
     }, {
-        scope: ref,
+        scope: container,
         revertOnUpdate: true
     })
 
@@ -45,14 +74,14 @@ const ServiceHero = ({ ...props }) => {
     //             isHeaderLight.set(true)
     //         }
     //     }, {
-    //         target: ref.current,
+    //         target: container.current,
     //         offset: ['start start', 'end start']
     //     })
     // }, [])
 
     useEffect(() => {
         let timeout;
-        inView(ref.current, () => {
+        inView(container.current, () => {
             timeout = setTimeout(() => {
                 const nextIndex = (currIdxTxt + 1) % txtArray.length;
                 setcurrIdxTxt(nextIndex);
@@ -67,40 +96,43 @@ const ServiceHero = ({ ...props }) => {
 
 
     return (
-        <section className="service-hero" ref={ref} data-cursor-showcoor>
+        <section className="home-hero" ref={container} data-cursor-showcoor>
             <div className="container grid">
-                <div className="service-hero-line line-1 slot-1">
+                <div className="home-hero-line line-1 slot-1">
                     <div className="txt txt-16">© 2024</div>
                 </div>
-                <div className="service-hero-line line-1 slot-2">
-                    <div className="txt txt-16">&#123; Helping with &#125;</div>
+                <div className="home-hero-line line-1 slot-2">
+                    <div className="txt txt-16"><CurlyBrackets>Helping with</CurlyBrackets></div>
                 </div>
-                <div className="service-hero-line line-1 slot-3">
-                    <div className="txt txt-16 service-hero-skill">
-                        <div className="service-hero-skill-item">Marketing Strategy</div>
-                        <div className="service-hero-skill-item">Brand Identity</div>
-                        <div className="service-hero-skill-item">UI/UX Design</div>
-                        <div className="service-hero-skill-item">Front-end Development</div>
-                        <div className="service-hero-skill-item">Social Media</div>
+                <div className="home-hero-line line-1 slot-3">
+                    <div className="txt txt-16 home-hero-skill">
+                        <div className="home-hero-skill-item">Marketing Strategy</div>
+                        <div className="home-hero-skill-item">Brand Identity</div>
+                        <div className="home-hero-skill-item">UI/UX Design</div>
+                        <div className="home-hero-skill-item">Front-end Development</div>
+                        <div className="home-hero-skill-item">Social Media</div>
                     </div>
                 </div>
-                <div className="service-hero-line line-2 slot-1">
+                <div className="home-hero-line line-2 slot-1">
                     <div className="txt h0 txt-up">We</div>
                 </div>
-                <div className="service-hero-line line-2 slot-2">
+                <div className="home-hero-line line-2 slot-2">
                     <div className="txt txt-16">We help you stand out in a crowded market and navigate your digital transformation through bespoke creative solutions, providing a personal touch.</div>
                 </div>
-                <div className="service-hero-line line-2 slot-3">
+                <div className="home-hero-line line-2 slot-3">
                     <div className="txt h0 txt-up">
                         (<span className='txt-italic txt-med scramble-txt'>Turn </span>)
                     </div>
                 </div>
-                <div className="service-hero-line line-3">
+                <div className="home-hero-line line-3">
                     <div className="txt h0 txt-up">ideas</div>
                 </div>
-                <div className="service-hero-bg">
-                    <Video src={props.video} className='img img-fill'></Video>
-                    <div className="service-hero-bg-filter"></div>
+                <div className="home-hero-bg">
+                    <div className="home-hero-bg-inner">
+                        {/* <Video src={props.video} className='img img-fill'></Video> */}
+                        <img src={props.HeroImg.src} alt="" className='img img-fill' />
+                    </div>
+                    <div className="home-hero-bg-filter"></div>
                 </div>
             </div>
         </section>
@@ -108,4 +140,4 @@ const ServiceHero = ({ ...props }) => {
 }
 
 
-export default ServiceHero;
+export default HomeHero;

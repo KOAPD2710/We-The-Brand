@@ -3,8 +3,10 @@
 
 
 .footer {
-    height: 100dvh;
-    padding-block: 2rem 4rem;
+    position: relative;
+    z-index: -1;
+    height: calc(100dvh + 16rem);
+    padding-block: 18rem 4rem;
     contain: paint;
 
     .container {

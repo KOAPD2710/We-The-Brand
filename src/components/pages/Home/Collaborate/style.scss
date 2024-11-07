@@ -2,10 +2,14 @@
 @use '@styles/colors' as *;
 
 
-.service {
+.home {
 
     &-colla {
-        padding-block: 22.5rem 8rem;
+        position: relative;
+        z-index: 1;
+        background-color: white;
+
+        padding-block: 16rem;
 
         contain: paint;
 

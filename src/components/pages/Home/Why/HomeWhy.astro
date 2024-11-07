@@ -1,7 +1,7 @@
 ---
 
 import Image from 'astro/components/Image.astro';
-import ServiceWhy from '.';
+import HomeWhyComp from '.';
 import SerWhyImg from '@assets/Ser-Why-img.jpg';
 import SerWhyThumb1 from '@assets/Work-2.jpg';
 import SerWhyThumb2 from '@assets/Work-3.jpg';
@@ -47,6 +47,9 @@ const WhyThumb = [
 ]
 ---
 
-<ServiceWhy WhyData={SerWhyData} WhyThumb={WhyThumb} client:idle >
-    <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'></Image>
-</ServiceWhy>
+<HomeWhyComp 
+    WhyData={SerWhyData}
+    client:visible={{rootMargin: "100% 0% 100% 0%"}}
+>
+    <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'/>
+</HomeWhyComp>
