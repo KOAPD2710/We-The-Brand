@@ -55,7 +55,6 @@ const HomeHero = ({ ...props }) => {
                 start: `bottom+=${(window.innerWidth > 991) ? 0 : '10%'} bottom`,
                 end: 'bottom top',
                 scrub: true,
-                markers: true
             }
         })
         tlStack.to(container.current, {
