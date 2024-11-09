@@ -41,7 +41,9 @@ const HomeHero = ({ ...props }) => {
                 scrub: .2,
             }
         })
-        tlThumb.to('.home-hero-bg-inner', {
+        tlThumb.fromTo('.home-hero-bg-inner', {
+            yPercent: 0
+        }, {
             yPercent: 30,
             scale: .95,
             ease: 'none'
