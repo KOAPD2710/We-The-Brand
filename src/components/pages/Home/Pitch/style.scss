@@ -7,6 +7,14 @@
         background-color: $cl-bg;
         padding-block: 22.5rem;
 
+        @include md {
+            padding-block: 10rem;
+        }
+
+        @include sm {
+            padding-block: 6rem;
+        }
+
         &-content {
             grid-column: 6/12;
             grid-row: 1/2;
