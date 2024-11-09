@@ -42,7 +42,7 @@ const HomeHero = ({ ...props }) => {
             }
         })
         tlThumb.fromTo('.home-hero-bg-inner', {
-            yPercent: -5
+            yPercent: -10
         }, {
             yPercent: 30,
             scale: .95,
