@@ -42,7 +42,7 @@ const HomeHero = ({ ...props }) => {
             }
         })
         tlThumb.fromTo('.home-hero-bg-inner', {
-            yPercent: -10
+            yPercent: 0
         }, {
             yPercent: 30,
             scale: .95,
@@ -52,7 +52,7 @@ const HomeHero = ({ ...props }) => {
         const tlStack = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
-                start: 'bottom bottom',
+                start: `bottom+=${(window.innerWidth > 991) ? 0 : '10%'} bottom`,
                 end: 'bottom top',
                 scrub: true,
                 markers: true
