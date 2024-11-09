@@ -84,7 +84,6 @@ const HomeWork = ({ Work, ...props }) => {
                         end: maskEnd,
                         scrub: true,
                         id: idx,
-                        markers: true,
                     },
                     defaults: {
                         ease: 'none'
