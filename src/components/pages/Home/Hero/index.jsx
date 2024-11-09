@@ -52,12 +52,11 @@ const HomeHero = ({ ...props }) => {
         const tlStack = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
-                start: 'bottom bottom',
+                start: `bottom+=${(window.innerWidth > 991) ? 0 : '10%'} bottom`,
                 end: 'bottom top',
                 scrub: true,
             }
         })
-
         tlStack.to(container.current, {
             yPercent: 25,
             ease: 'none'

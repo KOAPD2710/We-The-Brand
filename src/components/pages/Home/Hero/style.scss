@@ -184,7 +184,9 @@
                 @include size(110%);
                 // filter: contrast(1.5) saturate(1.6) brightness(.95);
                 @include sm {
-                    margin-top: -10%;
+
+                    @include size(120%);
+                    // margin-top: -10%;
                 }
             }
 
