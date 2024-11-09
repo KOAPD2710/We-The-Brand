@@ -14,12 +14,11 @@ const HomeService = ({ Expertise, ...props }) => {
                 start: 'bottom bottom',
                 end: 'bottom top',
                 scrub: true,
-                // markers: true
             }
         })
 
         tlStack.to(container.current, {
-            yPercent: 25,
+            y: .4 * window.innerHeight,
             ease: 'none'
         })
     }, {
@@ -27,7 +26,7 @@ const HomeService = ({ Expertise, ...props }) => {
         revertOnUpdate: true
     })
     return (
-        <section className="home-service" ref={container}>
+        <section className="home-service" ref={container} id='servicesSc'>
             <div className="container grid">
                 <div className="home-service-do-label">
                     <CurlyBrackets>What we do</CurlyBrackets>

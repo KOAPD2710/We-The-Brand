@@ -9,6 +9,7 @@ import { getLenis } from '@/components/core/lenis';
 import { useGSAP } from '@gsap/react';
 import SplitType from 'split-type';
 import { debounce, typeSplit } from '@/js/utils';
+import { Fragment } from 'react';
 
 function getCurrTime(timeZone) {
     let result = new Intl.DateTimeFormat('en-US', {
@@ -26,6 +27,7 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
     const toggleRef = useRef();
     const $isHeaderLight = useStore(isHeaderLight);
     const $isHeaderHide = useStore(isHeaderHide);
+    let lenis;
 
 
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -47,68 +49,74 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
         return () => clearInterval(interval);
     }, [vietnamTime, singaporeTime]);
 
-    // useGSAP((context, contextSafe) => {
-    //     gsap.set('.header-nav-curtain-inner', {
-    //         scaleX: 0,
-    //         transformOrigin: 'left'
-    //     })
-    //     // const splitTxt = {
-    //     //     locationName: new SplitType('.header-location-name', { ...typeSplit, types: 'chars' })
-    //     // }
+    useGSAP((context, contextSafe) => {
+        if (!lenis) {
+            lenis = getLenis()
+        }
 
-    //     let navOpenAnim = contextSafe(() => {
-    //         gsap.to('.header-nav-curtain-inner', {
-    //             scaleX: toggleRef.current.classList.contains('active') ? 0 : 1,
-    //             stagger: .05,
-    //             duration: .3,
-    //             transformOrigin: toggleRef.current.classList.contains('active') ? 'right' : 'left',
-    //             overwrite: true,
-    //             onStart: () => {
-    //                 !toggleRef.current.classList.contains('active') && setIsNavOpen(true)
-    //             },
-    //             onComplete: () => {
-    //                 // toggleRef.current.classList.contains('active') && setIsNavOpen(false)
-    //             }
-    //         })
+        gsap.set('.header-nav-curtain-inner', {
+            scaleX: 0,
+            transformOrigin: 'left'
+        })
 
-    //         console.log(context.data.length);
-    //     })
+        let navOpenAnim = contextSafe(() => {
+            gsap.to('.header-nav-curtain-inner', {
+                scaleX: toggleRef.current.classList.contains('active') ? 0 : 1,
+                stagger: .03,
+                duration: .3,
+                transformOrigin: toggleRef.current.classList.contains('active') ? 'right' : 'left',
+                ease: 'circ.in',
+                overwrite: true,
+            })
+        })
 
-    //     toggleRef.current.addEventListener('click', navOpenAnim)
+        toggleRef.current.addEventListener('click', navOpenAnim);
+        document.querySelectorAll('.header-nav-link').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                navOpenAnim()
+                setIsNavOpen(false)
+                lenis.start()
+            });
+        });
 
-    // }, {
-    //     scope: headerRef,
-    // })
+    }, {
+        scope: headerRef,
+    })
 
     useEffect(() => {
-        const lenis = getLenis()
-
+        if (!lenis) {
+            lenis = getLenis()
+        }
         toggleRef.current.addEventListener('click', function () {
             let isActive = headerRef.current.classList.contains('active')
             if (isActive) {
                 setIsNavOpen(false)
                 lenis.start()
-                setTimeout(() => {
-                }, 100)
             } else {
                 lenis.stop()
                 setIsNavOpen(true)
             }
         })
-
-
     }, [])
+
+
+    function scrollToSc(path) {
+        if (!lenis) {
+            lenis = getLenis()
+        }
+        lenis.scrollTo(path)
+    }
 
 
     return (
         <header className={cn('header', $isHeaderLight && 'on-light', $isHeaderHide && 'on-hide', isNavOpen && 'active')} ref={headerRef}>
             <div className="container grid">
                 <div className="header-logo">
-                    <a href="#" className="header-logo-link">{logo}</a>
+                    <a href="" className="header-logo-link">{logo}</a>
                 </div>
                 <div className={cn('header-nav-wrapper', isNavOpen && 'active')}>
                     <div className="header-location">
-                        <div className="txt txt-16 header-location-name">We The Brand Studio</div>
+                        <div className="txt txt-16 header-location-name">We The Brand</div>
                         <div className="header-location-inner">
                             <div className="header-country" data-country="VietNam">
                                 <div className="header-country-name">
@@ -133,16 +141,9 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                         </div>
                     </div>
                     <div className="header-nav">
-                        <div className={cn('header-nav-item home', currPath === '/' && 'active')}>
-                            <a href='/' className='txt txt-16 header-nav-link'>
-                                <span className="slash">(</span>
-                                <span className={cn('header-nav-link-txt', currPath === '/' && 'txt-italic')}>Home</span>
-                                <span className="slash">)</span>
-                            </a>
-                        </div>
                         {props.navigation.map((path) => (
                             <div className={cn('header-nav-item', currPath === path.url && 'active')} key={path.name}>
-                                <a href={path.url} className='txt txt-16 header-nav-link'>
+                                <a href={path.url} className='txt txt-16 header-nav-link' onClick={() => scrollToSc(path.url)}>
                                     <span className="slash">(</span>
                                     <span className={cn('header-nav-link-txt', currPath === path.url && 'txt-italic')}>{path.name}</span>
                                     <span className="slash">)</span>
@@ -152,32 +153,28 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                     </div>
                     <div className="header-contact">
                         <div className="header-contact-email-wrapper">
-                            <a href={contact.url} className="txt txt-16 header-contact-email">{contact.name}</a>
+                            <a href={`mailto:${props.email.url}`} target='_blank' className="txt txt-16 header-contact-email">{props.email.url}</a>
                         </div>
                         <div className="header-contact-link-wrapper">
-                            <a href={contact.url} className="txt txt-16 header-contact-link">Contact</a>
+                            <a href={`mailto:${props.email.url}`} className="txt txt-16 header-contact-link">Contact</a>
                         </div>
                         <div className="txt txt-16 header-contact-social">
-                            {socialData.map((item, idx) => (
-                                <React.Fragment key={item.name}>
+                            {props.group_social.map((item, idx) => (
+                                <Fragment key={item.platform[0].text}>
                                     <div className="header-contact-social-item">
-                                        <a href={item.url} className="header-social-link">{item.name}</a>
+                                        <a href={item.link.url} target='_blank' className="header-social-link">{item.platform[0].text}</a>
                                     </div>
-                                    {idx != socialData.length - 1 && (
+                                    {idx != props.group_social.length - 1 && (
                                         <div className="slash txt-light">/</div>
                                     )}
-                                </React.Fragment>
+                                </Fragment>
                             ))}
                         </div>
                     </div>
                     <div className="header-nav-curtain">
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
-                        <div className="header-nav-curtain-inner"></div>
+                        {Array.from({ length: 8 }).map((_, idx) => (
+                            <div className="header-nav-curtain-inner" key={idx} />
+                        ))}
                     </div>
                 </div>
                 <div className="header-menu-wrapper">
@@ -185,16 +182,16 @@ const Header = ({ logo, pathNav, socialData, contact, currPath, ...props }) => {
                         <div className={cn('ic header-menu-toggle-ic', isNavOpen && 'active')}>
                             <div className="header-menu-toggle-ic-anchor">
                                 <div className='header-menu-toggle-ic-line-anchor open left'>
-                                    <div className="header-menu-toggle-ic-line"></div>
+                                    <div className="header-menu-toggle-ic-line" />
                                 </div>
                                 <div className='header-menu-toggle-ic-line-anchor open right'>
-                                    <div className="header-menu-toggle-ic-line"></div>
+                                    <div className="header-menu-toggle-ic-line" />
                                 </div>
                                 <div className='header-menu-toggle-ic-line-anchor close left'>
-                                    <div className="header-menu-toggle-ic-line"></div>
+                                    <div className="header-menu-toggle-ic-line" />
                                 </div>
                                 <div className='header-menu-toggle-ic-line-anchor close right'>
-                                    <div className="header-menu-toggle-ic-line"></div>
+                                    <div className="header-menu-toggle-ic-line" />
                                 </div>
                             </div>
                         </div>

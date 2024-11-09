@@ -19,6 +19,12 @@
             display: flex;
             contain: paint;
 
+            @include md {
+                position: unset;
+                @include size(unset);
+
+            }
+
 
             &-wrapper {
                 position: absolute;
@@ -34,6 +40,10 @@
         &-translate {
             flex-shrink: 0;
             display: flex;
+
+            @include md {
+                flex-direction: column;
+            }
         }
 
         &-item {
@@ -45,9 +55,50 @@
             align-items: center;
             justify-content: center;
 
+            @include md {
+                display: grid;
+                grid-template-rows: 1fr;
+            }
+
             &-thumb {
                 position: absolute;
+                z-index: -1;
                 @include size(120%, 100%);
+
+                @include md {
+                    @include size(100%, 120%);
+                }
+            }
+
+            &-scope {
+                @include md {
+                    @include text(16);
+                    grid-column: 1/-1;
+                    align-self: end;
+
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 1.6rem;
+
+                    margin-bottom: 5.6rem;
+                }
+            }
+
+            &-name {
+                @include md {
+                    grid-column: 1/-1;
+                    align-self: end;
+                    margin-bottom: 4rem;
+
+                    @include text(120);
+
+                    color: $cl-bg;
+                    mix-blend-mode: difference;
+                }
+
+                @include sm {
+                    @include text(80);
+                }
             }
         }
 
@@ -60,6 +111,10 @@
             display: grid;
             color: $cl-bg;
             mix-blend-mode: difference;
+
+            @include md {
+                display: none;
+            }
 
 
             &-item {

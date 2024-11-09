@@ -1,46 +1,31 @@
 ---
-    import Header from './';
-    import Logo from '@assets/logo.svg?raw';
+import HeaderComp from './';
+import Logo from '@assets/logo.svg?raw';
     
     const currentPath = Astro.url.pathname;
 
     const pathNav = [
         {
             name: 'Works',
-            url: '#works'
+            url: '#workSc'
         },
         {
             name: 'Services',
-            url: '#services'
+            url: '#servicesSc'
         }
     ]
-    const socialData = [
-        {
-            name: 'Facebook',
-            url: '#'
-        },
-        {
-            name: 'Instagram',
-            url: '#'
-        },
-        {
-            name: 'LinkedIn',
-            url: '#'
-        }
-    ]
-    const mailLink = {
-            name: 'michelle.truong@wethebrand.com',
-            url: 'michelle.truong@wethebrand.com'
-        }
+
+import { getPage } from "@/components/core/prismic";
+
+const { data } = await getPage("global_info");
 ---
 
 
-<Header
+<HeaderComp
     currPath={currentPath}
     navigation={pathNav}
-    socialData={socialData}
-    contact={mailLink}
+    {...data}
     client:load
 >
     <Fragment set:html={Logo} slot='logo'></Fragment>
-</Header>
+</HeaderComp>
