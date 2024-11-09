@@ -13,14 +13,14 @@ const HomeWhy = ({ WhyData, ...props }) => {
         const tlStack = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
-                start: 'top+=25% bottom',
-                end: 'top+=25% top',
+                start: `top+=${.2 * window.innerHeight} bottom`,
+                end: `top+=${.2 * window.innerHeight} top`,
                 scrub: true,
             }
         })
 
         tlStack.from(container.current, {
-            yPercent: -25,
+            y: -.2 * window.innerHeight,
             ease: 'none'
         })
     }, {

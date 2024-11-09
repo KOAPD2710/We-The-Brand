@@ -95,7 +95,7 @@ html {
 }
 
 // Body text
-$txtSizes: 16, 20 ,24, 54, 72, 80;
+$txtSizes: 16, 20 ,24, 54, 72, 80, 120;
 
 :root {
     --fs-16: 1.6rem;
@@ -115,6 +115,9 @@ $txtSizes: 16, 20 ,24, 54, 72, 80;
 
     --fs-72: 7.2rem;
     --lh-72: 1em;
+
+    --fs-120: 12rem;
+    --lh-120: 1em;
 
     @include md {
         --fs-24: var(--fs-20);

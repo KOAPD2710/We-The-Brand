@@ -7,6 +7,12 @@ import HomeCollaborate from "@components/pages/Home/Collaborate/HomeCollaborate.
 import HomeWhy from "@components/pages/Home/Why/HomeWhy.astro";
 import HomeClient from "@components/pages/Home/Client/HomeClient.astro";
 import HomeWork from "@/components/pages/Home/Work/HomeWork.astro";
+import { getPage } from "@/components/core/prismic";
+
+const { data } = await getPage("home_page");
+
+console.log(data);
+
 ---
 
 
