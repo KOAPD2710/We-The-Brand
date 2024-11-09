@@ -183,6 +183,9 @@
                 z-index: 1;
                 @include size(110%);
                 // filter: contrast(1.5) saturate(1.6) brightness(.95);
+                @include sm {
+                    margin-top: -10%;
+                }
             }
 
             // &-filter {
