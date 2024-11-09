@@ -42,7 +42,7 @@ const HomeHero = ({ ...props }) => {
             }
         })
         tlThumb.fromTo('.home-hero-bg-inner', {
-            yPercent: 0
+            yPercent: -5
         }, {
             yPercent: 30,
             scale: .95,
@@ -55,9 +55,9 @@ const HomeHero = ({ ...props }) => {
                 start: 'bottom bottom',
                 end: 'bottom top',
                 scrub: true,
+                markers: true
             }
         })
-
         tlStack.to(container.current, {
             yPercent: 25,
             ease: 'none'
