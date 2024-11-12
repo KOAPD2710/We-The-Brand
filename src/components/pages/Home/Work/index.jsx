@@ -191,7 +191,7 @@ const HomeWork = ({ Work, ...props }) => {
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="home-work-info-item-title h0">{item.name}</div>
+                                    <div className="home-work-info-item-title txt-200">{item.name}</div>
                                 </a>
                             ))}
                         </div>

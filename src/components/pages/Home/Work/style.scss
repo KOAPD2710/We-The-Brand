@@ -24,8 +24,7 @@
                 @include size(unset);
 
             }
-
-
+            
             &-wrapper {
                 position: absolute;
                 top: 0;
@@ -71,7 +70,11 @@
             }
 
             &-scope {
+                display: none;
+
                 @include md {
+                    display: unset;
+
                     @include text(16);
                     grid-column: 1/-1;
                     align-self: end;
@@ -85,7 +88,11 @@
             }
 
             &-name {
+                display: none;
+
                 @include md {
+                    display: unset;
+
                     grid-column: 1/-1;
                     align-self: end;
                     margin-bottom: 4rem;
