@@ -29,19 +29,20 @@ const HomeCollaborate = ({ CollaImg, ...props }) => {
         <section className='home-colla' ref={container}>
             <div className="container grid">
                 <div className="home-colla-label">
-                    <CurlyBrackets>How we collaborate</CurlyBrackets>
+                    <CurlyBrackets>{props.primary.label[0].text}</CurlyBrackets>
                 </div>
                 <div className="txt txt-16 home-colla-desc">
-                    Mixing multicultural talents with top-notch home vibes!
+                    {props.primary.subtitle[0].text}
                 </div>
                 <AnimMaskLine className="home-colla" textClass="h2">
-                    Alright, let's kick things off by getting to know each other better. We're all about diving <span>(<span className='txt-italic'>deep</span></span> <span><span className='txt-italic'>into</span>)</span> your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead.
+                    {/* Alright, let's kick things off by getting to know each other better. We're all about diving <span>(<span className='txt-italic'>deep</span></span> <span><span className='txt-italic'>into</span>)</span> your brand, goals, and what you're aiming for. Then, we cook up a plan to tackle the awesome stuff ahead. */}
+                    {props.primary.title[0].text}
                 </AnimMaskLine>
                 <div className="home-colla-thumb">
-                    {CollaImg.map((img) => (
-                        <div className="home-colla-thumb-img-wrapper" key={img.name}>
+                    {props.items.map((img, idx) => (
+                        <div className="home-colla-thumb-img-wrapper" key={idx}>
                             <div className="home-colla-thumb-img">
-                                <img src={img.img.src} width={img.img.width} alt="" className='img img-fill' />
+                                <img src={img.image.url} width={img.image.dimensions.width} height={img.image.dimensions.height} alt="" className='img img-fill' />
                             </div>
                         </div>
                     ))}

@@ -1,16 +1,14 @@
 ---
-const { title } = Astro.props;
-
-import { getPage } from "@/components/core/prismic";
-
-const { data } = await getPage("global_info");
-
+const { title, favicon, metaDesc } = Astro.props;
 ---
 <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="We the brand" />
+    <meta name="description" content={metaDesc} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href={data.favicon.url} />
+    <meta name="generator" content={metaDesc} />
+    <meta name="author" content="Koma & Moka">
+    <meta name="keywords" content="Creative designer, creative developer">
+    
+    <link rel="icon" type="image/svg+xml" href={favicon.url} />
     <title>{title}</title>
 </head>

@@ -1,25 +1,8 @@
 ---
 import HomeCollaborateComp from '.';
-import CollaImg1 from '@assets/Ser-Colla-Img-1.jpg';
-import CollaImg2 from '@assets/Ser-Colla-Img-2.jpg';
-import CollaImg3 from '@assets/Ser-Colla-Img-3.jpg';
 
-
-const CollaImg = [
-    {
-        name: 'CollaImg1',
-        img: CollaImg1
-    },
-    {
-        name: 'CollaImg2',
-        img: CollaImg2
-    },
-    {
-        name: 'CollaImg3',
-        img: CollaImg3
-    }
-]
+const { data } = Astro.props;
 ---
 
 
-<HomeCollaborateComp CollaImg={CollaImg} client:visible={{rootMargin: "100% 100%"}}/>
+<HomeCollaborateComp {...data} client:visible={{rootMargin: "100% 100%"}}/>

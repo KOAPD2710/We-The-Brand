@@ -8,23 +8,26 @@ import Cursor from "@/globals/Cursor/Cursor.astro";
 import Header from "@/globals/Header/Header.astro";
 import Footer from "@/globals/Footer/Footer.astro";
 import NoisePattern from "@/globals/NoisePattern/NoisePattern.astro";
-import FluidDistortion from "@/globals/FluidDistortion/FluidDistortion.astro";
 import TestForm from "@/globals/TestForm/TestForm.astro";
-const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
+const { title, metaDesc } = Astro.props;
+
+import { getPage } from "@/components/core/prismic";
+
+const { data } = await getPage("global_info");
 ---
 
 <!DOCTYPE html>
 
 <html>
 	<!-- <ViewTransitions/> -->
-	<BaseHead title={title} />
+	<BaseHead title={title} favicon={data.favicon} metaDesc={metaDesc}/>
 	<main class="main on-load">
 		<!-- <FluidDistortion /> -->
 		<Header />
 		<NoisePattern />
 		<Cursor />
 		<slot />
-		{isNeedFooter && <Footer />}
+		<Footer />
 		<!-- <TestForm /> -->
 	</main>
 	<script>
@@ -51,4 +54,6 @@ const { title, data_page, isNeedFooter, isNeedInfiniteScroll } = Astro.props;
 		initMouse()
 	</script>
 	<SpeedInsights/>
+
+	<script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=wethebrand"></script>
 </html>

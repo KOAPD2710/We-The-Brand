@@ -7,11 +7,10 @@ import SplitType from 'split-type';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { useGSAP } from '@gsap/react';
 
-const HomePitch = ({ PitchImg, ...props }) => {
+const HomePitch = ({ ...props }) => {
     const [currIdxTxt, setcurrIdxTxt] = useState(0);
     const txtGradientArray = ['quirks', 'features', 'edges'];
     const [isScrambleRun, setIsScrambleRun] = useState(false);
-
     const container = useRef()
 
     useGSAP(() => {
@@ -34,14 +33,12 @@ const HomePitch = ({ PitchImg, ...props }) => {
         revertOnUpdate: true
     })
 
-
     function loopScrambleTxt(text) {
         const target = document.querySelector('.home-pitch .scramble-txt')
         scrambleText(target, text)
     }
 
     useEffect(() => {
-        // if (!isScrambleRun) return;
 
         let timeout;
         inView('.home-pitch', () => {
@@ -56,8 +53,6 @@ const HomePitch = ({ PitchImg, ...props }) => {
 
         return () => clearTimeout(timeout);
     }, [currIdxTxt, isScrambleRun]);
-
-
 
     useEffect(() => {
         const target = {
@@ -172,11 +167,11 @@ const HomePitch = ({ PitchImg, ...props }) => {
                     </h1>
                 </div>
                 <div className="home-pitch-thumb">
-                    {PitchImg.map((img) => (
-                        <div className="home-pitch-thumb-img-wrapper" key={img.name}>
+                    {props.items.map((img, idx) => (
+                        <div className="home-pitch-thumb-img-wrapper" key={idx}>
                             <div className="home-pitch-thumb-img-translate">
                                 <div className="home-pitch-thumb-img">
-                                    <img src={img.img.src} alt="" className='img img-fill' />
+                                    <img src={img.image.url} alt={img.image.alt} width={img.image.dimensions.width} height={img.image.dimensions.height} className='img img-fill' />
                                 </div>
                             </div>
                         </div>

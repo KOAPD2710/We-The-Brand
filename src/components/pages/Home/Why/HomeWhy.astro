@@ -45,10 +45,16 @@ const WhyThumb = [
         thumbType: 'video'
     },
 ]
+
+const { data } = Astro.props;
+
+console.log(data);
+
 ---
 
 <HomeWhyComp 
     WhyData={SerWhyData}
+    {...data}
     client:visible={{rootMargin: "100% 0% 100% 0%"}}
 >
     <Image src={SerWhyImg} alt='' class='img img-fill' slot='SerWhyImg'/>

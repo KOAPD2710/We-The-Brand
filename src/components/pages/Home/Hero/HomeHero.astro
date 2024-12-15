@@ -1,9 +1,8 @@
 ---
 import HomeHeroComp from ".";
-import Video from '@assets/Ser-hero.mp4';
-import HeroImg from '@assets/home-hero.jpg'
+const { data } = Astro.props
 ---
 
 
-<HomeHeroComp video={Video} HeroImg={HeroImg} client:visible={{rootMargin: "100% 100%"}}/>
+<HomeHeroComp {...data} client:visible={{rootMargin: "100% 100%"}}/>
 

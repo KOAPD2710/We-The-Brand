@@ -1,24 +1,8 @@
 ---
 import HomePitchComp from ".";
-import PitchImg1 from '@assets/Ser-Pitch-Img-1.jpg';
-import PitchImg2 from '@assets/Ser-Pitch-Img-2.jpg';
-import PitchImg3 from '@assets/Ser-Pitch-Img-3.jpg';
 
-const PitchImg = [
-    {
-        name: 'PitchImg1',
-        img: PitchImg1
-    },
-    {
-        name: 'PitchImg2',
-        img: PitchImg2
-    },
-    {
-        name: 'PitchImg3',
-        img: PitchImg3
-    }
-]
+const { data } = Astro.props;
 ---
 
 
-<HomePitchComp PitchImg={PitchImg} client:visible={{rootMargin: "100% 100%"}}/>
+<HomePitchComp {...data} client:visible={{rootMargin: "100% 100%"}}/>

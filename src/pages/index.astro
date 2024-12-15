@@ -11,17 +11,25 @@ import { getPage } from "@/components/core/prismic";
 
 const { data } = await getPage("home_page");
 
-console.log(data);
-
+const SEO = data.body.find(slice => slice.slice_type === 'seo')
+const Hero = data.body.find(slice => slice.slice_type === 'hero')
+const Pitch = data.body.find(slice => slice.slice_type === 'pitch')
+const Collaborate = data.body.find(slice => slice.slice_type === 'collaborate')
+const WhyChoseUs = data.body.find(slice => slice.slice_type === 'why_choose_us')
+const Project = data.body.find(slice => slice.slice_type === 'project')
+const Services = data.body.find(slice => slice.slice_type === 'services')
+const Clients = data.body.find(slice => slice.slice_type === 'clients')
 ---
 
-
-<Layout title="We the Brand" isNeedFooter={true}>
-    <HomeHero />
-    <HomePitch />
-    <HomeCollaborate/>
-    <HomeWhy/>
-	<HomeWork/>
-    <HomeService/>
-    <HomeClient/>
+<Layout
+    title={SEO.primary.page_title[0].text}
+    metaDesc={data.body[0].primary.page_meta_description}
+>
+    <HomeHero data={Hero} />
+    <HomePitch data={Pitch}/>
+    <HomeCollaborate data={Collaborate}/>
+    <HomeWhy data={WhyChoseUs}/>
+	<HomeWork data={Project}/>
+    <HomeService data={Services}/>
+    <HomeClient data={Clients}/>
 </Layout>

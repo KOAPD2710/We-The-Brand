@@ -5,7 +5,6 @@ import { isHeaderLight } from '@/globals/Header/store';
 import { animate, scroll, inView } from 'motion';
 import { scrambleText } from '@/js/scrambleText';
 import { useGSAP } from '@gsap/react';
-import Video from '@/components/common/VideoFormat';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 
 
@@ -107,18 +106,18 @@ const HomeHero = ({ ...props }) => {
                 </div>
                 <div className="home-hero-line line-1 slot-3">
                     <div className="txt txt-16 home-hero-skill">
-                        <div className="home-hero-skill-item">Marketing Strategy</div>
-                        <div className="home-hero-skill-item">Brand Identity</div>
-                        <div className="home-hero-skill-item">UI/UX Design</div>
-                        <div className="home-hero-skill-item">Front-end Development</div>
-                        <div className="home-hero-skill-item">Social Media</div>
+                        {props.items.map((service, idx) => (
+                            <div className="home-hero-skill-item" key={idx}>{service.service[0].text}</div>
+                        ))}
                     </div>
                 </div>
                 <div className="home-hero-line line-2 slot-1">
                     <div className="txt h0 txt-up">We</div>
                 </div>
                 <div className="home-hero-line line-2 slot-2">
-                    <div className="txt txt-16">We help you stand out in a crowded market and navigate your digital transformation through bespoke creative solutions, providing a personal touch.</div>
+                    <div className="txt txt-16">
+                        {props.primary.quote[0].text}
+                    </div>
                 </div>
                 <div className="home-hero-line line-2 slot-3">
                     <div className="txt h0 txt-up">
@@ -130,8 +129,7 @@ const HomeHero = ({ ...props }) => {
                 </div>
                 <div className="home-hero-bg">
                     <div className="home-hero-bg-inner">
-                        {/* <Video src={props.video} className='img img-fill'></Video> */}
-                        <img src={props.HeroImg.src} alt="" className='img img-fill' />
+                        <img src={props.primary.background.url} alt={props.primary.background.alt} width={props.primary.background.dimensions.width} height={props.primary.background.dimensions.height} className='img img-fill' />
                     </div>
                     <div className="home-hero-bg-filter"></div>
                 </div>
