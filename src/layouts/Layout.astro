@@ -14,6 +14,9 @@ const { title, metaDesc } = Astro.props;
 import { getPage } from "@/components/core/prismic";
 
 const { data } = await getPage("global_info");
+
+// console.log(data);
+
 ---
 
 <!DOCTYPE html>
@@ -27,7 +30,7 @@ const { data } = await getPage("global_info");
 		<NoisePattern />
 		<Cursor />
 		<slot />
-		<Footer />
+		<Footer data={data}/>
 		<!-- <TestForm /> -->
 	</main>
 	<script>

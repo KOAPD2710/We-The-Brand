@@ -3,36 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import CurlyBrackets from '@/components/common/CurlyBrackets';
 import { chunkArray } from '@/js/utils';
 import { Fragment } from 'react';
-import { useGSAP } from '@gsap/react';
-
-
 
 const HomeClient = ({ ClientImg, ClientData, ...props }) => {
     const [rowItems, setRowItems] = useState(3);
-    const [titleTxt, setTitleTxt] = useState('Collaborated');
-
     const container = useRef()
-
-    // useGSAP(() => {
-    //     const tlStack = gsap.timeline({
-    //         scrollTrigger: {
-    //             trigger: container.current,
-    //             start: 'bottom bottom',
-    //             end: 'bottom top',
-    //             scrub: .2,
-    //             markers: true
-    //         }
-    //     })
-
-    //     tlStack.to(container.current, {
-    //         yPercent: 25,
-    //         ease: 'none'
-    //     })
-    // }, {
-    //     scope: container,
-    //     revertOnUpdate: true
-    // })
-
 
     useEffect(() => {
         if (window.innerWidth < 768) {
@@ -50,33 +24,33 @@ const HomeClient = ({ ClientImg, ClientData, ...props }) => {
                         <div className="h1 txt-up home-client-title label-wrapper">
                             <div className="txt txt-title">Who</div>
                             <div className="txt txt-16 home-client-label">
-                                <CurlyBrackets>Our clients</CurlyBrackets>
+                                <CurlyBrackets>{props.primary.label[0].text}</CurlyBrackets>
                             </div>
                         </div>
                         <div className="h1 txt-up home-client-title">
-                            (<span className='txt-italic txt-med'>{titleTxt}</span>)
+                            (<span className='txt-italic txt-med'>Collaborated</span>)
                         </div>
                         <div className="h1 txt-up home-client-title">With Us</div>
                     </div>
                 </div>
                 <div className="home-client-cta">
-                    <div className="txt txt-16 home-client-date">© 2024</div>
+                    <div className="txt txt-16 home-client-date">© {new Date().getFullYear()}</div>
                     <div className="home-client-img-wrapper">
                         <div className="home-client-img">
-                            {ClientImg}
+                            <img src={props.primary.image.url} alt="" width={props.primary.image.dimensions.width} height={props.primary.image.dimensions.height} className='img img-fill' />
                         </div>
                     </div>
                     <div className="home-client-link-wrapper">
-                        <a href='./' className="txt txt-16 txt-med hover-line home-client-link">Let's work together!</a>
+                        <a href='./' className="txt txt-16 txt-med hover-line home-client-link">{props.primary.cta}</a>
                     </div>
                 </div>
                 <div className="home-client-list">
-                    {chunkArray(ClientData, rowItems).map((list, listIdx) => (
+                    {chunkArray(props.items, rowItems).map((list, listIdx) => (
                         <div className="h2 home-client-row" key={listIdx}>
-                            {list.map((client, clientIdx) => (
-                                <Fragment key={client}>
-                                    <div className="home-client-item">{client}</div>
-                                    {clientIdx !== list.length - 1 && (
+                            {list.map((item, itemIdx) => (
+                                <Fragment key={itemIdx}>
+                                    <div className="home-client-item">{item.client}</div>
+                                    {itemIdx !== list.length - 1 && (
                                         <div className="txt-light slash">&nbsp;/&nbsp;</div>
                                     )}
                                 </Fragment>
@@ -85,7 +59,7 @@ const HomeClient = ({ ClientImg, ClientData, ...props }) => {
                     ))}
                 </div>
                 <div className="home-client-link-sm-wrapper">
-                    <a href='./' className="txt txt-16 txt-med hover-line home-client-link">Let's work together!</a>
+                    <a href='./' className="txt txt-16 txt-med hover-line home-client-link">{props.primary.cta}</a>
                 </div>
             </div>
         </section>

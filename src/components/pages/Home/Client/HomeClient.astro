@@ -1,19 +1,9 @@
 ---
-import Image from 'astro/components/Image.astro';
-import { chunkArray } from '@/js/utils';
 import HomeClientComp from '.';
-import ClientImg from '@assets/Ser-Client-Img.jpg';
 
-const ClientData = ['Lazada', 'Logitech', '1Long', 'Svarmony', 'Tapp Water', 'Grindery', 'Berkeley', 'Smartosc', 'Artbook', 'Omise', 'Toong', 'Anfin']
-
-// const ClientChunk = chunkArray(ClientData, 3);
+const { data } = Astro.props;
 ---
 
 
 
-<HomeClientComp 
-    ClientData={ClientData}
-    client:visible={{rootMargin: "100% 0% 100% 0%"}}
->
-    <Image src={ClientImg} alt='' slot='ClientImg' class='img'/>
-</HomeClientComp>
+<HomeClientComp {...data} client:visible={{rootMargin: "100% 0% 100% 0%"}} />

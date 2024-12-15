@@ -1,120 +1,16 @@
 ---
-import Image from "astro/components/Image.astro";
+import { getByUID } from "@/components/core/prismic";
 import HomeServiceComp from ".";
-import SerCat from '@assets/Ser-cat.jpg';
 
+const { data } = Astro.props;
 
-const Expertise = [
-    {
-        name: 'We plan',
-        desc: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients. We develop a core brand strategy that encapsulates your essence and guides every decision.',
-        list: [
-            {
-                title:'Brand Strategy',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Marketing Strategy',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Concept Maketing',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Ethical Consulting',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Marker Research',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Brand Guides',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            }
-        ]
-    },
-    {
-        name: 'We design',
-        desc: 'We specialise in creating branding that resonates and connects. Our user experience design is focused on delivering seamless interactions, while our interface design marries functionality with visual appeal.',
-        list: [
-            {
-                title:'Art Direction',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Brand Identify',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Product Design',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Website Design',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'Illustration',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title:'3D & Motion',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            }
-        ]
-    },
-    {
-        name: 'We develop',
-        desc: "Our development team excels in delivering a full spectrum of digital product creation services, tailored to meet each client's unique needs. We specialise in designing highly intuitive and responsive user interfaces, prioritising both usability and aesthetic excellence.",
-        list: [
-            {
-                title: 'Front-end Development',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Creative Development',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Interactive Development',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-        ]
-    },
-    {
-        name: 'We produce',
-        desc: 'We employ a blend of creativity, strategic insight, and technology to ensure brands stay top of mind. Our approach is holistic, considering every facet of the user experience to create content that captivates, convinces, and converts, setting the standard for what digital storytelling can achieve',
-        list: [
-            {
-                title: 'Social Media',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Copywriting',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Advertising',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Interactive Content',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            },
-            {
-                title: 'Campaigns',
-                content: 'Our strategy services are designed to carve out a unique space for your brand in the marketplace. We offer a comprehensive suite of digital services tailored to meet the evolving needs of our clients.'
-            }
-        ]
-    }
-]
+const listServicesUID = await data.items.map(item => item.service.uid);
+const listService = await Promise.all(
+    listServicesUID.map(async uid => {
+        const apiData = await getByUID('service', uid);
+        return apiData;
+    })
+);
 ---
 
-<HomeServiceComp 
-    Expertise={Expertise}
-    client:visible={{rootMargin: "100% 0%"}}
->
-    <Image src={SerCat} alt="Number1 Cat" slot="SerCat"></Image>
-</HomeServiceComp>
+<HomeServiceComp Expertise={listService} {...data} client:visible={{rootMargin: "100% 0%"}}/>
